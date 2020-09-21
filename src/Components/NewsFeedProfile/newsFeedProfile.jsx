@@ -4,15 +4,14 @@ import {
   EmojiEvents,
   People,
   Settings,
-  SettingsApplicationsOutlined,
 } from "@material-ui/icons";
 import React from "react";
 import profile from "../../Assets/profile_user@2x.png";
-import "./profile.css";
+import "./newsFeedProfile.css";
 
-const Profile = () => {
+const NewFeedProfile = () => {
   return (
-    <div className="newsfeed__profile">
+    <>
       <div className="profile__info">
         <img src={profile} alt="profile" />
         <p className="profile__name">John Doe</p>
@@ -45,8 +44,8 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default Profile;
+export default NewFeedProfile;

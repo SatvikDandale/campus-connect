@@ -1,12 +1,14 @@
 import React from "react";
-import Profile from "../../Components/Profile/profile";
+import NewFeedProfile from "../../Components/NewsFeedProfile/newsFeedProfile";
 import CreatePost from "../../Components/CreatePost/createPost";
 import "./newsFeed.css";
 
 const NewsFeed = () => {
   return (
     <div className="newsfeed">
-      <Profile />
+      <div className="newsfeed__profile">
+        <NewFeedProfile />
+      </div>
       <div className="newsfeed__feed">
         <CreatePost />
       </div>

@@ -1,2 +1,65 @@
 .createpost {
+  width: 95%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 10px 15px;
+  box-shadow: 5px 5px 8px grey;
+}
+.createpost > p {
+  font-weight: bold;
+}
+
+.createpost__main {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.createpost__main > img {
+  height: 38px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.createpost__input {
+  flex: 1;
+  border: 0.5px solid #dddddd;
+  border-radius: 10px;
+  padding: 2px 15px;
+  margin-right: 20px;
+  height: 38px;
+  background-color: transparent;
+  box-shadow: 3px 3px 5px grey;
+}
+
+.createpost__input::placeholder {
+  color: #616161;
+  font-size: 1rem;
+  font-weight: 500;
+  /* font-style: italic; */
+  font-family: "Script MT";
+}
+
+/* .createpost__main > .icons {
+  margin-left: 10px;
+} */
+
+.icons {
+  height: 38px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.icons div {
+  height: 100%;
+}
+.icons .MuiSvgIcon-root {
+  margin-left: 10px;
+  height: 100%;
+  transform: scale(1.2);
+  color: #009688;
+}
+.icons .MuiSvgIcon-root:hover {
+  cursor: pointer;
 }
