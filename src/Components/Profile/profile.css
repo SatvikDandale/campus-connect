@@ -1,0 +1,75 @@
+.newsfeed__profile {
+  margin-left: 5px;
+  margin-right: 2%;
+  width: 20%;
+  background-color: white;
+  /* border: 1px solid black; */
+  border-radius: 30px;
+  /* padding: 10px 10px; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: ; */
+}
+.profile__info {
+  background-color: #d9e2ec77;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 10px 10px;
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 10px 10px rgb(219, 219, 219);
+  overflow: hidden;
+  text-align: center;
+}
+
+.profile__info > img {
+  width: 50%;
+  margin-top: 20px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile__info > img:hover {
+  cursor: pointer;
+}
+
+.profile__info > .profile__name {
+  font-size: 1.7rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.profile__menu {
+  padding: 30px 30px;
+}
+
+.profile__menu > p {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+.menu__list {
+  padding-left: 15%;
+}
+
+.menu__list > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 15px 0px;
+}
+
+.menu__list .MuiSvgIcon-root {
+  height: 100%;
+  margin-right: 10px;
+}
+
+@media (max-width: 1000px) {
+  .newsfeed__profile {
+    display: none;
+  }
+}
