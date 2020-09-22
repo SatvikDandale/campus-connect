@@ -14,10 +14,10 @@ const CreatePost = () => {
           placeholder="Something interesting goes here..."
         ></input>
         <div className="icons">
-          <div>
+          <div className="icon">
             <PermMedia />
           </div>
-          <div>
+          <div className="icon">
             <CheckBox />
           </div>
         </div>

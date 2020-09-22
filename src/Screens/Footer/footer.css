@@ -1,0 +1,25 @@
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 5%;
+  background-color: aqua;
+}
+
+.footer__icons {
+  margin: auto auto;
+  height: 100%;
+  width: fit-content;
+}
+
+.footer__icons > .MuiSvgIcon-root {
+  height: 100%;
+  margin: auto 30px;
+}
+
+@media (min-width: 1000px) {
+  .footer {
+    display: none;
+  }
+}

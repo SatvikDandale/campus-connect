@@ -4,6 +4,7 @@
   border-radius: 15px;
   padding: 10px 15px;
   box-shadow: 5px 5px 8px grey;
+  margin-bottom: 10px;
 }
 .createpost > p {
   font-weight: bold;
@@ -54,7 +55,7 @@
 .icons div {
   height: 100%;
 }
-.icons .MuiSvgIcon-root {
+.icon > .MuiSvgIcon-root {
   margin-left: 10px;
   height: 100%;
   transform: scale(1.2);

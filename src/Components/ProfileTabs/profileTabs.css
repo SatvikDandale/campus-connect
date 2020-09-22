@@ -1,0 +1,19 @@
+.profile__tabs {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0px;
+  width: 97.4%;
+}
+.tab__item {
+  font-size: 1.2rem;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgb(148, 148, 148);
+}
+.active {
+  border-bottom: 2px solid black;
+}
