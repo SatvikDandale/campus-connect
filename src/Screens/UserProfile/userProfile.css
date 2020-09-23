@@ -11,7 +11,7 @@
 .profile__section {
   flex: 1;
   padding: 20px 5%;
-  border: 1px solid black;
+  height: 100%;
 }
 .stats {
   margin-right: 8%;
@@ -34,4 +34,11 @@
 }
 .stats .number {
   font-size: 2rem;
+}
+
+.profile__content {
+  /* border: 1px solid black; */
+  width: 97.4%;
+  height: 100%;
+  /* padding: 5px 5px; */
 }

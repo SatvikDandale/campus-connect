@@ -6,6 +6,7 @@
   justify-content: space-around;
   padding: 10px 0px;
   width: 97.4%;
+  margin-bottom: 30px;
 }
 .tab__item {
   font-size: 1.2rem;
@@ -14,6 +15,10 @@
   text-align: center;
   border-bottom: 1px solid rgb(148, 148, 148);
 }
+.tab__item:hover {
+  cursor: pointer;
+}
+
 .active {
   border-bottom: 2px solid black;
 }
