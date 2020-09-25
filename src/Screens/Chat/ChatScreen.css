@@ -1,0 +1,10 @@
+.chat__screen{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: whitesmoke;
+    
+}
+.chatscreen__bottom{
+    width: 100%;
+}

@@ -5,6 +5,7 @@ import "./newsFeed.css";
 import Post from "../../Components/Post/post";
 import PostPhoto1 from "../../Assets/smoke-colors-abstract-qo-1536x864.png";
 import PostPhoto2 from "../../Assets/abstract-dark-geometry-8k-n5-1536x864.png";
+import ChatScreen from "../Chat/ChatScreen";
 
 const NewsFeed = () => {
   return (
@@ -19,7 +20,7 @@ const NewsFeed = () => {
         <Post media={PostPhoto2} />
       </div>
       <div className="newsfeed__chat">
-        <h1>Chat</h1>
+        <ChatScreen/>
       </div>
     </div>
   );

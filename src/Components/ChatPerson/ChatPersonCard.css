@@ -1,0 +1,13 @@
+.person__card > img{
+    border-radius: 100px;
+    height: 40px;
+    width: 40px;
+    padding: 20px;
+}
+.person__card{
+    display: flex;
+}
+.card__message{
+    margin-left: 20px;
+    align-self: center;
+}

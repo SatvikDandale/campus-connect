@@ -28,11 +28,11 @@
 }
 .newsfeed__chat {
   margin-left: 79%;
-  /* margin-right: 5px; */
   flex: 0.32;
-  border: 1px solid black;
   position: fixed;
   z-index: 1;
   width: 20%;
   height: 90%;
+  background-color: white;
+  border-radius: 40px;
 }

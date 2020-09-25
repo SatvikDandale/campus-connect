@@ -1,0 +1,20 @@
+.chat__navbar{
+    background-color: #eaf0f7;
+    margin: 1px;
+    height: 60px;
+    border-radius: 25px;
+    box-shadow: 3px 3px 3px 0 grey ;
+    position: sticky;
+}
+.chatnavbar__heading{
+    align-self: center;
+    text-align: center;
+    font-family: Seoge UI;
+    font-size: larger;
+    font-weight: normal;
+    padding: 15px;
+    display: flex;
+}
+.navbar__heading{
+    
+}

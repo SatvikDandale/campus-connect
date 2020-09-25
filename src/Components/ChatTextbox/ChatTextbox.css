@@ -1,0 +1,28 @@
+.chat__input{
+    align-items: center;
+    display: flex;
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px 0 lightgray;
+    outline: none;
+    border: 0;
+    bottom: 10px;
+    width: 90%;
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.chat__input >input{
+    flex:1;
+    border-color: transparent;
+    height: 20px;
+    width: 100%;
+}
+.chat__input > input:focus{
+    outline: none;
+}
+.chat__input > .MuiSvgIcon-root{
+    /* flex:0; */
+    color: teal;
+}

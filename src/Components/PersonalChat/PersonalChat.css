@@ -1,0 +1,24 @@
+.chat__messages{
+    flex:1;
+    max-height: 100%;
+    /* overflow-y: auto;    */
+}
+
+.message__card{
+    background-color: white;
+    margin: 15px;
+    border-radius: 10px;
+    width: fit-content;
+    box-shadow: 3px 3px 0 0 lightgray;
+    padding: 10px;
+    
+}
+.message__self__card{
+    background-color: teal;
+    margin: 15px;
+    border-radius: 10px;
+    width: fit-content;
+    box-shadow: 3px 3px 0 0 lightgray;
+    padding: 10px;
+    margin-left: auto;
+}
