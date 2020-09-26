@@ -6,8 +6,8 @@ function ChatNavbar(props) {
   return (
       <div className="chat__navbar">
         <div className="chatnavbar__heading">
-          {props.currentChat ? <ArrowBack /> : null}
-          <p className="navbar__heading">{props.currentChat ? props.currentChat : "MESSAGES"}</p>
+        <div className="back__arrow" onClick={()=>props.changeUser("")}>{props.currentChat ? <ArrowBack /> : null}</div>
+          <p className="chatnavbar__name">{props.currentChat ? props.currentChat : "MESSAGES"}</p>
         </div>
       </div>
   );

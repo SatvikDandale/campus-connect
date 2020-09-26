@@ -19,7 +19,7 @@
     height: 20px;
     width: 100%;
 }
-.chat__search > input :focus{
+.chat__search > input:focus{
     outline: none;
 }
 .chat__search > .MuiSvgIcon-root{

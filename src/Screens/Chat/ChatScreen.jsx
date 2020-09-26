@@ -8,14 +8,22 @@ import ChatSearchbar from './../../Components/ChatSearchbar/ChatSearchbar';
 
 class ChatScreen extends React.Component {
   state = {
-    currentChat: null,
+    currentChat: "QW",
   };
+  getCurrentChat = ()=>{
+    return this.state.currentChat;
+  }
+  setCurrentChat = (currentChat) =>{
+    this.setState({
+      currentChat: currentChat
+    });
+  }
   render() {
     return (
       <div className="chat__screen">
-        <ChatNavbar currentChat={this.state.currentChat} />
+        <ChatNavbar currentChat={this.state.currentChat} changeUser = {this.setCurrentChat}/>
         {!this.state.currentChat ? (
-          <ChatPeople />
+          <ChatPeople changeUser = {this.setCurrentChat} />
         ) : (
           <PersonalChat user={this.state.currentChat} />
         )}

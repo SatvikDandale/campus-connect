@@ -1,9 +1,9 @@
 import React from 'react'
 import './ChatPersonCard.css';
-function ChatPersonCard({message: chatProfile}) {
+function ChatPersonCard({chatProfile, changeUser}) {
     console.log(chatProfile.name);
     return (
-        <div className="person__card" onClick={()=>console.log("Pressed")}>
+        <div className="person__card" onClick={()=>changeUser(chatProfile.name)}>
             <img src={chatProfile.image} alt =""/>
             <div className="card__message"  >
             <p style={{fontSize:20}}>{chatProfile.name}</p>

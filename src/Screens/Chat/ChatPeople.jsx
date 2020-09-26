@@ -1,7 +1,7 @@
 import React from 'react'
 import ChatPersonCard from '../../Components/ChatPerson/ChatPersonCard';
 import './ChatPeople.css';
-function ChatPeople() {
+function ChatPeople(props) {
     var messageDictionary={
         "Pierre":[{
             image : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/1200px-Pierre-Person.jpg",
@@ -24,7 +24,7 @@ function ChatPeople() {
     return (
             <div className="people__list" >
                 {Object.keys(messageDictionary).map((key)=>
-                    <ChatPersonCard message={messageDictionary[key][messageDictionary[key].length-1]}/>
+                    <ChatPersonCard chatProfile={messageDictionary[key][messageDictionary[key].length-1]} changeUser = {props.changeUser}/>
                 )}
             </div>
     )
