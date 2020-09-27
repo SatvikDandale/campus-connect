@@ -1,4 +1,5 @@
 import React from "react";
+import { Scrollbars } from "react-custom-scrollbars";
 import NewFeedProfile from "../../Components/NewsFeedProfile/newsFeedProfile";
 import CreatePost from "../../Components/CreatePost/createPost";
 import "./newsFeed.css";
@@ -14,13 +15,15 @@ const NewsFeed = () => {
         <NewFeedProfile />
       </div>
       <div className="newsfeed__feed">
-        <CreatePost />
-        <Post media={PostPhoto1} />
-        <Post />
-        <Post media={PostPhoto2} />
+        <Scrollbars autoHide>
+          <CreatePost />
+          <Post media={PostPhoto1} />
+          <Post />
+          <Post media={PostPhoto2} />
+        </Scrollbars>
       </div>
       <div className="newsfeed__chat">
-        <ChatScreen/>
+        <ChatScreen />
       </div>
     </div>
   );

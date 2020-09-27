@@ -1,38 +1,41 @@
 .newsfeed {
   display: flex;
   margin-top: 70px;
-  height: 95%;
+  height: 100%;
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
 }
 .newsfeed__profile {
   margin-left: 5px;
-  margin-right: 2%;
   height: 100%;
   background-color: white;
   border-radius: 30px;
-  position: fixed;
-  z-index: 1;
+  /* position: fixed; */
+  /* z-index: 1; */
   width: 20%;
-  height: 90%;
+  height: 100%;
 }
 .newsfeed__feed {
   /* width: 100%; */
-  /* flex: 1; */
-  width: 55%;
+  margin: 0 10px;
+  flex: 1;
+  /* width: 55%; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 22%;
+  /* margin-left: 22%; */
+  max-height: 100%;
+  /* overflow-y: auto; */
 }
 .newsfeed__chat {
-  margin-left: 79%;
+  /* margin-left: 79%; */
   flex: 0.32;
-  position: fixed;
-  z-index: 1;
-  width: 20%;
-  height: 90%;
+  /* position: fixed; */
+  /* z-index: 1; */
+  /* width: 20%; */
+  height: 100%;
   background-color: white;
   border-radius: 40px;
+  margin-right: 5px;
 }
