@@ -1,10 +1,11 @@
-.chat__screen{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background-color: whitesmoke;
-    
+.chat__screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: whitesmoke;
+  border-radius: 20px;
 }
-.chatscreen__bottom{
-    width: 100%;
+.chatscreen__bottom {
+  width: 100%;
 }

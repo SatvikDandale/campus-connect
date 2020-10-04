@@ -1,18 +1,24 @@
-.chat__navbar{
-    background-color: #eaf0f7;   
-    height: 60px;
-    border-radius: 25px;
-    box-shadow: 3px 3px 3px 0 grey ;
-    position: sticky;
+.chat__navbar {
+  background-color: #eaf0f7;
+  height: 60px;
+  border-radius: 25px;
+  box-shadow: 3px 3px 3px 0 grey;
+  position: sticky;
 }
-.chatnavbar__heading{
-    font-family: Seoge UI;
-    font-size: larger;
-    font-weight: normal;
-    display: flex;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 85%;
+.chatnavbar__heading {
+  font-family: Seoge UI;
+  font-size: 1.5rem;
+  font-weight: normal;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+}
+.chatnavbar__heading > p {
+  margin: auto;
+}
+.back__arrow:hover {
+  cursor: pointer;
 }

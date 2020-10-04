@@ -6,6 +6,7 @@ import ProfileTabs from "../../Components/ProfileTabs/profileTabs";
 import UserBio from "../../Components/UserBio/userBio";
 import "./userProfile.css";
 import "./about.css";
+import MainChat from "../Chat/mainChat";
 
 const UserProfile = () => {
   const [currentTab, setCurrentTab] = useState(0);
@@ -41,9 +42,7 @@ const UserProfile = () => {
           </div>
         </div>
       ) : null}
-      <div className="newsfeed__chat minimised">
-        <h1>Chat</h1>
-      </div>
+      <MainChat />
     </div>
   );
 };

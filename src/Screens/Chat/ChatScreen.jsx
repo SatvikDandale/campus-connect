@@ -1,35 +1,52 @@
 import React from "react";
-import ChatPeople from "./ChatPeople";
+import ChatList from "./ChatList";
 import PersonalChat from "./../../Components/PersonalChat/PersonalChat";
 import ChatNavbar from "../../Components/ChatNavbar/ChatNavbar";
 import ChatTextbox from "../../Components/ChatTextbox/ChatTextbox";
 import "./ChatScreen.css";
-import ChatSearchbar from './../../Components/ChatSearchbar/ChatSearchbar';
+import ChatSearchBar from "./../../Components/ChatSearchbar/ChatSearchbar";
+import ChatMinimised from "../../Components/ChatMinimised/chatMinimised";
 
 class ChatScreen extends React.Component {
   state = {
-    currentChat: "QW",
+    currentChat: null,
   };
-  getCurrentChat = ()=>{
+  getCurrentChat = () => {
     return this.state.currentChat;
-  }
-  setCurrentChat = (currentChat) =>{
+  };
+  setCurrentChat = (currentChat) => {
     this.setState({
-      currentChat: currentChat
+      currentChat: currentChat,
     });
-  }
+    this.props.setMinimised(false);
+  };
+
   render() {
     return (
-      <div className="chat__screen">
-        <ChatNavbar currentChat={this.state.currentChat} changeUser = {this.setCurrentChat}/>
-        {!this.state.currentChat ? (
-          <ChatPeople changeUser = {this.setCurrentChat} />
+      <div
+        className={this.props.minimised ? "chat__minimised" : "chat__screen"}
+      >
+        {!this.props.minimised ? (
+          <ChatNavbar
+            currentChat={this.state.currentChat}
+            changeUser={this.setCurrentChat}
+          />
+        ) : null}
+        {!this.props.minimised ? (
+          !this.state.currentChat ? (
+            <ChatList changeUser={this.setCurrentChat} />
+          ) : (
+            <PersonalChat user={this.state.currentChat} />
+          )
         ) : (
-          <PersonalChat user={this.state.currentChat} />
+          <ChatMinimised changeUser={this.setCurrentChat} />
         )}
-        <div className="chatscreen__bottom">
-          {!this.state.currentChat ? <ChatSearchbar/> : <ChatTextbox />}
-        </div>
+
+        {!this.props.minimised ? (
+          <div className="chatscreen__bottom">
+            {!this.state.currentChat ? <ChatSearchBar /> : <ChatTextbox />}
+          </div>
+        ) : null}
       </div>
     );
   }
