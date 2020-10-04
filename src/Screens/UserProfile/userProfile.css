@@ -3,24 +3,35 @@
   margin-top: 70px;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
+
 .minimised {
   width: 5%;
   right: 10px;
 }
 .profile__section {
   flex: 1;
-  padding: 20px 5%;
-  height: 100%;
+  padding: 20px 0;
+  height: -webkit-fill-available;
+  padding-left: 5%;
+  padding-right: 2%;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.profile__section::-webkit-scrollbar {
+  display: none;
 }
 .stats {
-  margin-right: 8%;
+  display: flex;
+  margin-left: 50px;
+  margin-right: 30px;
   border: 1px solid black;
   height: 80%;
-  width: 13%;
+  width: 14%;
   border-radius: 20px;
   padding: 10px 10px;
-  display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
@@ -41,4 +52,16 @@
   width: 97.4%;
   height: 100%;
   /* padding: 5px 5px; */
+}
+
+@media (max-width: 800px) {
+  .userProfile {
+    flex-direction: column;
+  }
+  .stats {
+    display: none;
+  }
+  .profile__section {
+    width: 90%;
+  }
 }

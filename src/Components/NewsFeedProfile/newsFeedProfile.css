@@ -27,7 +27,7 @@
 }
 
 .profile__info > .profile__name {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 20px;
 }
@@ -38,7 +38,7 @@
 }
 
 .profile__menu > p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 15px;
 }

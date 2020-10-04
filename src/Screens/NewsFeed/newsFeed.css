@@ -28,14 +28,3 @@
   max-height: 100%;
   /* overflow-y: auto; */
 }
-.newsfeed__chat {
-  /* margin-left: 79%; */
-  flex: 0.32;
-  /* position: fixed; */
-  /* z-index: 1; */
-  /* width: 20%; */
-  height: 100%;
-  background-color: white;
-  border-radius: 40px;
-  margin-right: 5px;
-}

@@ -1,0 +1,23 @@
+.chat__minimised__column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  transition: 0.3ms ease-in;
+}
+.chat__minimised__column::-webkit-scrollbar {
+  display: none;
+}
+
+.chat__minimised__column > img {
+  width: 40px;
+  margin-top: 10px;
+  clip-path: circle();
+}
+.chat__minimised__column > img:hover {
+  cursor: pointer;
+}
