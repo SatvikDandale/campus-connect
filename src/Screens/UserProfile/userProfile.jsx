@@ -7,43 +7,47 @@ import UserBio from "../../Components/UserBio/userBio";
 import "./userProfile.css";
 import "./about.css";
 import MainChat from "../Chat/mainChat";
+import NavBar from "../NavBar/navBar";
 
 const UserProfile = () => {
   const [currentTab, setCurrentTab] = useState(0);
 
   return (
-    <div className="userProfile">
-      <div className="profile__section">
-        <ProfileHeader />
-        <ProfileTabs setCurrentTab={setCurrentTab} />
-        <div className="profile__content">
-          <div className="about">
-            <UserBio />
-            <div className="details">
-              <PersonalDetails />
-              <CollegeDetails />
+    <>
+      <NavBar />
+      <div className="userProfile">
+        <div className="profile__section">
+          <ProfileHeader />
+          <ProfileTabs setCurrentTab={setCurrentTab} />
+          <div className="profile__content">
+            <div className="about">
+              <UserBio />
+              <div className="details">
+                <PersonalDetails />
+                <CollegeDetails />
+              </div>
             </div>
           </div>
         </div>
+        {currentTab === 0 ? (
+          <div className="stats">
+            <div className="views">
+              <p className="number">80</p>
+              <p>Views</p>
+            </div>
+            <div className="search">
+              <p className="number">80</p>
+              <p>Searches</p>
+            </div>
+            <div className="popularity">
+              <p className="number">9/10</p>
+              <p>Popularity Index</p>
+            </div>
+          </div>
+        ) : null}
+        <MainChat />
       </div>
-      {currentTab === 0 ? (
-        <div className="stats">
-          <div className="views">
-            <p className="number">80</p>
-            <p>Views</p>
-          </div>
-          <div className="search">
-            <p className="number">80</p>
-            <p>Searches</p>
-          </div>
-          <div className="popularity">
-            <p className="number">9/10</p>
-            <p>Popularity Index</p>
-          </div>
-        </div>
-      ) : null}
-      <MainChat />
-    </div>
+    </>
   );
 };
 

@@ -6,7 +6,7 @@ import {
   Settings,
 } from "@material-ui/icons";
 import React from "react";
-import profile from "../../Assets/profile_user@2x.png";
+import profile from "../../Assets/Images/profile_user@2x.png";
 import "./newsFeedProfile.css";
 
 const NewFeedProfile = () => {

@@ -1,20 +1,49 @@
 import React from "react";
 import { Switch, Route, HashRouter } from "react-router-dom";
-import "./App.css";
+import Login from "./Screens/Authentication/login";
 import Footer from "./Screens/Footer/footer";
-import NavBar from "./Screens/NavBar/navBar";
 import NewsFeed from "./Screens/NewsFeed/newsFeed";
 import UserProfile from "./Screens/UserProfile/userProfile";
+import "./App.css";
+import { useState } from "react";
+import SignUp from "./Screens/Authentication/signUp";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+  const [auth, isAuth] = useState(false);
   return (
-    <div className="app">
+    <div className={!auth ? "app" : "app app__auth"}>
       <HashRouter>
-        <NavBar />
-
         <Switch>
-          <Route path="/user" component={UserProfile} />
-          <Route path="/" component={NewsFeed} />
+          <Route
+            path="/user"
+            component={() => {
+              isAuth(false);
+              return <UserProfile />;
+            }}
+          />
+          <Route
+            path="/login"
+            component={() => {
+              isAuth(true);
+              return <Login />;
+            }}
+          />
+          <Route
+            path="/signUp"
+            component={() => {
+              isAuth(true);
+              return <SignUp />;
+            }}
+          />
+          <Route
+            path="/"
+            component={() => {
+              isAuth(false);
+              return <NewsFeed />;
+            }}
+          />
         </Switch>
 
         <Footer />

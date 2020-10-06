@@ -1,0 +1,26 @@
+.auth__screen {
+  display: flex;
+  flex-direction: row;
+  height: -webkit-fill-available;
+}
+
+.auth__right {
+  flex: 1;
+}
+.login__left__text {
+  position: absolute;
+  top: 40%;
+  /* left: 25%; */
+  width: inherit;
+  text-align: center;
+  color: white;
+}
+.login__left__text > h1 {
+  font-size: 3rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.login__left__text > h3 {
+  font-size: larger;
+  font-weight: 500;
+}

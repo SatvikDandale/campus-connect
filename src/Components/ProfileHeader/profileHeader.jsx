@@ -1,6 +1,6 @@
 import { Facebook } from "@material-ui/icons";
 import React from "react";
-import Profile from "../../Assets/profile_user@2x.png";
+import Profile from "../../Assets/Images/profile_user@2x.png";
 import "./profileHeader.css";
 
 const ProfileHeader = () => {

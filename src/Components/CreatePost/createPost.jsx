@@ -1,6 +1,6 @@
 import React from "react";
 import "./createPost.css";
-import profile from "../../Assets/profile_user@2x.png";
+import profile from "../../Assets/Images/profile_user@2x.png";
 import { CheckBox, PermMedia } from "@material-ui/icons";
 
 const CreatePost = () => {

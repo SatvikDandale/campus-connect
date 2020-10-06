@@ -1,6 +1,6 @@
 import { Comment, Favorite, MoreHoriz } from "@material-ui/icons";
 import React from "react";
-import profile from "../../Assets/free-profile-photo-whatsapp-4.png";
+import profile from "../../Assets/Images/free-profile-photo-whatsapp-4.png";
 import "./post.css";
 
 var name = "Captain America";

@@ -1,0 +1,10 @@
+.auth__left {
+  width: 50%;
+  flex: 1;
+  overflow: hidden;
+}
+
+.auth__left > img {
+  /* position: relative; */
+  width: 100%;
+}

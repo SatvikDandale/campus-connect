@@ -1,12 +1,13 @@
-html {
-  height: 91%;
-}
-
 body,
 #root,
-.app {
+html {
   height: 100%;
+  overflow: hidden;
   background-color: #e2e3e6;
+}
+
+.app {
+  height: 91%;
 }
 .root {
   display: flex;
@@ -14,4 +15,7 @@ body,
 }
 .app {
   flex: 1;
+}
+.app__auth {
+  height: -webkit-fill-available;
 }
