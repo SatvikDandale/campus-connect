@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, HashRouter } from "react-router-dom";
-import Login from "./Screens/Authentication/login";
+import Login from "./Screens/Authentication/loginScreen";
 import Footer from "./Screens/Footer/footer";
 import NewsFeed from "./Screens/NewsFeed/newsFeed";
 import UserProfile from "./Screens/UserProfile/userProfile";
@@ -45,8 +45,6 @@ function App() {
             }}
           />
         </Switch>
-
-        <Footer />
       </HashRouter>
     </div>
   );

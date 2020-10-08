@@ -4,7 +4,7 @@ import "./navBar.css";
 
 const NavBar = () => {
   return (
-    <div className="navbar">
+    <div className="navbar__notBootstrap">
       <p className="navbar__heading">Campus Connect</p>
       <div className="navbar__search">
         <input placeholder="Search"></input>

@@ -12,7 +12,7 @@ export default function LoginScreen() {
       <AuthLeft />
       <div className="auth__right">
         <Login />
-
+        <div style={{ flex: 1 }}></div>
         <div className="auth__right__footer">
           <p>Contact Us</p>
           <img src={FacebookIcon} alt="facebook" />
