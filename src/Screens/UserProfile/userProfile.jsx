@@ -8,6 +8,7 @@ import "./userProfile.css";
 import "./about.css";
 import MainChat from "../Chat/mainChat";
 import NavBar from "../NavBar/navBar";
+import Highlights from "../../Components/HighLights/highlights";
 
 const UserProfile = () => {
   const [currentTab, setCurrentTab] = useState(0);
@@ -26,6 +27,7 @@ const UserProfile = () => {
                 <PersonalDetails />
                 <CollegeDetails />
               </div>
+              <Highlights />
             </div>
           </div>
         </div>

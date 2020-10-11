@@ -1,7 +1,7 @@
 .person__card > img {
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 4rem;
+  width: 5em;
   padding: 10px 20px;
 }
 .person__card {

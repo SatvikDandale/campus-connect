@@ -25,7 +25,7 @@ const NewsFeed = () => {
             <Post media={PostPhoto2} />
           </Scrollbars>
         </div>
-        <MainChat />
+        <MainChat minimised={false} />
       </div>
     </>
   );

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "./login.css";
 import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   FormControl,
   IconButton,
@@ -72,7 +71,7 @@ export default function Login() {
         </div>
       </form>
       <h6 className="signUp__prompt">
-        Don't have an account yet? <Link>Create one!</Link>
+        Don't have an account yet? <Link to="/signUp">Create one!</Link>
       </h6>
     </div>
   );
