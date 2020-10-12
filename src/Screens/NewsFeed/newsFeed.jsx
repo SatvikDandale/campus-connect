@@ -5,7 +5,7 @@ import CreatePost from "../../Components/CreatePost/createPost";
 import "./newsFeed.css";
 import Post from "../../Components/Post/post";
 import PostPhoto1 from "../../Assets/Images/smoke-colors-abstract-qo-1536x864.png";
-import PostPhoto2 from "../../Assets/Images/abstract-dark-geometry-8k-n5-1536x864.png";
+import PostPhoto2 from "../../Assets/Images/abstract-dark.png";
 import MainChat from "../Chat/mainChat";
 import NavBar from "../NavBar/navBar";
 
