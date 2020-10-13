@@ -8,8 +8,19 @@ import PostPhoto1 from "../../Assets/Images/smoke-colors-abstract-qo-1536x864.pn
 import PostPhoto2 from "../../Assets/Images/abstract-dark.png";
 import MainChat from "../Chat/mainChat";
 import NavBar from "../NavBar/navBar";
+import { connect } from "react-redux";
+import { getUserDetails, self } from "../../Services/userService";
 
-const NewsFeed = () => {
+const NewsFeed = (props) => {
+  if (!localStorage.token) {
+    alert("Log In!");
+    props.history.push("/login");
+  }
+  if (props.user.userName === null) {
+    console.log("HEY");
+    props.self();
+  }
+
   return (
     <>
       <NavBar />
@@ -31,4 +42,21 @@ const NewsFeed = () => {
   );
 };
 
-export default NewsFeed;
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserDetails: () => {
+      return dispatch(getUserDetails());
+    },
+    self: () => {
+      return dispatch(self());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed);

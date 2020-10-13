@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import PersonalDetails from "../../Components/PersonalDetails/personalDetails";
 import CollegeDetails from "../../Components/CollegeDetails/collegeDetails";
 import ProfileHeader from "../../Components/ProfileHeader/profileHeader";
@@ -9,8 +10,19 @@ import "./about.css";
 import MainChat from "../Chat/mainChat";
 import NavBar from "../NavBar/navBar";
 import Highlights from "../../Components/HighLights/highlights";
+import { getUserDetails, self } from "../../Services/userService";
 
-const UserProfile = () => {
+const UserProfile = (props) => {
+  if (!localStorage.token) {
+    alert("Log In!");
+    props.history.push("/login");
+  }
+  if (props.user.userName === null) {
+    console.log("HEY");
+    props.self();
+  }
+  let user = props.user;
+
   const [currentTab, setCurrentTab] = useState(0);
 
   return (
@@ -18,14 +30,14 @@ const UserProfile = () => {
       <NavBar />
       <div className="userProfile">
         <div className="profile__section">
-          <ProfileHeader />
+          <ProfileHeader user={user} />
           <ProfileTabs setCurrentTab={setCurrentTab} />
           <div className="profile__content">
             <div className="about">
-              <UserBio />
+              <UserBio bio={user.bio} />
               <div className="details">
-                <PersonalDetails />
-                <CollegeDetails />
+                <PersonalDetails personalDetails={user.personalDetails} />
+                <CollegeDetails collegeDetails={user.collegeDetails} />
               </div>
               <Highlights />
             </div>
@@ -53,4 +65,22 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+// REDUX AREA
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserDetails: () => {
+      return dispatch(getUserDetails());
+    },
+    self: () => {
+      return dispatch(self());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

@@ -12,13 +12,17 @@ import {
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 
-export default function Login() {
+export default function Login(props) {
   const [values, setValues] = React.useState({
     password: "",
     showPassword: false,
   });
+  const [userName, setUserName] = React.useState("");
+  const [userNameError, setUserNameError] = React.useState("");
+  const [userPasswordError, setUserPasswordError] = React.useState("");
 
   const handleChange = (prop) => (event) => {
+    // validate();
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -29,6 +33,29 @@ export default function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const validate = () => {
+    setUserNameError("");
+    setUserPasswordError("");
+    console.log(userName.length);
+    if (userName.length === 0) {
+      setUserNameError("Username cannot be blank");
+      return false;
+    }
+    if (userName.length < 6) {
+      setUserNameError("Username must be of at least 6 characters");
+      return false;
+    }
+    if (values.password.length < 6) {
+      console.log("PASSWORD ERROR");
+      setUserPasswordError("Password must be of at least 6 characters");
+      return false;
+    }
+    setUserNameError("");
+    setUserPasswordError("");
+    return true;
+  };
+
   return (
     <div className="login__component">
       <h2>Sign in to your account</h2>
@@ -36,9 +63,15 @@ export default function Login() {
       <form className="login__form">
         <TextField
           id="standard-basic"
-          label="someone@domain.com"
-          // defaultValue="someone@domain.com"
+          label="Unique Username"
           variant="outlined"
+          value={userName}
+          onChange={(event) => {
+            // validate();
+            setUserName(event.target.value);
+          }}
+          error={userNameError === "" ? false : true}
+          helperText={userNameError}
         />
         <FormControl variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">
@@ -49,6 +82,8 @@ export default function Login() {
             type={values.showPassword ? "text" : "password"}
             value={values.password}
             onChange={handleChange("password")}
+            // helperText={"Some error"}
+            error={userPasswordError === "" ? false : true}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -65,7 +100,17 @@ export default function Login() {
           />
         </FormControl>
         <div className="login__button">
-          <Button variant="primary" size="sm">
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={() => {
+              console.log(userName);
+              console.log(values.password);
+              if (validate()) {
+                props.login(userName, values.password);
+              }
+            }}
+          >
             Sign In!
           </Button>
         </div>

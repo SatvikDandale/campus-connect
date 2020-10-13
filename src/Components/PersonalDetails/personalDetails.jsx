@@ -1,24 +1,34 @@
 import React from "react";
 
-const PersonalDetails = () => {
+const PersonalDetails = ({ personalDetails }) => {
   return (
     <div className="personal__details details_card">
       <p className="details_heading">Home Town</p>
       <div className="line"></div>
-      <p className="details_entry">Buldana, Maharashtra</p>
+      <p className="details_entry">{personalDetails.homeTown}</p>
 
       <p className="details_heading">Talents</p>
       <div className="line"></div>
       <div className="entries">
-        <p className="details_entry entry_card">Guitar</p>
-        <p className="details_entry entry_card">Tabla</p>
+        {personalDetails.talents.length > 0 ? (
+          personalDetails.talents.map((talent) => (
+            <p className="details_entry entry_card">{talent}</p>
+          ))
+        ) : (
+          <p className="details_entry entry_card">No talents Added</p>
+        )}
       </div>
 
       <p className="details_heading">Achievements</p>
       <div className="line"></div>
       <div className="entries">
-        <p className="details_entry entry_card">State Level Badminton</p>
-        <p className="details_entry entry_card">State Level Chess</p>
+        {personalDetails.achievements.length > 0 ? (
+          personalDetails.achievements.map((achievement) => (
+            <p className="details_entry entry_card">{achievement}</p>
+          ))
+        ) : (
+          <p className="details_entry entry_card">No achievements added</p>
+        )}
       </div>
     </div>
   );

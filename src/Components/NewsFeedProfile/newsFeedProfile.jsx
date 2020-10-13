@@ -6,18 +6,17 @@ import {
   Settings,
 } from "@material-ui/icons";
 import React from "react";
+import { connect } from "react-redux";
 import profile from "../../Assets/Images/profile_user@2x.png";
 import "./newsFeedProfile.css";
 
-const NewFeedProfile = () => {
+const NewFeedProfile = ({ user }) => {
   return (
     <>
       <div className="profile__info">
         <img src={profile} alt="profile" />
-        <p className="profile__name">John Doe</p>
-        <p className="profile__bio">
-          General Secretary, EPEC Final Year Computer Engineering
-        </p>
+        <p className="profile__name">{user.userName}</p>
+        <p className="profile__bio">{user.intro}</p>
       </div>
       <div className="profile__menu">
         <p>MENU</p>
@@ -48,4 +47,11 @@ const NewFeedProfile = () => {
   );
 };
 
-export default NewFeedProfile;
+// REDUX AREA
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer.user,
+  };
+};
+
+export default connect(mapStateToProps, {})(NewFeedProfile);
