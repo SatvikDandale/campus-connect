@@ -54,3 +54,13 @@
   border-radius: 10px;
   background-color: rgb(238, 238, 238);
 }
+
+@media (max-width: 600px) {
+  .about > .details {
+    flex-direction: column;
+  }
+  .details_card {
+    margin-top: 1rem;
+    width: 100%;
+  }
+}

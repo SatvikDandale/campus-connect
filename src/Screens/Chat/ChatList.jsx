@@ -15,10 +15,10 @@ function ChatList(props) {
       name: "Jane",
       lastMessage: "Hi",
     },
-    Monika: {
+    Monica: {
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/1200px-Pierre-Person.jpg",
-      name: "Monika",
+      name: "Monica",
       lastMessage: "Hi",
     },
   };

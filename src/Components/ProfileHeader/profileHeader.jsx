@@ -9,12 +9,14 @@ const ProfileHeader = () => {
       <img src={Profile} alt="profile" />
       <div className="header__info">
         <div className="details">
-          <p className="username">John Doe</p>
-          <p className="bio">
+          <div className="username">John Doe</div>
+          <div className="bio">
             Upcoming Technology Analyst at Deutsche Bank | General Secretary,
             EPEC
-          </p>
-          <p className="college">Vishwakarma Institute of Technology, Pune</p>
+          </div>
+          <div className="college">
+            Vishwakarma Institute of Technology, Pune
+          </div>
         </div>
         <div className="spacer"></div>
         <div className="icons">

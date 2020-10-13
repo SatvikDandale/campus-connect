@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import ChatScreen from "./ChatScreen";
 import "./mainChat.css";
 
-export default function MainChat() {
-  const [minimised, setMinimised] = useState(true);
-  const [toggle, showToggle] = useState(true);
+export default function MainChat(props) {
+  const [minimised, setMinimised] = useState(
+    props.minimised !== undefined ? props.minimised : true
+  );
+  const [toggle, showToggle] = useState(false);
   return (
     <div className={minimised ? "chat__minimised" : "chat"}>
       <div
