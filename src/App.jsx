@@ -6,7 +6,7 @@ import NewsFeed from "./Screens/NewsFeed/newsFeed";
 import UserProfile from "./Screens/UserProfile/userProfile";
 import "./App.css";
 import { useState } from "react";
-import SignUp from "./Screens/Authentication/signUp";
+import SignUp from "./Screens/Authentication/signUpScreen";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 

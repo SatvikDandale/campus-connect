@@ -1,0 +1,21 @@
+.signUpEmail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.signUpEmail > h2 {
+    font-weight: 700;
+    margin-top: 30%;
+    margin-bottom: 8%;
+}
+
+.signUpEmail > button {
+    /* margin-top: 5%; */
+    width:25%;
+    margin-top: 20%;
+    margin-bottom: 10%;
+    font-size: larger;
+    font-weight: 600;
+}
