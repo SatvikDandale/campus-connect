@@ -37,7 +37,7 @@ export default function Login(props) {
   const validate = () => {
     setUserNameError("");
     setUserPasswordError("");
-    console.log(userName.length);
+    // console.log(userName.length);
     if (userName.length === 0) {
       setUserNameError("Username cannot be blank");
       return false;
@@ -47,7 +47,7 @@ export default function Login(props) {
       return false;
     }
     if (values.password.length < 6) {
-      console.log("PASSWORD ERROR");
+      // console.log("PASSWORD ERROR");
       setUserPasswordError("Password must be of at least 6 characters");
       return false;
     }
@@ -104,8 +104,8 @@ export default function Login(props) {
             variant="primary"
             size="sm"
             onClick={() => {
-              console.log(userName);
-              console.log(values.password);
+              // console.log(userName);
+              // console.log(values.password);
               if (validate()) {
                 props.login(userName, values.password);
               }

@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route, HashRouter } from "react-router-dom";
-import Login from "./Screens/Authentication/loginScreen";
+
 // import Footer from "./Screens/Footer/footer";
+import Login from "./Screens/Authentication/loginScreen";
 import NewsFeed from "./Screens/NewsFeed/newsFeed";
 import UserProfile from "./Screens/UserProfile/userProfile";
-import "./App.css";
-import { useState } from "react";
 import SignUp from "./Screens/Authentication/signUpScreen";
+import NotFound404 from "./Screens/NotFound404/notFound404";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
 import { newStore } from "./Redux/store";
 import { setTokenHeader } from "./Services/apiService";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const store = newStore();
 
@@ -20,17 +21,21 @@ function App() {
     setTokenHeader(localStorage.token);
   }
 
-  const [auth, isAuth] = useState(false);
+  const [page, setPage] = useState("");
   return (
-    <div className={!auth ? "app" : "app app__auth"}>
+    <div
+      className={`${page === "404" ? "notFound" : "app"} ${
+        page === "auth" ? "app__auth" : ""
+      }`}
+    >
       <Provider store={store}>
         <HashRouter>
           <Switch>
             <Route
               exact
-              path="/user"
+              path="/user/:userName"
               component={(props) => {
-                isAuth(false);
+                setPage("profile");
                 return <UserProfile {...props} />;
               }}
             />
@@ -38,7 +43,7 @@ function App() {
               exact
               path="/login"
               component={(props) => {
-                isAuth(true);
+                setPage("auth");
                 return <Login {...props} />;
               }}
             />
@@ -46,7 +51,7 @@ function App() {
               exact
               path="/signUp"
               component={(props) => {
-                isAuth(true);
+                setPage("auth");
                 return <SignUp {...props} />;
               }}
             />
@@ -54,8 +59,15 @@ function App() {
               exact
               path="/"
               component={(props) => {
-                isAuth(false);
+                setPage("auth");
                 return <NewsFeed {...props} />;
+              }}
+            />
+            <Route
+              path="/"
+              component={(props) => {
+                setPage("404");
+                return <NotFound404 {...props} />;
               }}
             />
           </Switch>

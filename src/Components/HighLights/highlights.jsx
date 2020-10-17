@@ -58,7 +58,7 @@ function ExperienceCard({ experience }) {
 }
 
 export default function Highlights() {
-  console.log(experiences.length);
+  // console.log(experiences.length);
   return (
     <div className="highlights">
       <p className="highlights__heading">Highlights</p>
@@ -66,7 +66,7 @@ export default function Highlights() {
       <div className="highlights__contents">
         <div className="highlights__cards">
           {experiences.map((experience, index) => {
-            console.log(index);
+            // console.log(index);
             return (
               <div className="highlight__card__single">
                 <div className="highlights__left">

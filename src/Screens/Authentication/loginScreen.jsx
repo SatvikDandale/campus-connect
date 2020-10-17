@@ -8,7 +8,7 @@ import "./auth.css";
 import { connect } from "react-redux";
 
 function LoginScreen(props) {
-  console.log("LogIn");
+  // console.log("LogIn");
   // props.login("USER1", "abcd");
   const logIn = (userName, password) => {
     props

@@ -1,8 +1,14 @@
-import { ADD_USER } from "../actionType";
+import { INIT_USER, INIT_OTHER_USER } from "../actionTypes";
 
-export function addUser(userObject) {
+export function initUser(userObject) {
   return {
-    type: ADD_USER,
-    payload: userObject,
+    type: INIT_USER,
+    userObject,
+  };
+}
+export function initOtherUser(userObject) {
+  return {
+    type: INIT_OTHER_USER,
+    userObject,
   };
 }

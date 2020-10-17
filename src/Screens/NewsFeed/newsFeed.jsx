@@ -1,27 +1,45 @@
 import React from "react";
 import { Scrollbars } from "react-custom-scrollbars";
+import LoadingOverlay from "react-loading-overlay";
+
 import NewFeedProfile from "../../Components/NewsFeedProfile/newsFeedProfile";
 import CreatePost from "../../Components/CreatePost/createPost";
-import "./newsFeed.css";
 import Post from "../../Components/Post/post";
 import PostPhoto1 from "../../Assets/Images/smoke-colors-abstract-qo-1536x864.png";
 import PostPhoto2 from "../../Assets/Images/abstract-dark.png";
 import MainChat from "../Chat/mainChat";
 import NavBar from "../NavBar/navBar";
+
 import { connect } from "react-redux";
 import { getUserDetails, self } from "../../Services/userService";
 
+import "./newsFeed.css";
+
 const NewsFeed = (props) => {
+  // console.log()
+
   if (!localStorage.token) {
-    alert("Log In!");
+    // alert("Log In!");
     props.history.push("/login");
   }
   if (props.user.userName === null) {
-    console.log("HEY");
     props.self();
   }
+  if (props.error.isError) {
+    alert(props.error.errorMessage);
+    if (props.error.redirect) {
+      props.history.push("/login");
+    }
+  }
 
-  return (
+  return !props.user.userName ? (
+    <LoadingOverlay
+      active={true}
+      spinner
+      text="Loading..."
+      className="overlay"
+    ></LoadingOverlay>
+  ) : (
     <>
       <NavBar />
       <div className="newsfeed">
@@ -37,7 +55,7 @@ const NewsFeed = (props) => {
           </Scrollbars>
         </div>
         <MainChat minimised={false} />
-      </div>
+      </div>{" "}
     </>
   );
 };
@@ -45,6 +63,7 @@ const NewsFeed = (props) => {
 const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
+    error: state.errorReducer,
   };
 };
 

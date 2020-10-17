@@ -45,7 +45,12 @@
   border-bottom-left-radius: 20px;
   background-color: white;
 }
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
+  .chat {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
   .chat__minimised {
     display: none;
   }

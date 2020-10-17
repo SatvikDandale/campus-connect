@@ -1,38 +1,12 @@
 import { apiCall, serverBaseURL, setTokenHeader } from "./apiService";
-import { addUser } from "../Redux/Actions/userAction";
+import { initOtherUser, initUser } from "../Redux/Actions/userAction";
+import { addError, removeError } from "../Redux/Actions/errorAction";
 
-export function getUserDetails(userName) {
-  return (dispatch) => {
-    return new Promise((resolve, reject) => {
-      return apiCall("GET", serverBaseURL + `/user/${userName}`)
-        .then((userObject) => {
-          console.log(userObject);
-          dispatch(addUser(userObject));
-          resolve();
-        })
-        .catch((error) => {
-          console.log(error);
-          reject(error);
-        });
-    });
-  };
-}
-
-export function self() {
-  return (dispatch) => {
-    return new Promise((resolve, reject) => {
-      return apiCall("GET", serverBaseURL + `/self`)
-        .then((userObject) => {
-          dispatch(addUser(userObject));
-          resolve();
-        })
-        .catch((error) => {
-          console.log(error);
-          reject(error);
-        });
-    });
-  };
-}
+/*
+  These functions provide access to the api service.
+  All the Promises are wrapped with a function which takes dispatcher as an argument for redux
+        to call these functions and redux actions to be called from here.
+*/
 
 export function login(userName, password) {
   return (dispatch) => {
@@ -45,12 +19,56 @@ export function login(userName, password) {
         .then((authenticationResponse) => {
           setTokenHeader(authenticationResponse.jwt);
           localStorage.setItem("token", authenticationResponse.jwt);
-          dispatch(addUser(authenticationResponse.user));
-          console.log("RESOLVING");
+          dispatch(initUser(authenticationResponse.user));
+          dispatch(removeError());
+          // console.log("RESOLVING");
           resolve(data);
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error.response);
+          dispatch(addError(error.response));
+          reject(error);
+        });
+    });
+  };
+}
+
+export function getUserDetails(userName, other = false) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      console.log(other);
+      return apiCall("GET", serverBaseURL + `/user/${userName}`)
+        .then((userObject) => {
+          // console.log(userObject);
+          if (!other) {
+            dispatch(initUser(userObject));
+          } else {
+            dispatch(initOtherUser(userObject));
+          }
+          dispatch(removeError());
+          resolve();
+        })
+        .catch((error) => {
+          // console.log(error.response);
+          dispatch(addError(error.response));
+          reject(error);
+        });
+    });
+  };
+}
+
+export function self() {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      return apiCall("GET", serverBaseURL + `/self`)
+        .then((userObject) => {
+          dispatch(initUser(userObject));
+          dispatch(removeError());
+          resolve(userObject);
+        })
+        .catch((error) => {
+          // console.log(error.response);
+          dispatch(addError(error.response));
           reject(error);
         });
     });

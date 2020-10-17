@@ -27,6 +27,7 @@ function ChatList(props) {
     <div className="chat__list">
       {Object.keys(messageDictionary).map((key) => (
         <ChatPersonCard
+          key={key}
           chatProfile={messageDictionary[key]}
           changeUser={props.changeUser}
         />

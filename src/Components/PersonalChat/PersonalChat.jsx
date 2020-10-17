@@ -79,12 +79,12 @@ class PersonalChat extends React.Component {
     ],
   };
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const yourName = "QW";
     return (
       <Scrollbars autoHide>
         <div className="chat__messages">
-          {this.state.messageDictonary.map((message) => {
+          {this.state.messageDictonary.map((message, index) => {
             return (
               <div
                 className={
@@ -92,6 +92,7 @@ class PersonalChat extends React.Component {
                     ? "message__card"
                     : "message__self__card"
                 }
+                key={index}
               >
                 <p style={{ fontSize: 12 }}>{message.sender}</p>
                 <p style={{ fontSize: 15 }}>{message.message}</p>
