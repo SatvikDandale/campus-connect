@@ -1,0 +1,29 @@
+.signUpCollegeDetails {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signUpCollegeDetails > h2 {
+    margin-top: 20%;
+}
+
+.signUpCollegeDetails > form > img {
+    border-radius: 50%;
+    width: 50%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.signUpCollegeDetails > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signUpCollegeDetails > button {
+    margin-top: 5%;
+    margin-bottom: 10%;
+    width: 25%;
+}

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function SignUpEmail() {
+export default function SignUpEmail(props) {
     const classes = useStyles();
     return (
         <div className="signUpEmail"> 
@@ -28,7 +28,9 @@ export default function SignUpEmail() {
             variant="outlined"
             />
            </form>
-            <Button variant="primary">Next</Button>
+           <Button variant="primary" onClick={()=> {
+                props.setPageNo(2)
+            }}>Next</Button>
             <h6>Already have an account, <Link to="/login">Sign In Here</Link></h6>
         </div>
     )
