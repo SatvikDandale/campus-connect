@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeError } from "../../Redux/Actions/errorAction";
 import "./notFound404.css";
 
-export default function NotFound404() {
+function NotFound404(props) {
+  props.removeError();
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -32,3 +35,13 @@ export default function NotFound404() {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeError: () => {
+      return dispatch(removeError());
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(NotFound404);

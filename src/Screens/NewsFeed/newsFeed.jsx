@@ -28,7 +28,7 @@ const NewsFeed = (props) => {
   if (props.error.isError) {
     alert(props.error.errorMessage);
     if (props.error.redirect) {
-      props.history.push("/login");
+      props.history.push(props.error.redirectPath);
     }
   }
 

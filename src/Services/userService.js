@@ -1,5 +1,9 @@
 import { apiCall, serverBaseURL, setTokenHeader } from "./apiService";
-import { initOtherUser, initUser } from "../Redux/Actions/userAction";
+import {
+  initOtherUser,
+  initUser,
+  selfUserLoaded,
+} from "../Redux/Actions/userAction";
 import { addError, removeError } from "../Redux/Actions/errorAction";
 
 /*
@@ -20,6 +24,7 @@ export function login(userName, password) {
           setTokenHeader(authenticationResponse.jwt);
           localStorage.setItem("token", authenticationResponse.jwt);
           dispatch(initUser(authenticationResponse.user));
+          dispatch(selfUserLoaded());
           dispatch(removeError());
           // console.log("RESOLVING");
           resolve(data);
@@ -37,11 +42,12 @@ export function getUserDetails(userName, other = false) {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
       console.log(other);
-      return apiCall("GET", serverBaseURL + `/user/${userName}`)
+      return apiCall("GET", serverBaseURL + `/userAbout/${userName}`)
         .then((userObject) => {
           // console.log(userObject);
           if (!other) {
             dispatch(initUser(userObject));
+            dispatch(selfUserLoaded());
           } else {
             dispatch(initOtherUser(userObject));
           }
@@ -63,6 +69,7 @@ export function self() {
       return apiCall("GET", serverBaseURL + `/self`)
         .then((userObject) => {
           dispatch(initUser(userObject));
+          dispatch(selfUserLoaded());
           dispatch(removeError());
           resolve(userObject);
         })

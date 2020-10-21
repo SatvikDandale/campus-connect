@@ -6,10 +6,12 @@ import TwitterIcon from "../../Assets/Images/twitter.png";
 import { login } from "../../Services/userService";
 import "./auth.css";
 import { connect } from "react-redux";
+import { removeError } from "../../Redux/Actions/errorAction";
 
 function LoginScreen(props) {
   // console.log("LogIn");
   // props.login("USER1", "abcd");
+  props.removeError();
   const logIn = (userName, password) => {
     props
       .login(userName, password)
@@ -38,6 +40,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     login: (userName, password) => {
       return dispatch(login(userName, password));
+    },
+    removeError: () => {
+      return dispatch(removeError());
     },
   };
 };

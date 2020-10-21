@@ -6,6 +6,10 @@ import NavBar from "../NavBar/navBar";
 import SelfProfile from "./selfProfile";
 
 import { getUserDetails, self } from "../../Services/userService";
+import {
+  startLoadingSelfUser,
+  startLoadingOtherUser,
+} from "../../Redux/Actions/userAction";
 
 import "./userProfile.css";
 import "./about.css";
@@ -15,15 +19,29 @@ const UserProfile = (props) => {
   if (!localStorage.token) {
     props.history.push("/login");
   }
-  if (props.user.userName === null) {
+  if (props.user.userName === null && !props.selfUserRequestSent) {
+    console.log("GETTING SELF");
+    props.startLoadingSelfUser(); // Prevent duplicate requests
     props.self();
   }
+
   let userName = props.match.params.userName;
-  if (props.user.userName !== userName) {
+
+  if (props.user.userName !== userName && !props.otherUserRequestSent) {
     // Get the user from userService
     console.log(userName);
     console.log(props.user);
-    if (!props.otherUser) props.getUserDetails(userName, true);
+    if (!props.otherUser) {
+      props.startLoadingOtherUser(); // Prevent duplicate requests
+      props.getUserDetails(userName, true);
+    }
+  }
+
+  if (props.error.isError) {
+    alert(props.error.errorMessage);
+    if (props.error.redirect) {
+      props.history.push(props.error.redirectPath);
+    }
   }
 
   return (
@@ -49,7 +67,10 @@ const UserProfile = (props) => {
 const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
+    selfUserRequestSent: state.userReducer.selfUserRequestSent,
     otherUser: state.userReducer.otherUser,
+    otherUserRequestSent: state.userReducer.otherUserRequestSent,
+    error: state.errorReducer,
   };
 };
 
@@ -60,6 +81,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     self: () => {
       return dispatch(self());
+    },
+    startLoadingSelfUser: () => {
+      return dispatch(startLoadingSelfUser());
+    },
+    startLoadingOtherUser: () => {
+      return dispatch(startLoadingOtherUser());
     },
   };
 };

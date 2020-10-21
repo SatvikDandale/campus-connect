@@ -1,5 +1,9 @@
 export const INIT_USER = "ADD_USER";
 export const INIT_OTHER_USER = "INIT_OTHER_USER";
+export const LOAD_SELF_USER = "LOAD_SELF_USER";
+export const SELF_USER_LOADED = "SELF_USER_LOADED";
+export const LOAD_OTHER_USER = "LOAD_OTHER_USER";
+export const OTHER_USER_LOADED = "OTHER_USER_LOADED";
 
 // ERROR ACTIONS
 export const ADD_ERROR = "ADD_ERROR";

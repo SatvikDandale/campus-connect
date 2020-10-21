@@ -7,6 +7,7 @@ const DEFAULT_STATE = {
   errorDetails: "",
   timeStamp: null,
   redirect: true,
+  redirectPath: "/login",
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -14,6 +15,8 @@ export default (state = DEFAULT_STATE, action) => {
     case ADD_ERROR:
       // console.log("Adding Error");
       // console.log(action.errorResponse);
+      console.log("Error Response Object");
+      console.log(action.errorResponse);
       if (action.errorResponse === undefined) {
         return {
           ...state,
@@ -23,14 +26,29 @@ export default (state = DEFAULT_STATE, action) => {
           timeStamp: Date.now(),
           redirect: true,
         };
-      } else if (action.errorResponse.data.message.includes("JWT expired at")) {
+      } else if (action.errorResponse.status === 404) {
         return {
           ...state,
           isError: true,
-          errorMessage: action.errorResponse.data.message,
+          errorMessage: "Not Found",
           errorType: "User",
           timeStamp: action.errorResponse.data.timeStamp,
           redirect: true,
+          redirectPath: "/404",
+        };
+      } else if (
+        action.errorResponse.data.message.includes("JWT expired at") ||
+        action.errorResponse.data.message.includes("The token is invalid")
+      ) {
+        // console.log("REDIRECT");
+        return {
+          ...state,
+          isError: true,
+          errorMessage: "Session Expired. Please login again.",
+          errorType: "User",
+          timeStamp: action.errorResponse.data.timeStamp,
+          redirect: true,
+          redirectPath: "/login",
         };
       }
 
@@ -40,11 +58,6 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         ...state,
         isError: false,
-        errorMessage: "No Error",
-        errorType: "User",
-        errorDetails: "",
-        timeStamp: null,
-        redirect: false,
       };
 
     default:

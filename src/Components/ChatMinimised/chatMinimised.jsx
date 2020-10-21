@@ -24,8 +24,9 @@ export default function ChatMinimised(props) {
   };
   return (
     <div className="chat__minimised__column">
-      {Object.keys(messageDictionary).map((key) => (
+      {Object.keys(messageDictionary).map((key, index) => (
         <img
+          key={index}
           src={messageDictionary[key]["image"]}
           alt="person"
           onClick={() => props.changeUser(messageDictionary[key]["name"])}
