@@ -2,7 +2,9 @@ import { apiCall, serverBaseURL, setTokenHeader } from "./apiService";
 import {
   initOtherUser,
   initUser,
+  otherUserLoaded,
   selfUserLoaded,
+  updateUser,
 } from "../Redux/Actions/userAction";
 import { addError, removeError } from "../Redux/Actions/errorAction";
 
@@ -50,6 +52,7 @@ export function getUserDetails(userName, other = false) {
             dispatch(selfUserLoaded());
           } else {
             dispatch(initOtherUser(userObject));
+            dispatch(otherUserLoaded());
           }
           dispatch(removeError());
           resolve();
@@ -75,6 +78,23 @@ export function self() {
         })
         .catch((error) => {
           // console.log(error.response);
+          dispatch(addError(error.response));
+          reject(error);
+        });
+    });
+  };
+}
+
+export function updateUserAbout(updatedUserDetails) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      return apiCall("POST", serverBaseURL + "/editUser", updatedUserDetails)
+        .then((userObject) => {
+          dispatch(updateUser(updatedUserDetails));
+          dispatch(removeError());
+          resolve(userObject);
+        })
+        .catch((error) => {
           dispatch(addError(error.response));
           reject(error);
         });

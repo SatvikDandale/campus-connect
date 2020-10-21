@@ -5,6 +5,10 @@ import {
   SELF_USER_LOADED,
   OTHER_USER_LOADED,
   LOAD_OTHER_USER,
+  UPDATE_NAME,
+  UPDATE_BIO,
+  UPDATE_PERSONAL_DETAILS,
+  UPDATE_USER,
 } from "../actionTypes";
 
 export function initUser(userObject) {
@@ -41,3 +45,29 @@ export function otherUserLoaded() {
     type: OTHER_USER_LOADED,
   };
 }
+
+export function updateUser(userObject) {
+  return {
+    type: UPDATE_USER,
+    userObject,
+  };
+}
+
+// export function updateName(nameObject) {
+//   return {
+//     type: UPDATE_NAME,
+//     nameObject,
+//   };
+// }
+// export function updateBio(bio) {
+//   return {
+//     type: UPDATE_BIO,
+//     bio,
+//   };
+// }
+// export function updatePersonalDetails(personalDetails) {
+//   return {
+//     type: UPDATE_PERSONAL_DETAILS,
+//     personalDetails,
+//   };
+// }

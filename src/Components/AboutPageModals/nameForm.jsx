@@ -13,13 +13,13 @@ import { Input } from "reactstrap";
 export default function NameForm(props) {
   return (
     <Modal show={props.show} onHide={props.handleClose}>
-      <Modal.Header closeButton>Update your bio</Modal.Header>
+      <Modal.Header closeButton>Update your name</Modal.Header>
       <Modal.Body>
         <Form>
           <Form.Group>
             <Form.Label>First Name</Form.Label>
             <Input
-              type="textarea"
+              type="text"
               name="first__name__input"
               value={props.name.firstName}
               id="first__name__input"
@@ -34,7 +34,7 @@ export default function NameForm(props) {
           <Form.Group>
             <Form.Label>Last Name</Form.Label>
             <Input
-              type="textarea"
+              type="text"
               name="last__name__input"
               value={props.name.lastName}
               id="last__name__input"

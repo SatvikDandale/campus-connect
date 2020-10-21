@@ -8,7 +8,7 @@ const UserBio = ({ bio, toggleBio }) => {
       <div className="bio__heading">
         Bio {<Edit onClick={() => toggleBio(true)}></Edit>}
       </div>
-      <pre className="bio__content">{bio.trim()}</pre>
+      <pre className="bio__content">{bio}</pre>
     </div>
   );
 };

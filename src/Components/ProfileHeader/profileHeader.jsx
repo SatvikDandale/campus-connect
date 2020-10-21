@@ -4,7 +4,7 @@ import Profile from "../../Assets/Images/profile_user@2x.png";
 import NameForm from "../AboutPageModals/nameForm";
 import "./profileHeader.css";
 
-const ProfileHeader = ({ user }) => {
+const ProfileHeader = ({ user, updateUserAbout }) => {
   const [name, setName] = useState({
     firstName: user.firstName,
     lastName: user.lastName,
@@ -15,6 +15,18 @@ const ProfileHeader = ({ user }) => {
   };
   const handleBioSubmit = () => {
     console.log(name);
+    const {
+      followers,
+      following,
+      groups,
+      personalChats,
+      posts,
+      ...aboutObject
+    } = user;
+    updateUserAbout({
+      ...aboutObject,
+      ...name,
+    });
     toggleName(false);
   };
   return (

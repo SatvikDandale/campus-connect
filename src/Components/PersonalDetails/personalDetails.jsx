@@ -1,11 +1,14 @@
+import { Edit } from "@material-ui/icons";
 import React from "react";
 
-const PersonalDetails = ({ personalDetails }) => {
+const PersonalDetails = ({ personalDetails, togglePersonal }) => {
   return (
     <div className="personal__details details_card">
-      <p className="details_heading">Home Town</p>
+      <div className="details_heading">
+        Home Town {<Edit onClick={() => togglePersonal(true)} />}
+      </div>
       <div className="line"></div>
-      <p className="details_entry">{"Pune, India"}</p>
+      <p className="details_entry">{personalDetails.homeTown}</p>
 
       <p className="details_heading">Talents</p>
       <div className="line"></div>

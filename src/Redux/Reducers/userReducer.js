@@ -5,6 +5,7 @@ import {
   LOAD_SELF_USER,
   OTHER_USER_LOADED,
   SELF_USER_LOADED,
+  UPDATE_USER,
 } from "../actionTypes";
 
 const DEFAULT_STATE = {
@@ -76,6 +77,34 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         ...state,
         otherUser: action.userObject,
+      };
+
+    // case UPDATE_NAME:
+    //   return {
+    //     ...state,
+    //     firstName: action.nameObject.firstName,
+    //     lastName: action.nameObject.lastName,
+    //   };
+
+    // case UPDATE_BIO:
+    //   return {
+    //     ...state,
+    //     bio: action.bio,
+    //   };
+
+    // case UPDATE_PERSONAL_DETAILS:
+    //   return {
+    //     ...state,
+    //     personalDetails: action.personalDetails,
+    //   };
+
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.userObject,
+        },
       };
 
     default:
