@@ -8,6 +8,7 @@ const ProfileHeader = ({ user, updateUserAbout }) => {
   const [name, setName] = useState({
     firstName: user.firstName,
     lastName: user.lastName,
+    intro: user.intro,
   });
   const [showName, toggleName] = useState(false);
   const handleClose = () => {

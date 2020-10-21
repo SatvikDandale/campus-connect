@@ -27,6 +27,7 @@ export default function NameForm(props) {
                 props.setName({
                   firstName: event.target.value,
                   lastName: props.name.lastName,
+                  intro: props.name.intro,
                 });
               }}
             />
@@ -42,10 +43,23 @@ export default function NameForm(props) {
                 props.setName({
                   firstName: props.name.firstName,
                   lastName: event.target.value,
+                  intro: props.name.intro,
                 });
-                console.log({
+              }}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Intro</Form.Label>
+            <Input
+              type="text"
+              name="intro__input"
+              value={props.name.intro}
+              id="intro__input"
+              onChange={(event) => {
+                props.setName({
                   firstName: props.name.firstName,
-                  lastName: event.target.value,
+                  lastName: props.name.lastName,
+                  intro: event.target.value,
                 });
               }}
             />
