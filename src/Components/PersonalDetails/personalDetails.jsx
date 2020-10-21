@@ -5,7 +5,7 @@ const PersonalDetails = ({ personalDetails }) => {
     <div className="personal__details details_card">
       <p className="details_heading">Home Town</p>
       <div className="line"></div>
-      <p className="details_entry">{personalDetails.homeTown}</p>
+      <p className="details_entry">{"Pune, India"}</p>
 
       <p className="details_heading">Talents</p>
       <div className="line"></div>

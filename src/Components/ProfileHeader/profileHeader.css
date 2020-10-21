@@ -32,6 +32,8 @@
   flex: 1;
 }
 .header__info > .details > .username {
+  display: flex;
+  align-items: center;
   font-size: 2rem;
   font-weight: 600;
 }

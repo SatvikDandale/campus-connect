@@ -7,6 +7,7 @@ import ProfileTabs from "../../Components/ProfileTabs/profileTabs";
 import UserBio from "../../Components/UserBio/userBio";
 import MainChat from "../Chat/mainChat";
 import Highlights from "../../Components/HighLights/highlights";
+import BioForm from "../../Components/AboutPageModals/bioForm";
 
 import "./userProfile.css";
 import "./about.css";
@@ -17,6 +18,15 @@ const SelfProfile = (props) => {
   let user = props.user;
 
   const [currentTab, setCurrentTab] = useState(0);
+  const [bio, setBio] = useState(user.bio);
+  const [showBio, toggleBio] = useState(false);
+  const handleClose = () => {
+    toggleBio(!showBio);
+  };
+  const handleBioSubmit = () => {
+    console.log(bio);
+    toggleBio(false);
+  };
 
   return (
     <>
@@ -26,7 +36,14 @@ const SelfProfile = (props) => {
           <ProfileTabs setCurrentTab={setCurrentTab} />
           <div className="profile__content">
             <div className="about">
-              <UserBio bio={user.bio} />
+              <UserBio bio={user.bio} toggleBio={toggleBio} />
+              <BioForm
+                show={showBio}
+                handleClose={handleClose}
+                bio={bio}
+                setBio={setBio}
+                handleSubmit={handleBioSubmit}
+              />
               <div className="details">
                 <PersonalDetails personalDetails={user.personalDetails} />
                 <CollegeDetails collegeDetails={user.collegeDetails} />

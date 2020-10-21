@@ -7,15 +7,20 @@ import {
 } from "@material-ui/icons";
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import profile from "../../Assets/Images/profile_user@2x.png";
 import "./newsFeedProfile.css";
 
-const NewFeedProfile = ({ user }) => {
+const NewFeedProfile = ({ user, history }) => {
   return (
     <>
       <div className="profile__info">
-        <img src={profile} alt="profile" />
-        <p className="profile__name">{user.userName}</p>
+        <img
+          src={profile}
+          alt="profile"
+          onClick={() => history.push("/user/" + user.userName)}
+        />
+        <p className="profile__name">{user.firstName + " " + user.lastName}</p>
         <p className="profile__bio">{user.intro}</p>
       </div>
       <div className="profile__menu">
@@ -54,4 +59,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {})(NewFeedProfile);
+export default connect(mapStateToProps, {})(withRouter(NewFeedProfile));

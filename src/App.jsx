@@ -59,7 +59,7 @@ function App() {
               exact
               path="/"
               component={(props) => {
-                setPage("auth");
+                setPage("feed");
                 return <NewsFeed {...props} />;
               }}
             />

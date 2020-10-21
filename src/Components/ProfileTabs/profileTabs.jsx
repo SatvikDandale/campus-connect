@@ -41,15 +41,6 @@ const ProfileTabs = (props) => {
       >
         Following
       </div>
-      <div
-        className={`tab__item ${current === 4 ? "active" : ""}`}
-        onClick={() => {
-          setCurrent(4);
-          props.setCurrentTab(4);
-        }}
-      >
-        Fishponds
-      </div>
     </div>
   );
 };
