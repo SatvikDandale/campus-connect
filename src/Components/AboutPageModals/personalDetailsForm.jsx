@@ -1,17 +1,10 @@
 import React, { useState } from "react";
-import {
-  Modal,
-  Button,
-  Form,
-  Col,
-  ListGroup,
-  ListGroupItem,
-  Row,
-} from "react-bootstrap";
+import { Modal, Button, Form, Col, ListGroup, Row } from "react-bootstrap";
 import { Input } from "reactstrap";
 
 export default function PersonalDetailsForm(props) {
   const [talent, setTalent] = useState("");
+  const [achievement, setAchievement] = useState("");
   return (
     <Modal show={props.show} onHide={props.handleClose}>
       <Modal.Header closeButton>Update your personal details</Modal.Header>
@@ -64,6 +57,44 @@ export default function PersonalDetailsForm(props) {
                 ? null
                 : props.personalDetails.talents.map((talent) => (
                     <p className="details_entry entry_card">{talent}</p>
+                  ))}
+            </ListGroup>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Achievements</Form.Label>
+            <Row>
+              <Col sm="7">
+                <Input
+                  type="text"
+                  placeholder="achievements"
+                  onChange={(event) => setAchievement(event.target.value)}
+                  value={achievement}
+                />
+              </Col>
+              <Col>
+                <Button
+                  className="float-right"
+                  onClick={() => {
+                    props.setPersonalDetails({
+                      ...props.personalDetails,
+                      achievements: [
+                        ...props.personalDetails.achievements,
+                        achievement,
+                      ],
+                    });
+                  }}
+                >
+                  Add
+                </Button>
+              </Col>
+            </Row>
+          </Form.Group>
+          <Form.Group>
+            <ListGroup style={{ display: "flex", flexDirection: "row" }}>
+              {props.personalDetails.achievements.length === 0
+                ? null
+                : props.personalDetails.achievements.map((achievement) => (
+                    <p className="details_entry entry_card">{achievement}</p>
                   ))}
             </ListGroup>
           </Form.Group>
