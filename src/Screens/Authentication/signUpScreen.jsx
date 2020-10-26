@@ -8,24 +8,106 @@ import SignUpEmail from "../../Components/SignUp/signUpEmail";
 import { useState } from "react";
 import SignUpPersonalDetails from "../../Components/SignUp/signUpPersonalDetails";
 import SignUpCollegeDetails from "../../Components/SignUp/signUpCollegeDetails";
+import { Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { signUp } from "../../Services/userService";
 
-export default function SignUp() {
-  const [pageNo, setPageNo] = useState(0)
-  
+function SignUp(props) {
+  const [pageNo, setPageNo] = useState(0);
+  const [signUpData, setSignUpData] = useState({
+    email: "",
+    userName: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    collegeDetails: {
+      year: "",
+      branch: "",
+      collegeName: "VIT",
+    },
+  });
+
+  function finalSubmitHandler(collegeDetails) {
+    props
+      .signUp({ ...signUpData, collegeDetails })
+      .then(() => props.history.push("/"))
+      .catch((err) => console.log(err));
+  }
+
   return (
     <div className="auth__screen">
-      <AuthLeft />
+      <AuthLeft pageNo={pageNo} />
       <div className="auth__right">
-        {pageNo===0 ? <SignUpHome setPageNo={setPageNo}/> : null}
-        {pageNo===1 ? <SignUpEmail setPageNo={setPageNo}/> : null}
-        {pageNo===2 ? <SignUpPersonalDetails setPageNo={setPageNo}/> : null}
-        {pageNo===3 ? <SignUpCollegeDetails setPageNo={setPageNo}/> : null}
-      <div className="auth__right__footer">
+        <Route
+          exact
+          strict
+          path="/signUp"
+          component={(props) => {
+            return <SignUpHome setPageNo={setPageNo} {...props} />;
+          }}
+        />
+        <Route
+          exact
+          strict
+          path="/signUp/1"
+          component={(props) => {
+            return (
+              <SignUpEmail
+                setPageNo={setPageNo}
+                signUpData={signUpData}
+                setSignUpData={setSignUpData}
+                {...props}
+              />
+            );
+          }}
+        />
+        <Route
+          exact
+          strict
+          path="/signUp/2"
+          component={(props) => {
+            return (
+              <SignUpPersonalDetails
+                setPageNo={setPageNo}
+                signUpData={signUpData}
+                setSignUpData={setSignUpData}
+                {...props}
+              />
+            );
+          }}
+        />
+        <Route
+          exact
+          strict
+          path="/signUp/3"
+          component={(props) => {
+            return (
+              <SignUpCollegeDetails
+                setPageNo={setPageNo}
+                signUpData={signUpData}
+                setSignUpData={setSignUpData}
+                onSubmit={finalSubmitHandler}
+                {...props}
+              />
+            );
+          }}
+        />
+        <div className="auth__right__footer">
           <p>Contact Us</p>
           <img src={FacebookIcon} alt="facebook" />
           <img src={TwitterIcon} alt="twitter" />
-      </div>
+        </div>
       </div>
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUp: (formData) => {
+      return dispatch(signUp(formData));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SignUp);

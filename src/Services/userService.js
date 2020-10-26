@@ -39,6 +39,28 @@ export function login(userName, password) {
     });
   };
 }
+export function signUp(signUpData) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      return apiCall("POST", serverBaseURL + `/signUp`, signUpData)
+        .then((authenticationResponse) => {
+          setTokenHeader(authenticationResponse.jwt);
+          localStorage.setItem("token", authenticationResponse.jwt);
+          dispatch(initUser(authenticationResponse.user));
+          dispatch(selfUserLoaded());
+          dispatch(removeError());
+          dispatch(getUserDetails(authenticationResponse.user.userName));
+          // console.log("RESOLVING");
+          resolve(authenticationResponse.user);
+        })
+        .catch((error) => {
+          // console.log(error.response);
+          dispatch(addError(error.response));
+          reject(error);
+        });
+    });
+  };
+}
 
 export function getUserDetails(userName, other = false) {
   return (dispatch) => {

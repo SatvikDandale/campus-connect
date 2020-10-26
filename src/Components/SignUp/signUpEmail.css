@@ -1,20 +1,56 @@
 .signUpEmail {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
 }
 
 .signUpEmail > h2 {
-    font-weight: 700;
-    margin-top: 30%;
-    margin-bottom: 8%;
+  font-weight: 700;
+  /* margin-top: 30%; */
+  margin-bottom: 8%;
 }
 
 .signUpEmail > button {
-    width:25%;
-    margin-top: 20%;
-    margin-bottom: 10%;
-    font-size: larger;
-    font-weight: 600;
+  width: 25%;
+  margin-top: 20%;
+  margin-bottom: 10%;
+  font-size: larger;
+  font-weight: 600;
+}
+
+.progress__bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10% 0;
+}
+.horizontal__line {
+  height: 3px;
+  width: 5rem;
+  background-color: #b9b9b9;
+}
+
+.email__icon,
+.platform__icon,
+.profile__icon {
+  z-index: 1;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  box-shadow: 1px 1px 4px 0px;
+  background-color: #b9b9b9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.progress__bar .MuiSvgIcon-root {
+  color: white;
+}
+
+.current {
+  background-color: #11c30a;
+}
+.MuiSvgIcon-root:hover {
+  cursor: pointer;
 }
