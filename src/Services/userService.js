@@ -49,7 +49,6 @@ export function signUp(signUpData) {
           dispatch(initUser(authenticationResponse.user));
           dispatch(selfUserLoaded());
           dispatch(removeError());
-          dispatch(getUserDetails(authenticationResponse.user.userName));
           // console.log("RESOLVING");
           resolve(authenticationResponse.user);
         })

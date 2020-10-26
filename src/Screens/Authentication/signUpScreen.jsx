@@ -10,7 +10,7 @@ import SignUpPersonalDetails from "../../Components/SignUp/signUpPersonalDetails
 import SignUpCollegeDetails from "../../Components/SignUp/signUpCollegeDetails";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { signUp } from "../../Services/userService";
+import { signUp, getUserDetails } from "../../Services/userService";
 
 function SignUp(props) {
   const [pageNo, setPageNo] = useState(0);
@@ -30,7 +30,10 @@ function SignUp(props) {
   function finalSubmitHandler(collegeDetails) {
     props
       .signUp({ ...signUpData, collegeDetails })
-      .then(() => props.history.push("/"))
+      .then((userObject) => {
+        props.getUserDetails(userObject.userName);
+        props.history.push("/");
+      })
       .catch((err) => console.log(err));
   }
 
@@ -106,6 +109,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     signUp: (formData) => {
       return dispatch(signUp(formData));
+    },
+    getUserDetails: (userName, other = false) => {
+      return dispatch(getUserDetails(userName, other));
     },
   };
 };
