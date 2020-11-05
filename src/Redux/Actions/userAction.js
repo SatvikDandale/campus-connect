@@ -8,6 +8,7 @@ import {
   UPDATE_USER,
   ADD_USER_FOLLOWING_DATA,
   FOLLOW_USER,
+  ADD_FOLLOWING_DATA_OTHER,
 } from "../actionTypes";
 
 export function initUser(userObject) {
@@ -63,6 +64,13 @@ export function followUserDone(following) {
   return {
     type: FOLLOW_USER,
     following,
+  };
+}
+
+export function addFollowingDataOther(data) {
+  return {
+    type: ADD_FOLLOWING_DATA_OTHER,
+    data,
   };
 }
 

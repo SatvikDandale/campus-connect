@@ -7,6 +7,7 @@ import {
   selfUserLoaded,
   updateUser,
   followUserDone,
+  addFollowingDataOther,
 } from "../Redux/Actions/userAction";
 import { addError, removeError } from "../Redux/Actions/errorAction";
 
@@ -83,6 +84,26 @@ export function getUserFollowing(userName) {
     });
   };
 }
+export function getOtherUserFollowing(userName) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      return apiCall(
+        "GET",
+        serverBaseURL + `/userFollowerFollowing/${userName}`
+      )
+        .then((data) => {
+          // console.log(userObject);
+          dispatch(addFollowingDataOther(data));
+          resolve();
+        })
+        .catch((error) => {
+          // console.log(error.response);
+          dispatch(addError(error.response));
+          reject(error);
+        });
+    });
+  };
+}
 
 export function getUserDetails(userName, other = false) {
   return (dispatch) => {
@@ -99,6 +120,7 @@ export function getUserDetails(userName, other = false) {
           } else {
             dispatch(initOtherUser(userObject));
             dispatch(otherUserLoaded());
+            dispatch(getOtherUserFollowing(userName));
           }
           dispatch(removeError());
           resolve();

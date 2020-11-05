@@ -1,4 +1,5 @@
 import {
+  ADD_FOLLOWING_DATA_OTHER,
   ADD_USER_FOLLOWING_DATA,
   FOLLOW_USER,
   INIT_OTHER_USER,
@@ -114,6 +115,16 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         user: {
           ...state.user,
+          followers: action.data.followers,
+          following: action.data.following,
+        },
+      };
+
+    case ADD_FOLLOWING_DATA_OTHER:
+      return {
+        ...state,
+        otherUser: {
+          ...state.otherUser,
           followers: action.data.followers,
           following: action.data.following,
         },
