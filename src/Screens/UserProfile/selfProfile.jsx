@@ -46,9 +46,9 @@ const SelfProfile = (props) => {
   };
 
   const [personalDetails, setPersonalDetails] = useState({
-    homeTown: user.personalDetails.homeTown,
-    talents: user.personalDetails.talents,
-    achievements: user.personalDetails.achievements,
+    homeTown: user.personalDetails.homeTown || "",
+    talents: user.personalDetails.talents || [],
+    achievements: user.personalDetails.achievements || [],
   });
   const [showPersonalForm, togglePersonal] = useState(false);
   const handlePersonalClose = () => {

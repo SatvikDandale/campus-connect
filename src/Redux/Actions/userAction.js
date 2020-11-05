@@ -6,6 +6,8 @@ import {
   OTHER_USER_LOADED,
   LOAD_OTHER_USER,
   UPDATE_USER,
+  ADD_USER_FOLLOWING_DATA,
+  FOLLOW_USER,
 } from "../actionTypes";
 
 export function initUser(userObject) {
@@ -47,6 +49,20 @@ export function updateUser(userObject) {
   return {
     type: UPDATE_USER,
     userObject,
+  };
+}
+
+export function addUserFollowingData(data) {
+  return {
+    type: ADD_USER_FOLLOWING_DATA,
+    data,
+  };
+}
+
+export function followUserDone(following) {
+  return {
+    type: FOLLOW_USER,
+    following,
   };
 }
 

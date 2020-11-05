@@ -13,6 +13,7 @@ import {
 
 import "./userProfile.css";
 import "./about.css";
+import OtherProfile from "./otherProfile";
 
 const UserProfile = (props) => {
   console.log(props);
@@ -57,7 +58,7 @@ const UserProfile = (props) => {
           className="overlay"
         ></LoadingOverlay>
       ) : (
-        <SelfProfile user={props.otherUser} />
+        <OtherProfile user={props.otherUser} currentUser={props.user} />
       )}
     </>
   );
