@@ -15,6 +15,7 @@ import { updateUserAbout } from "../../Services/userService";
 
 import "./userProfile.css";
 import "./about.css";
+import FollowersAndFollowingList from "../../Components/FollowersList/followers";
 
 const SelfProfile = (props) => {
   //   let userName = props.match.params.userName;
@@ -85,31 +86,40 @@ const SelfProfile = (props) => {
           <ProfileHeader user={user} updateUserAbout={props.updateUserAbout} />
           <ProfileTabs setCurrentTab={setCurrentTab} />
           <div className="profile__content">
-            <div className="about">
-              <UserBio bio={user.bio} toggleBio={toggleBio} />
-              <BioForm
-                show={showBio}
-                handleClose={handleBioClose}
-                bio={bio}
-                setBio={setBio}
-                handleSubmit={handleBioSubmit}
-              />
-              <div className="details">
-                <PersonalDetails
-                  personalDetails={user.personalDetails}
-                  togglePersonal={togglePersonal}
+            {currentTab === 0 ? (
+              <div className="about">
+                <UserBio bio={user.bio} toggleBio={toggleBio} />
+                <BioForm
+                  show={showBio}
+                  handleClose={handleBioClose}
+                  bio={bio}
+                  setBio={setBio}
+                  handleSubmit={handleBioSubmit}
                 />
-                <PersonalDetailsForm
-                  show={showPersonalForm}
-                  handleClose={handlePersonalClose}
-                  personalDetails={personalDetails}
-                  setPersonalDetails={setPersonalDetails}
-                  handleSubmit={handlePersonalSubmit}
-                />
-                <CollegeDetails collegeDetails={user.collegeDetails} />
+                <div className="details">
+                  <PersonalDetails
+                    personalDetails={user.personalDetails}
+                    togglePersonal={togglePersonal}
+                  />
+                  <PersonalDetailsForm
+                    show={showPersonalForm}
+                    handleClose={handlePersonalClose}
+                    personalDetails={personalDetails}
+                    setPersonalDetails={setPersonalDetails}
+                    handleSubmit={handlePersonalSubmit}
+                  />
+                  <CollegeDetails collegeDetails={user.collegeDetails} />
+                </div>
+                <Highlights />
               </div>
-              <Highlights />
-            </div>
+            ) : null}
+
+            {currentTab === 2 ? (
+              <FollowersAndFollowingList people={user.followers} />
+            ) : null}
+            {currentTab === 3 ? (
+              <FollowersAndFollowingList people={user.following} />
+            ) : null}
           </div>
         </div>
         {currentTab === 0 ? (
@@ -128,6 +138,7 @@ const SelfProfile = (props) => {
             </div>
           </div>
         ) : null}
+
         <MainChat />
       </div>
     </>

@@ -10,6 +10,7 @@ import Highlights from "../../Components/Highlights/highlights";
 
 import "./userProfile.css";
 import "./about.css";
+import FollowersAndFollowingList from "../../Components/FollowersList/followers";
 
 const OtherProfile = (props) => {
   //   let userName = props.match.params.userName;
@@ -24,14 +25,22 @@ const OtherProfile = (props) => {
           <ProfileHeader user={user} currentUser={props.currentUser} />
           <ProfileTabs setCurrentTab={setCurrentTab} />
           <div className="profile__content">
-            <div className="about">
-              <UserBio bio={user.bio} />
-              <div className="details">
-                <PersonalDetails personalDetails={user.personalDetails} />
-                <CollegeDetails collegeDetails={user.collegeDetails} />
+            {currentTab === 0 ? (
+              <div className="about">
+                <UserBio bio={user.bio} />
+                <div className="details">
+                  <PersonalDetails personalDetails={user.personalDetails} />
+                  <CollegeDetails collegeDetails={user.collegeDetails} />
+                </div>
+                <Highlights />
               </div>
-              <Highlights />
-            </div>
+            ) : null}
+            {currentTab === 2 ? (
+              <FollowersAndFollowingList people={user.followers} />
+            ) : null}
+            {currentTab === 3 ? (
+              <FollowersAndFollowingList people={user.following} />
+            ) : null}
           </div>
         </div>
         {currentTab === 0 ? (
