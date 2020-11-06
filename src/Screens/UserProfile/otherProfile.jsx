@@ -10,6 +10,7 @@ import "./userProfile.css";
 import "./about.css";
 import FollowersAndFollowingList from "../../Components/FollowersList/followers";
 import Highlights from "./../../Components/Highlights/highlights";
+import PhotosTab from "../../Components/PhotosTab/photosTab";
 
 const OtherProfile = (props) => {
   //   let userName = props.match.params.userName;
@@ -34,6 +35,8 @@ const OtherProfile = (props) => {
                 <Highlights />
               </div>
             ) : null}
+
+            {currentTab === 1 ? <PhotosTab /> : null}
             {currentTab === 2 ? (
               <FollowersAndFollowingList people={user.followers} />
             ) : null}
