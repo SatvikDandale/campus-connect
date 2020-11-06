@@ -2,11 +2,17 @@ import { Done, Edit, Facebook, GroupAdd, Message } from "@material-ui/icons";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import Profile from "../../Assets/Images/profile_user@2x.png";
-import { followUser } from "../../Services/userService";
+import { followUser, unFollowUser } from "../../Services/userService";
 import NameForm from "../AboutPageModals/nameForm";
 import "./profileHeader.css";
 
-const ProfileHeader = ({ user, updateUserAbout, currentUser, followUser }) => {
+const ProfileHeader = ({
+  user,
+  updateUserAbout,
+  currentUser,
+  followUser,
+  unFollowUser,
+}) => {
   const [name, setName] = useState({
     firstName: user.firstName,
     lastName: user.lastName,
@@ -78,7 +84,14 @@ const ProfileHeader = ({ user, updateUserAbout, currentUser, followUser }) => {
                       }}
                     />
                   ) : (
-                    <Done />
+                    <Done
+                      onClick={() => {
+                        unFollowUser({
+                          follower: currentUser.userName,
+                          following: user.userName,
+                        });
+                      }}
+                    />
                   )
                 ) : null}
               </div>
@@ -94,8 +107,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     followUser: ({ follower, following }) => {
       let data = { follower, following };
-      console.log(data);
       return dispatch(followUser(data));
+    },
+    unFollowUser: ({ follower, following }) => {
+      let data = { follower, following };
+      return dispatch(unFollowUser(data));
     },
   };
 };

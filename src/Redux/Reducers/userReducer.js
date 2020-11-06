@@ -8,6 +8,7 @@ import {
   LOAD_SELF_USER,
   OTHER_USER_LOADED,
   SELF_USER_LOADED,
+  UNFOLLOW_USER,
   UPDATE_USER,
 } from "../actionTypes";
 
@@ -136,6 +137,19 @@ export default (state = DEFAULT_STATE, action) => {
         user: {
           ...state.user,
           following: [...state.user.following, action.following],
+        },
+      };
+
+    case UNFOLLOW_USER:
+      let followingList = [...state.user.following];
+      const index = followingList.indexOf(action.following);
+      followingList.splice(index, 1);
+      console.log(followingList);
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          following: followingList,
         },
       };
 

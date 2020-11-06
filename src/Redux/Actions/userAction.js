@@ -9,6 +9,7 @@ import {
   ADD_USER_FOLLOWING_DATA,
   FOLLOW_USER,
   ADD_FOLLOWING_DATA_OTHER,
+  UNFOLLOW_USER,
 } from "../actionTypes";
 
 export function initUser(userObject) {
@@ -63,6 +64,12 @@ export function addUserFollowingData(data) {
 export function followUserDone(following) {
   return {
     type: FOLLOW_USER,
+    following,
+  };
+}
+export function unFollowUserDone(following) {
+  return {
+    type: UNFOLLOW_USER,
     following,
   };
 }

@@ -8,6 +8,7 @@ import {
   updateUser,
   followUserDone,
   addFollowingDataOther,
+  unFollowUserDone,
 } from "../Redux/Actions/userAction";
 import { addError, removeError } from "../Redux/Actions/errorAction";
 
@@ -182,6 +183,27 @@ export function followUser({ follower, following }) {
       return apiCall("POST", serverBaseURL + "/follow", data)
         .then((res) => {
           dispatch(followUserDone(following));
+          dispatch(removeError());
+          resolve();
+        })
+        .catch((error) => {
+          dispatch(addError(error.response));
+          reject();
+        });
+    });
+  };
+}
+
+export function unFollowUser({ follower, following }) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      const data = {
+        follower,
+        following,
+      };
+      return apiCall("POST", serverBaseURL + "/unfollow", data)
+        .then((res) => {
+          dispatch(unFollowUserDone());
           dispatch(removeError());
           resolve();
         })
