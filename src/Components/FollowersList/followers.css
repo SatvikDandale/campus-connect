@@ -3,8 +3,8 @@
   display: flex;
   flex-direction: row;
 }
-.person__card {
-  width: 30%;
+.followers__list .person__card {
+  width: 250px;
   border-radius: 20px;
   display: flex;
   flex-direction: row;
@@ -13,7 +13,7 @@
   box-shadow: 5px 5px 8px;
   margin: 2rem;
 }
-.person__card img {
+.followers__list .person__card img {
   width: 3rem;
   margin: 1rem;
   border-radius: 50%;

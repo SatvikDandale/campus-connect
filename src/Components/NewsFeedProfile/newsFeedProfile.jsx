@@ -16,7 +16,7 @@ const NewFeedProfile = ({ user, history }) => {
     <>
       <div className="profile__info">
         <img
-          src={profile}
+          src={user.profilePhotoURL || profile}
           alt="profile"
           onClick={() => history.push("/user/" + user.userName)}
         />

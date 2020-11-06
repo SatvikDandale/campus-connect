@@ -34,7 +34,7 @@ const ProfileHeader = ({ user, updateUserAbout, currentUser, followUser }) => {
   };
   return (
     <div className="profileHeader">
-      <img src={Profile} alt="profile" />
+      <img src={user.profilePhotoURL || Profile} alt="profile" />
       <div className="header__info">
         <div className="details">
           <div className="username">
