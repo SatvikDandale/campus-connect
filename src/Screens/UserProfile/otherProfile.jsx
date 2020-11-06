@@ -6,11 +6,10 @@ import ProfileHeader from "../../Components/ProfileHeader/profileHeader";
 import ProfileTabs from "../../Components/ProfileTabs/profileTabs";
 import UserBio from "../../Components/UserBio/userBio";
 import MainChat from "../Chat/mainChat";
-import Highlights from "../../Components/Highlights/highlights";
-
 import "./userProfile.css";
 import "./about.css";
 import FollowersAndFollowingList from "../../Components/FollowersList/followers";
+import Highlights from './../../Components/HighLights/highlights';
 
 const OtherProfile = (props) => {
   //   let userName = props.match.params.userName;
