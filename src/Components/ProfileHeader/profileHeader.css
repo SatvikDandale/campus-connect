@@ -8,6 +8,7 @@
 
 .profileHeader > img {
   width: 18%;
+  height: 18%;
   border-radius: 50%;
   z-index: 2;
 }
@@ -45,6 +46,15 @@
 .header__info > .details > .bio {
   color: #6f6e6e;
 }
+
+.connect__buttons {
+  display: flex;
+  justify-content: center;
+}
+.connect__buttons > .MuiSvgIcon-root {
+  margin: 5px 5px;
+}
+
 @media (max-width: 800px) {
   .profileHeader {
     flex-direction: column;

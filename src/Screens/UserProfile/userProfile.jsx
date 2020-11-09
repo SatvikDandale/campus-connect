@@ -13,14 +13,13 @@ import {
 
 import "./userProfile.css";
 import "./about.css";
+import OtherProfile from "./otherProfile";
 
 const UserProfile = (props) => {
-  console.log(props);
   if (!localStorage.token) {
     props.history.push("/login");
   }
   if (props.user.userName === null && !props.selfUserRequestSent) {
-    console.log("GETTING SELF");
     props.startLoadingSelfUser(); // Prevent duplicate requests
     props.self();
   }
@@ -29,8 +28,6 @@ const UserProfile = (props) => {
 
   if (props.user.userName !== userName && !props.otherUserRequestSent) {
     // Get the user from userService
-    console.log(userName);
-    console.log(props.user);
     if (!props.otherUser) {
       props.startLoadingOtherUser(); // Prevent duplicate requests
       props.getUserDetails(userName, true);
@@ -57,7 +54,7 @@ const UserProfile = (props) => {
           className="overlay"
         ></LoadingOverlay>
       ) : (
-        <SelfProfile user={props.otherUser} />
+        <OtherProfile user={props.otherUser} currentUser={props.user} />
       )}
     </>
   );

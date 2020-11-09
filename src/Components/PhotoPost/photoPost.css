@@ -1,0 +1,11 @@
+.photo__post {
+  /* width: 400px; */
+  width: 40%;
+  /* border: 1px solid; */
+  /* flex */
+}
+
+.photo__post img {
+  width: 100%;
+  margin: 0.4rem 0;
+}

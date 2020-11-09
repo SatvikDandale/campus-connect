@@ -5,10 +5,13 @@ const PersonalDetails = ({ personalDetails, togglePersonal }) => {
   return (
     <div className="personal__details details_card">
       <div className="details_heading">
-        Home Town {<Edit onClick={() => togglePersonal(true)} />}
+        Home Town{" "}
+        {togglePersonal ? <Edit onClick={() => togglePersonal(true)} /> : null}
       </div>
       <div className="line"></div>
-      <p className="details_entry">{personalDetails.homeTown}</p>
+      <p className="details_entry">
+        {personalDetails ? personalDetails.homeTown : ""}
+      </p>
 
       <p className="details_heading">Talents</p>
       <div className="line"></div>

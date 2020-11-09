@@ -1,0 +1,32 @@
+.photos__section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photos__tabs {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0px;
+  width: 97.4%;
+  margin-bottom: 30px;
+}
+.photos__tabs .MuiSvgIcon-root {
+  margin: 0.1rem 0.3rem;
+}
+
+.scribbles {
+  width: 90%;
+}
+
+.photos__section .photos {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+}

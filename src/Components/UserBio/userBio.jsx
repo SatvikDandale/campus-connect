@@ -6,7 +6,7 @@ const UserBio = ({ bio, toggleBio }) => {
   return (
     <div className="bio">
       <div className="bio__heading">
-        Bio {<Edit onClick={() => toggleBio(true)}></Edit>}
+        Bio {toggleBio ? <Edit onClick={() => toggleBio(true)}></Edit> : null}
       </div>
       <pre className="bio__content">{bio}</pre>
     </div>

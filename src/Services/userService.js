@@ -1,10 +1,14 @@
 import { apiCall, serverBaseURL, setTokenHeader } from "./apiService";
 import {
+  addUserFollowingData,
   initOtherUser,
   initUser,
   otherUserLoaded,
   selfUserLoaded,
   updateUser,
+  followUserDone,
+  addFollowingDataOther,
+  unFollowUserDone,
 } from "../Redux/Actions/userAction";
 import { addError, removeError } from "../Redux/Actions/errorAction";
 
@@ -61,6 +65,47 @@ export function signUp(signUpData) {
   };
 }
 
+export function getUserFollowing(userName) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      return apiCall(
+        "GET",
+        serverBaseURL + `/userFollowerFollowing/${userName}`
+      )
+        .then((data) => {
+          // console.log(userObject);
+          dispatch(addUserFollowingData(data));
+          resolve();
+        })
+        .catch((error) => {
+          // console.log(error.response);
+          dispatch(addError(error.response));
+          reject(error);
+        });
+    });
+  };
+}
+export function getOtherUserFollowing(userName) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      return apiCall(
+        "GET",
+        serverBaseURL + `/userFollowerFollowing/${userName}`
+      )
+        .then((data) => {
+          // console.log(userObject);
+          dispatch(addFollowingDataOther(data));
+          resolve();
+        })
+        .catch((error) => {
+          // console.log(error.response);
+          dispatch(addError(error.response));
+          reject(error);
+        });
+    });
+  };
+}
+
 export function getUserDetails(userName, other = false) {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
@@ -71,9 +116,12 @@ export function getUserDetails(userName, other = false) {
           if (!other) {
             dispatch(initUser(userObject));
             dispatch(selfUserLoaded());
+
+            dispatch(getUserFollowing(userName));
           } else {
             dispatch(initOtherUser(userObject));
             dispatch(otherUserLoaded());
+            dispatch(getOtherUserFollowing(userName));
           }
           dispatch(removeError());
           resolve();
@@ -95,6 +143,8 @@ export function self() {
           dispatch(initUser(userObject));
           dispatch(selfUserLoaded());
           dispatch(removeError());
+
+          dispatch(getUserFollowing(userObject.userName));
           resolve(userObject);
         })
         .catch((error) => {
@@ -118,6 +168,48 @@ export function updateUserAbout(updatedUserDetails) {
         .catch((error) => {
           dispatch(addError(error.response));
           reject(error);
+        });
+    });
+  };
+}
+
+export function followUser({ follower, following }) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      const data = {
+        follower,
+        following,
+      };
+      return apiCall("POST", serverBaseURL + "/follow", data)
+        .then((res) => {
+          dispatch(followUserDone(following));
+          dispatch(removeError());
+          resolve();
+        })
+        .catch((error) => {
+          dispatch(addError(error.response));
+          reject();
+        });
+    });
+  };
+}
+
+export function unFollowUser({ follower, following }) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      const data = {
+        follower,
+        following,
+      };
+      return apiCall("POST", serverBaseURL + "/unfollow", data)
+        .then((res) => {
+          dispatch(unFollowUserDone());
+          dispatch(removeError());
+          resolve();
+        })
+        .catch((error) => {
+          dispatch(addError(error.response));
+          reject();
         });
     });
   };
