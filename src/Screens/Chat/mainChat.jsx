@@ -2,32 +2,75 @@ import { ArrowRight } from "@material-ui/icons";
 import React, { useState } from "react";
 import ChatScreen from "./ChatScreen";
 import "./mainChat.css";
+import openSocket from "socket.io-client";
 
-export default function MainChat(props) {
-  const [minimised, setMinimised] = useState(
-    props.minimised !== undefined ? props.minimised : true
-  );
-  const [toggle, showToggle] = useState(false);
-  return (
-    <div className={minimised ? "chat__minimised" : "chat"}>
-      <div
-        className={`toggle__arrow ${!minimised ? `` : `hidden`}`}
-        onMouseEnter={() => showToggle(true)}
-        onMouseLeave={() => showToggle(false)}
-      >
+
+const chatServerURL = 'http://192.168.0.102:3100/';
+
+class MainChat extends React.Component {
+  constructor(props){
+    super(props);
+    console.log(props)
+  }
+
+  socket = openSocket(chatServerURL);
+
+  state ={
+    minimised : true,
+    toggle: false
+  }
+
+  setMinimised = () => {
+    this.setState((prevState)=> {
+      return {
+        ...prevState,
+        minimised : !prevState.minimised
+      }
+    })
+  }
+
+  showToggle = () => {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+       toggle : !prevState.toggle
+      }
+    })
+  }
+  
+  componentDidMount(){
+    if(this.props.minimised !== undefined){
+      this.setState({
+        minimised: this.props.minimised
+      })
+    }
+  }
+
+  render() {
+    return (
+      <div className={this.state.minimised ? "chat__minimised" : "chat"}>
         <div
-          className="arrow__div"
-          style={{
-            height: "50%",
-            display: !minimised ? "flex" : "none",
-            color: toggle ? "black" : "transparent",
-          }}
-          onClick={() => setMinimised(true)}
+          className={`toggle__arrow ${!this.state.minimised ? `` : `hidden`}`}
+          onMouseEnter={() => this.showToggle(true)}
+          onMouseLeave={() => this.showToggle(false)}
         >
-          <ArrowRight />
+          <div
+            className="arrow__div"
+            style={{
+              height: "50%",
+              display: !this.state.minimised ? "flex" : "none",
+              color: this.state.toggle ? "black" : "transparent",
+            }}
+            onClick={() => this.setMinimised(true)}
+          >
+            <ArrowRight />
+          </div>
         </div>
+        <ChatScreen minimised={this.state.minimised} setMinimised={this.setMinimised} />
       </div>
-      <ChatScreen minimised={minimised} setMinimised={setMinimised} />
-    </div>
-  );
+    );
+  }
+
 }
+
+export default MainChat;

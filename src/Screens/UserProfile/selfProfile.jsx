@@ -7,7 +7,7 @@ import ProfileHeader from "../../Components/ProfileHeader/profileHeader";
 import ProfileTabs from "../../Components/ProfileTabs/profileTabs";
 import UserBio from "../../Components/UserBio/userBio";
 import MainChat from "../Chat/mainChat";
-import Highlights from "../../Components/Highlights/highlights";
+import Highlights from "../../Components/HighLights/highlights";
 import BioForm from "../../Components/AboutPageModals/bioForm";
 import PersonalDetailsForm from "../../Components/AboutPageModals/personalDetailsForm";
 
@@ -16,10 +16,6 @@ import { updateUserAbout } from "../../Services/userService";
 import "./userProfile.css";
 import "./about.css";
 import FollowersAndFollowingList from "../../Components/FollowersList/followers";
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 import PhotosTab from "../../Components/PhotosTab/photosTab";
 
 const SelfProfile = (props) => {
