@@ -16,6 +16,10 @@ import { updateUserAbout } from "../../Services/userService";
 import "./userProfile.css";
 import "./about.css";
 import FollowersAndFollowingList from "../../Components/FollowersList/followers";
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 import PhotosTab from "../../Components/PhotosTab/photosTab";
 
 const SelfProfile = (props) => {
