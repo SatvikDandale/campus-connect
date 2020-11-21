@@ -2,7 +2,7 @@ import { AccountCircle, Explore, Home, Search } from "@material-ui/icons";
 import React from "react";
 import "./navBar.css";
 
-const NavBar = () => {
+const NavBar = (props) => {
   return (
     <div className="navbar__notBootstrap">
       <p className="navbar__heading">Campus Connect</p>
@@ -11,9 +11,9 @@ const NavBar = () => {
         <Search />
       </div>
       <div className="navbar__icons">
-        <Home />
+        <Home onClick ={()=>props.history.push('/')}/>
         <Explore />
-        <AccountCircle />
+        <AccountCircle onClick = {()=>{localStorage.clear(); window.location.href = '/login'}}/>
       </div>
     </div>
   );
