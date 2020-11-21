@@ -10,6 +10,7 @@ import {
   SELF_USER_LOADED,
   UNFOLLOW_USER,
   UPDATE_USER,
+  GET_POSTS_BY_USERNAME,
 } from "../actionTypes";
 
 const DEFAULT_STATE = {
@@ -36,6 +37,46 @@ const DEFAULT_STATE = {
 
   Lorem Ipsum is simply dummy text of the printing and typesetting industry. try. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.`,
     intro: "General  Computer Engineering",
+    posts: [
+      {
+        timeStamp: "2020-11-06T14:39:32.960Z",
+        caption: " Photo 2",
+        postID: "51b7553c-9074-403f-ab9a-1a2885f077c1",
+        userName: "satvik",
+        url:
+          "https://s3.us-east-1.amazonaws.com/media-service-campus-connect/1604673566259-200118-SQUARE.png",
+      },
+      {
+        timeStamp: "2020-11-06T14:39:32.960Z",
+        caption: " Photo 2",
+        postID: "51b7553c-9074-403f-ab9a-1a2885f077c1",
+        userName: "satvik",
+        url:
+          "https://s3.us-east-1.amazonaws.com/media-service-campus-connect/1604673566259-200118-SQUARE.png",
+      },
+      {
+        timeStamp: "2020-11-06T14:39:32.960Z",
+        caption: " Photo 2",
+        postID: "51b7553c-9074-403f-ab9a-1a2885f077c1",
+        userName: "satvik",
+        url:
+          "https://s3.us-east-1.amazonaws.com/media-service-campus-connect/1604673566259-200118-SQUARE.png",
+      },
+      {
+        timeStamp: "2020-11-06T14:39:06.590Z",
+        caption: "Adding a Phot",
+        postID: "545be275-ec34-440d-afac-ddb87105311d",
+        userName: "satvik",
+        url:
+          "https://s3.us-east-1.amazonaws.com/media-service-campus-connect/1604673539998-beach_97-wallpaper-1024x1024.png",
+      },
+      {
+        timeStamp: "2020-11-06T14:38:52.816Z",
+        caption: "Adding a Photo Caption",
+        postID: "e61c7b3b-c370-4dca-9959-92d0aa7e26f4",
+        userName: "satvik",
+      },
+    ],
   },
   selfUserRequestSent: false,
   otherUser: null,
@@ -62,7 +103,10 @@ export default (state = DEFAULT_STATE, action) => {
       // console.log(action.userObject);
       return {
         ...state,
-        user: action.userObject,
+        user: {
+          ...state.user,
+          ...action.userObject,
+        },
       };
 
     case LOAD_OTHER_USER:
@@ -150,6 +194,15 @@ export default (state = DEFAULT_STATE, action) => {
         user: {
           ...state.user,
           following: followingList,
+        },
+      };
+
+    case GET_POSTS_BY_USERNAME:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          posts: action.posts,
         },
       };
 

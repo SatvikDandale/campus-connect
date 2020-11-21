@@ -9,7 +9,7 @@ import MainChat from "../Chat/mainChat";
 import "./userProfile.css";
 import "./about.css";
 import FollowersAndFollowingList from "../../Components/FollowersList/followers";
-import Highlights from "./../../Components/HighLights/highlights";
+import Highlights from "./../../Components/Highlights/highlights";
 import PhotosTab from "../../Components/PhotosTab/photosTab";
 
 const OtherProfile = (props) => {
@@ -36,7 +36,7 @@ const OtherProfile = (props) => {
               </div>
             ) : null}
 
-            {currentTab === 1 ? <PhotosTab /> : null}
+            {currentTab === 1 ? <PhotosTab userName={user.userName} /> : null}
             {currentTab === 2 ? (
               <FollowersAndFollowingList people={user.followers} />
             ) : null}

@@ -4,50 +4,28 @@ import SubjectIcon from "@material-ui/icons/Subject";
 import "./photosTab.css";
 import Post from "../Post/post";
 import PhotoPost from "../PhotoPost/photoPost";
+import { connect } from "react-redux";
+import {
+  getPostsByUserName,
+  getPostsForOtherUser,
+} from "../../Services/postService";
+import { useEffect } from "react";
 
-const posts = [
-  {
-    timeStamp: "2020-11-06T14:39:32.960Z",
-    caption: " Photo 2",
-    postID: "51b7553c-9074-403f-ab9a-1a2885f077c1",
-    userName: "satvik",
-    url:
-      "https://s3.us-east-1.amazonaws.com/media-service-campus-connect/1604673566259-200118-SQUARE.png",
-  },
-  {
-    timeStamp: "2020-11-06T14:39:32.960Z",
-    caption: " Photo 2",
-    postID: "51b7553c-9074-403f-ab9a-1a2885f077c1",
-    userName: "satvik",
-    url:
-      "https://s3.us-east-1.amazonaws.com/media-service-campus-connect/1604673566259-200118-SQUARE.png",
-  },
-  {
-    timeStamp: "2020-11-06T14:39:32.960Z",
-    caption: " Photo 2",
-    postID: "51b7553c-9074-403f-ab9a-1a2885f077c1",
-    userName: "satvik",
-    url:
-      "https://s3.us-east-1.amazonaws.com/media-service-campus-connect/1604673566259-200118-SQUARE.png",
-  },
-  {
-    timeStamp: "2020-11-06T14:39:06.590Z",
-    caption: "Adding a Phot",
-    postID: "545be275-ec34-440d-afac-ddb87105311d",
-    userName: "satvik",
-    url:
-      "https://s3.us-east-1.amazonaws.com/media-service-campus-connect/1604673539998-beach_97-wallpaper-1024x1024.png",
-  },
-  {
-    timeStamp: "2020-11-06T14:38:52.816Z",
-    caption: "Adding a Photo Caption",
-    postID: "e61c7b3b-c370-4dca-9959-92d0aa7e26f4",
-    userName: "satvik",
-  },
-];
-
-export default function PhotosTab(props) {
+function PhotosTab(props) {
   const [current, setCurrent] = useState(0);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    if (props.self) {
+      props.getPostsByUserName(props.userName).then((newPosts) => {
+        setPosts(newPosts);
+      });
+    } else {
+      props.getPostsForOtherUser(props.userName).then((newPosts) => {
+        setPosts(newPosts);
+      });
+    }
+  }, []);
 
   return (
     <div className="photos__section">
@@ -74,16 +52,43 @@ export default function PhotosTab(props) {
       {current === 0 ? (
         <div className="photos">
           {posts.map((post) => {
-            if (post.url) return <PhotoPost post={post} />;
+            // if (post.url) return <PhotoPost post={post} />;
+            return post.url ? <PhotoPost post={post} /> : null;
           })}
         </div>
       ) : (
         <div className="scribbles">
           {posts.map((post) => {
-            if (!post.url) return <Post post={post} />;
+            // if (!post.url) return <Post post={post} />;
+            return !post.url ? (
+              <Post
+                post={post}
+                user={props.self ? props.user : props.otherUser}
+              />
+            ) : null;
           })}
         </div>
       )}
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer.user,
+    otherUser: state.userReducer.otherUser,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getPostsByUserName: (userName) => {
+      return dispatch(getPostsByUserName(userName));
+    },
+    getPostsForOtherUser: (userName) => {
+      return dispatch(getPostsForOtherUser(userName));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PhotosTab);

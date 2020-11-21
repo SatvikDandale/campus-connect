@@ -4,45 +4,46 @@ import ChatScreen from "./ChatScreen";
 import "./mainChat.css";
 import openSocket from "socket.io-client";
 
-
-const chatServerURL = 'http://192.168.0.102:3100/';
+const chatServerURL = "http://127.0.0.1:3100";
 
 class MainChat extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    console.log(props)
+    console.log(props);
   }
 
-  socket = openSocket(chatServerURL);
+  // socket = openSocket(chatServerURL);
 
-  state ={
-    minimised : true,
-    toggle: false
-  }
+  state = {
+    minimised: true,
+    toggle: false,
+  };
 
   setMinimised = () => {
-    this.setState((prevState)=> {
+    this.setState((prevState) => {
       return {
         ...prevState,
-        minimised : !prevState.minimised
-      }
-    })
-  }
+        minimised: !prevState.minimised,
+      };
+    });
+  };
 
   showToggle = () => {
     this.setState((prevState) => {
       return {
         ...prevState,
-       toggle : !prevState.toggle
-      }
-    })
-  }
-  
-  componentDidMount(){
-    if(this.props.minimised !== undefined){
+        toggle: !prevState.toggle,
+      };
+    });
+  };
+
+  componentDidMount() {
+    // fetch("http://localhost:3100/test");
+
+    if (this.props.minimised !== undefined) {
       this.setState({
-        minimised: this.props.minimised
-      })
+        minimised: this.props.minimised,
+      });
     }
   }
 
@@ -66,11 +67,13 @@ class MainChat extends React.Component {
             <ArrowRight />
           </div>
         </div>
-        <ChatScreen minimised={this.state.minimised} setMinimised={this.setMinimised} />
+        <ChatScreen
+          minimised={this.state.minimised}
+          setMinimised={this.setMinimised}
+        />
       </div>
     );
   }
-
 }
 
 export default MainChat;

@@ -7,7 +7,7 @@ import ProfileHeader from "../../Components/ProfileHeader/profileHeader";
 import ProfileTabs from "../../Components/ProfileTabs/profileTabs";
 import UserBio from "../../Components/UserBio/userBio";
 import MainChat from "../Chat/mainChat";
-import Highlights from "../../Components/HighLights/highlights";
+import Highlights from "../../Components/Highlights/highlights";
 import BioForm from "../../Components/AboutPageModals/bioForm";
 import PersonalDetailsForm from "../../Components/AboutPageModals/personalDetailsForm";
 
@@ -115,7 +115,9 @@ const SelfProfile = (props) => {
               </div>
             ) : null}
 
-            {currentTab === 1 ? <PhotosTab /> : null}
+            {currentTab === 1 ? (
+              <PhotosTab userName={user.userName} self={true} />
+            ) : null}
             {currentTab === 2 ? (
               <FollowersAndFollowingList people={user.followers} />
             ) : null}

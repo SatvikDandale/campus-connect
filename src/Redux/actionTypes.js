@@ -1,4 +1,4 @@
-export const INIT_USER = "ADD_USER";
+export const INIT_USER = "INIT_USER";
 export const INIT_OTHER_USER = "INIT_OTHER_USER";
 
 export const LOAD_SELF_USER = "LOAD_SELF_USER";
@@ -18,3 +18,6 @@ export const UNFOLLOW_USER = "UNFOLLOW_USER";
 // ERROR ACTIONS
 export const ADD_ERROR = "ADD_ERROR";
 export const REMOVE_ERROR = "REMOVE_ERROR";
+
+// POST ACTIONS
+export const GET_POSTS_BY_USERNAME = "GET_POSTS_BY_USERNAME";

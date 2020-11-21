@@ -12,11 +12,18 @@ const Post = (props) => {
   return (
     <div className="post">
       <div className="post__header">
-        <img src={profile} alt="profile" />
+        <img
+          src={props.user ? props.user.profilePhotoURL : profile}
+          alt="profile"
+        />
         <div className="post__owner">
-          <p className="name">{name}</p>
+          <p className="name">
+            {props.user
+              ? props.user.firstName + " " + props.user.lastName
+              : name}
+          </p>
           <div className="spacer"></div>
-          <p className="time">{time}</p>
+          <p className="time">{props.post ? props.post.timeStamp : time}</p>
         </div>
         <div className="spacer"></div>
         <MoreHoriz />
