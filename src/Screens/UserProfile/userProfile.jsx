@@ -43,7 +43,7 @@ const UserProfile = (props) => {
 
   return (
     <>
-      <NavBar />
+      <NavBar {...props}/>
       {props.user.userName === userName ? (
         <SelfProfile user={props.user} />
       ) : !props.otherUser ? (
