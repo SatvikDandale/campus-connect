@@ -8,7 +8,6 @@ var time = "12 Apr at 9 PM";
 
 const Post = (props) => {
   let media = props.media;
-  console.log(media);
   return (
     <div className="post">
       <div className="post__header">

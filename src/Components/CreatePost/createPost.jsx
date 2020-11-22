@@ -1,26 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import "./createPost.css";
 import profile from "../../Assets/Images/profile_user@2x.png";
-import { CheckBox, PermMedia } from "@material-ui/icons";
+import { Image } from "@material-ui/icons";
+import CreatePostForm from "./createPostForm";
 
-const CreatePost = () => {
+const CreatePost = (props) => {
+  const [postForm, setPostForm] = useState(false);
+  const [file, setFile] = useState(null);
+
+  const onPostSubmit = (post) => {
+    for (var pair of post.entries()) {
+      console.log(pair[0]);
+      console.log(pair[1]);
+    }
+  };
+
   return (
     <div className="createpost">
       <p>Share Something</p>
       <div className="createpost__main">
-        <img src={profile} alt="profile" />
-        <input
+        <CreatePostForm
+          user={props.user}
+          show={postForm}
+          file={file}
+          handleClose={() => {
+            setPostForm(false);
+            setFile(null);
+          }}
+          onPostSubmit={onPostSubmit}
+        />
+        <img src={props.user.profilePhotoURL || profile} alt="profile" />
+        <button
           className="createpost__input"
-          placeholder="Something interesting goes here..."
-        ></input>
-        <div className="icons">
+          onClick={() => {
+            setPostForm(true);
+          }}
+        >
+          Something interesting goes here...
+        </button>
+        <button
+          className="icons"
+          onClick={() => {
+            setFile(true);
+            setPostForm(true);
+          }}
+        >
           <div className="icon">
-            <PermMedia />
+            <Image />
           </div>
-          <div className="icon">
-            <CheckBox />
-          </div>
-        </div>
+          Photo
+        </button>
       </div>
     </div>
   );

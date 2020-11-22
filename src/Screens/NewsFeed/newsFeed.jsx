@@ -48,7 +48,7 @@ const NewsFeed = (props) => {
         </div>
         <div className="newsfeed__feed">
           <Scrollbars autoHide>
-            <CreatePost />
+            <CreatePost user={props.user} />
             <Post media={PostPhoto1} />
             <Post />
             <Post media={PostPhoto2} />
