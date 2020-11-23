@@ -19,21 +19,15 @@ class MainChat extends React.Component {
     toggle: false,
   };
 
-  setMinimised = () => {
-    this.setState((prevState) => {
-      return {
-        ...prevState,
-        minimised: !prevState.minimised,
-      };
+  setMinimised = (condition) => {
+    this.setState({
+      minimised: condition,
     });
   };
 
-  showToggle = () => {
-    this.setState((prevState) => {
-      return {
-        ...prevState,
-        toggle: !prevState.toggle,
-      };
+  showToggle = (condition) => {
+    this.setState({
+      toggle: condition,
     });
   };
 
