@@ -27,7 +27,11 @@ export default function CreatePostForm(props) {
       data.append("file", image);
     }
     data.append("caption", postText);
-    props.onPostSubmit(data);
+
+    props.onPostSubmit(data).then(() => {
+      setPostText("");
+      setImage(null);
+    });
   };
 
   return (
@@ -35,6 +39,7 @@ export default function CreatePostForm(props) {
       show={props.show}
       onHide={() => {
         setPostText("");
+        setImage(null);
         props.handleClose();
       }}
     >

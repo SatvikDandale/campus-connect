@@ -3,16 +3,19 @@ import "./createPost.css";
 import profile from "../../Assets/Images/profile_user@2x.png";
 import { Image } from "@material-ui/icons";
 import CreatePostForm from "./createPostForm";
+import { createPost } from "../../Services/postService";
 
 const CreatePost = (props) => {
   const [postForm, setPostForm] = useState(false);
   const [file, setFile] = useState(null);
 
-  const onPostSubmit = (post) => {
+  const onPostSubmit = async (post) => {
     for (var pair of post.entries()) {
       console.log(pair[0]);
       console.log(pair[1]);
     }
+    await createPost(post);
+    setPostForm(false);
   };
 
   return (

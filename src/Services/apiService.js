@@ -14,7 +14,7 @@ export function setTokenHeader(token) {
 }
 
 // A generalized method for HTTP REST APIs
-export function apiCall(method, path, data = null) {
+export function apiCall(method, path, data = null, config = null) {
   return new Promise((resolve, reject) => {
     return axios[method.toLowerCase()](path, data)
       .then((res) => {

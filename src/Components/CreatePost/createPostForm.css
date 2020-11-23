@@ -146,6 +146,7 @@
   position: relative;
 }
 .file-select.file-select-disabled:hover .file-select-button {
+  cursor: pointer;
   background: #dce4ec;
   color: #666666;
   padding: 0 10px;

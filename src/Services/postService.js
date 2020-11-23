@@ -36,3 +36,24 @@ export function getPostsForOtherUser(userName) {
     });
   };
 }
+
+export function createPost(postFormData) {
+  return new Promise((resolve, reject) => {
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    return apiCall("POST", serverBaseURL + "/post", postFormData, config)
+      .then((createdPost) => {
+        console.log("Post Created");
+        console.log(createdPost);
+        resolve(createdPost);
+      })
+      .catch((error) => {
+        console.log("Error creating post");
+        console.log(error);
+        reject(error);
+      });
+  });
+}
