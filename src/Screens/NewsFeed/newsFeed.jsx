@@ -46,7 +46,7 @@ const NewsFeed = (props) => {
     ></LoadingOverlay>
   ) : (
     <>
-      <NavBar />
+      <NavBar {...props} />
       <div className="newsfeed">
         <div className="newsfeed__profile">
           <NewFeedProfile />

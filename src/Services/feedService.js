@@ -17,3 +17,17 @@ export function getNewsFeed(userName) {
     });
   };
 }
+
+export function getProfilePhotoForUserName(userName) {
+  return new Promise((resolve, reject) => {
+    return apiCall("GET", serverBaseURL + `/getProfilePhoto/${userName}`)
+      .then((url) => {
+        resolve(url);
+      })
+      .catch((error) => {
+        console.log("Error getting profile URL");
+        console.log(error);
+        reject(error);
+      });
+  });
+}

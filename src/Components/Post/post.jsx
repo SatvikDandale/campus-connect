@@ -1,20 +1,25 @@
 import { Comment, Favorite, MoreHoriz } from "@material-ui/icons";
-import React from "react";
-import profile from "../../Assets/Images/free-profile-photo-whatsapp-4.png";
+import React, { useEffect } from "react";
+// import profile from "../../Assets/Images/free-profile-photo-whatsapp-4.png";
 import "./post.css";
+import { getProfilePhotoForUserName } from "../../Services/feedService";
 
 var name = "Captain America";
 var time = "12 Apr at 9 PM";
 
 const Post = (props) => {
-  let media = props.media;
+  const [profileURL, setProfileURL] = React.useState("");
+
+  useEffect(() => {
+    getProfilePhotoForUserName(props.post.userName).then((url) => {
+      setProfileURL(url);
+    });
+  }, []);
+
   return (
     <div className="post">
       <div className="post__header">
-        <img
-          src={props.user ? props.user.profilePhotoURL : profile}
-          alt="profile"
-        />
+        <img src={profileURL} alt="profile" />
         <div className="post__owner">
           <p className="name">
             {props.post ? "@" + props.post.userName : name}

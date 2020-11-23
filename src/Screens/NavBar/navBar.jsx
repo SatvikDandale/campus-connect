@@ -11,9 +11,14 @@ const NavBar = (props) => {
         <Search />
       </div>
       <div className="navbar__icons">
-        <Home onClick ={()=>props.history.push('/')}/>
+        <Home onClick={() => props.history.push("/")} />
         <Explore />
-        <AccountCircle onClick = {()=>{localStorage.clear(); window.location.href = '/login'}}/>
+        <AccountCircle
+          onClick={() => {
+            localStorage.clear();
+            props.history.push("/login");
+          }}
+        />
       </div>
     </div>
   );
