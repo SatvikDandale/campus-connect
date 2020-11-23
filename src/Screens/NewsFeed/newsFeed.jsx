@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Scrollbars } from "react-custom-scrollbars";
 import LoadingOverlay from "react-loading-overlay";
 
@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { getUserDetails, self } from "../../Services/userService";
 
 import "./newsFeed.css";
+import { getNewsFeed } from "../../Services/feedService";
 
 const NewsFeed = (props) => {
   // console.log()
@@ -32,6 +33,10 @@ const NewsFeed = (props) => {
     }
   }
 
+  useEffect(() => {
+    if (props.user.userName) props.getNewsFeed(props.user.userName);
+  }, [props.user.userName]);
+
   return !props.user.userName ? (
     <LoadingOverlay
       active={true}
@@ -49,9 +54,9 @@ const NewsFeed = (props) => {
         <div className="newsfeed__feed">
           <Scrollbars autoHide>
             <CreatePost user={props.user} />
-            <Post media={PostPhoto1} />
-            <Post />
-            <Post media={PostPhoto2} />
+            {props.feed.map((post) => {
+              return <Post post={post} />;
+            })}
           </Scrollbars>
         </div>
         <MainChat minimised={false} />
@@ -64,6 +69,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
     error: state.errorReducer,
+    feed: state.feedReducer.feed,
   };
 };
 
@@ -74,6 +80,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     self: () => {
       return dispatch(self());
+    },
+    getNewsFeed: (userName) => {
+      return dispatch(getNewsFeed(userName));
     },
   };
 };

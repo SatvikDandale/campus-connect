@@ -17,9 +17,7 @@ const Post = (props) => {
         />
         <div className="post__owner">
           <p className="name">
-            {props.user
-              ? props.user.firstName + " " + props.user.lastName
-              : name}
+            {props.post ? "@" + props.post.userName : name}
           </p>
           <div className="spacer"></div>
           <p className="time">{props.post ? props.post.timeStamp : time}</p>
@@ -28,7 +26,7 @@ const Post = (props) => {
         <MoreHoriz />
       </div>
       <div className="post__contents">
-        {media ? <img src={media} alt="post" /> : null}
+        {props.post.url ? <img src={props.post.url} alt="post" /> : null}
         <p className="caption">
           {props.post
             ? props.post.caption
