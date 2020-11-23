@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ChatScreen from "./ChatScreen";
 import "./mainChat.css";
 import openSocket from "socket.io-client";
+import {connect} from "react-redux"
 
 const chatServerURL = "http://127.0.0.1:3100";
 
@@ -12,12 +13,29 @@ class MainChat extends React.Component {
     console.log(props);
   }
 
-  // socket = openSocket(chatServerURL);
+  socket = openSocket(chatServerURL);
 
   state = {
     minimised: true,
     toggle: false,
   };
+
+  sendMessage = (message) => {
+      console.log(message);
+      const payload = {
+    
+    "to": "satvik",
+    "from": "User123",
+    message,
+    "type": "text"
+}
+
+
+      // let payload = {message}
+      this.socket.emit('send',payload, (error)=> {
+        console.log(error);
+      })
+  }
 
   setMinimised = (condition) => {
     this.setState({
@@ -39,6 +57,14 @@ class MainChat extends React.Component {
         minimised: this.props.minimised,
       });
     }
+
+    this.socket.emit('join', {userName: this.props.user.userName},(error)=>{
+      console.log(error);
+    })
+
+    this.socket.on('recieveMessage', (newMessage)=>{
+      console.log(newMessage);
+    })
   }
 
   render() {
@@ -64,10 +90,18 @@ class MainChat extends React.Component {
         <ChatScreen
           minimised={this.state.minimised}
           setMinimised={this.setMinimised}
+          sendMessage={this.sendMessage}
         />
       </div>
     );
   }
 }
 
-export default MainChat;
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer.user
+  }
+}
+
+
+export default connect(mapStateToProps,null)(MainChat);
