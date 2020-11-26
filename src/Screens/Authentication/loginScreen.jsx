@@ -7,20 +7,33 @@ import { login } from "../../Services/userService";
 import "./auth.css";
 import { connect } from "react-redux";
 import { removeError } from "../../Redux/Actions/errorAction";
+import LoadingOverlay from "react-loading-overlay";
+import { useState } from "react";
 
 function LoginScreen(props) {
+  const [loading, setLoading] = useState(false);
+
   // console.log("LogIn");
   // props.login("USER1", "abcd");
   props.removeError();
   const logIn = (userName, password) => {
+    setLoading(true);
     props
       .login(userName, password)
       .then(() => {
+        setLoading(false);
         props.history.push("/");
       })
       .catch((err) => console.log(err));
   };
-  return (
+  return loading ? (
+    <LoadingOverlay
+      active={true}
+      spinner
+      text="Loading..."
+      className="overlay"
+    ></LoadingOverlay>
+  ) : (
     <div className="auth__screen">
       <AuthLeft />
       <div className="auth__right">

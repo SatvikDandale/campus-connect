@@ -11,9 +11,11 @@ import SignUpCollegeDetails from "../../Components/SignUp/signUpCollegeDetails";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { signUp, getUserDetails } from "../../Services/userService";
+import LoadingOverlay from "react-loading-overlay";
 
 function SignUp(props) {
   const [pageNo, setPageNo] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [signUpData, setSignUpData] = useState({
     email: "",
     userName: "",
@@ -28,16 +30,25 @@ function SignUp(props) {
   });
 
   function finalSubmitHandler(collegeDetails) {
+    setLoading(true);
     props
       .signUp({ ...signUpData, collegeDetails })
       .then((userObject) => {
+        setLoading(false);
         props.getUserDetails(userObject.userName);
         props.history.push("/");
       })
       .catch((err) => console.log(err));
   }
 
-  return (
+  return loading ? (
+    <LoadingOverlay
+      active={true}
+      spinner
+      text="Loading..."
+      className="overlay"
+    ></LoadingOverlay>
+  ) : (
     <div className="auth__screen">
       <AuthLeft pageNo={pageNo} />
       <div className="auth__right">
