@@ -1,4 +1,5 @@
 import { ADD_LIKE, INIT__FEED } from "../actionTypes";
+import { REMOVE_LIKE } from './../actionTypes';
 
 const DEFAULT_STATE = {
   feedLoaded: false,
@@ -27,6 +28,23 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
           feed : newFeed
       }
+
+      case REMOVE_LIKE:
+        let tempFeed = [...state.feed]
+        let tempIndex = tempFeed.findIndex((post) => action.postID === post.postID);
+        let tempPost = tempFeed[tempIndex];
+        if(tempPost.likes)
+        {
+          let likeIndex = tempPost.likes.indexOf(action.userName);
+          tempPost.likes.splice(likeIndex, 1);
+        }
+        console.log("TempPost:")
+        console.log(tempPost);
+        tempFeed[tempIndex] = tempPost
+        return{
+            ...state,
+             feed : tempFeed
+        };
     default:
       return state;
   }

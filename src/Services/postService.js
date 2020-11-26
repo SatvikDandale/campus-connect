@@ -1,6 +1,7 @@
 import { apiCall, serverBaseURL } from "./apiService";
 import { addError, removeError } from "../Redux/Actions/errorAction";
 import { addLikeToPost, getPosts } from "../Redux/Actions/postAction";
+import { removeLikeFromPost } from './../Redux/Actions/postAction';
 
 export function getPostsByUserName(userName) {
   return (dispatch) => {
@@ -78,4 +79,28 @@ export function addLike(postID, userName){
       }
       )
     } 
+}
+
+export function removeLike(postID,userName){
+  console.log("REmove like")
+  return (dispatch) =>{
+    return new Promise((resolve, reject) =>{
+      
+      const data ={
+        postID
+      };
+      return apiCall("POST", serverBaseURL + "/removeLike", data)
+      .then(()=>{
+        console.log("IN THEN")
+        dispatch(removeLikeFromPost(postID, userName));
+        dispatch(removeError());
+        resolve();
+        
+      })
+      .catch((error)=>{
+              dispatch(addError(error.response));
+              reject();
+      })
+    })
+  }
 }

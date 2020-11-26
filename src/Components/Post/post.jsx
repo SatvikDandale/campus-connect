@@ -5,6 +5,7 @@ import "./post.css";
 import { getProfilePhotoForUserName } from "../../Services/feedService";
 import { addLike } from "../../Services/postService";
 import { connect } from "react-redux";
+import { removeLike } from './../../Services/postService';
 
 var name = "Captain America";
 var time = "12 Apr at 9 PM";
@@ -52,10 +53,22 @@ const Post = (props) => {
         <div className="likes">
           <Favorite
             onClick={() => {
+             if(likes.includes(props.userName))
+             {
+                props.removeLike(props.post.postID, props.userName).then(() =>{
+                  let tempLikes = [...likes]
+                  let i = tempLikes.indexOf(props.userName)
+                  tempLikes.splice(i, 1);
+                  setLikes(tempLikes) 
+                })
+             }
+             else
+             {
               props.addLike(props.post.postID, props.userName).then(() => {
                 if (likes) setLikes([...likes, props.userName]);
                 else setLikes([props.userName]);
               });
+             }
             }}
             style={{
               color: likes && likes.includes(props.userName) ? "red" : "black",
@@ -83,6 +96,10 @@ const mapDispatchToProps = (dispatch) => {
     addLike: (postID, userName) => {
       return dispatch(addLike(postID, userName));
     },
+    removeLike : (postID, userName) =>{
+      console.log("In map")
+      return dispatch(removeLike(postID, userName));
+    }
   };
 };
 

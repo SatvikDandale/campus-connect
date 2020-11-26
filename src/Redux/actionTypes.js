@@ -22,6 +22,7 @@ export const REMOVE_ERROR = "REMOVE_ERROR";
 // POST ACTIONS
 export const GET_POSTS_BY_USERNAME = "GET_POSTS_BY_USERNAME";
 export const ADD_LIKE = "ADD_LIKE";
+export const REMOVE_LIKE = "REMOVE_LIKE";
 
 // NEWS FEED ACTIONS
 export const INIT__FEED = "INIT__FEED";
