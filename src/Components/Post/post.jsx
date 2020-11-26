@@ -3,18 +3,23 @@ import React, { useEffect } from "react";
 // import profile from "../../Assets/Images/free-profile-photo-whatsapp-4.png";
 import "./post.css";
 import { getProfilePhotoForUserName } from "../../Services/feedService";
+import { addLike } from "../../Services/postService";
+import { connect } from "react-redux";
+import { removeLike } from './../../Services/postService';
 
 var name = "Captain America";
 var time = "12 Apr at 9 PM";
 
 const Post = (props) => {
   const [profileURL, setProfileURL] = React.useState("");
+  const [likes, setLikes] = React.useState([]);
 
   useEffect(() => {
     getProfilePhotoForUserName(props.post.userName).then((url) => {
       setProfileURL(url);
     });
-  }, []);
+    setLikes(props.post.likes);
+  }, [props.post.likes]);
 
   return (
     <div className="post">
@@ -46,8 +51,30 @@ const Post = (props) => {
       <div className="line"></div>
       <div className="reach">
         <div className="likes">
-          <Favorite />
-          <p>1.2k</p>
+          <Favorite
+            onClick={() => {
+             if(likes.includes(props.userName))
+             {
+                props.removeLike(props.post.postID, props.userName).then(() =>{
+                  let tempLikes = [...likes]
+                  let i = tempLikes.indexOf(props.userName)
+                  tempLikes.splice(i, 1);
+                  setLikes(tempLikes) 
+                })
+             }
+             else
+             {
+              props.addLike(props.post.postID, props.userName).then(() => {
+                if (likes) setLikes([...likes, props.userName]);
+                else setLikes([props.userName]);
+              });
+             }
+            }}
+            style={{
+              color: likes && likes.includes(props.userName) ? "red" : "black",
+            }}
+          />
+          <p>{likes ? likes.length : 0}</p>
         </div>
         <div className="comments">
           <Comment />
@@ -58,4 +85,22 @@ const Post = (props) => {
   );
 };
 
-export default Post;
+const mapStateToProps = (state) => {
+  return {
+    userName: state.userReducer.user.userName,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addLike: (postID, userName) => {
+      return dispatch(addLike(postID, userName));
+    },
+    removeLike : (postID, userName) =>{
+      console.log("In map")
+      return dispatch(removeLike(postID, userName));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
