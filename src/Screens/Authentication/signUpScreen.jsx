@@ -10,7 +10,11 @@ import SignUpPersonalDetails from "../../Components/SignUp/signUpPersonalDetails
 import SignUpCollegeDetails from "../../Components/SignUp/signUpCollegeDetails";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { signUp, getUserDetails } from "../../Services/userService";
+import {
+  signUp,
+  getUserDetails,
+  uploadProfilePhoto,
+} from "../../Services/userService";
 import LoadingOverlay from "react-loading-overlay";
 
 function SignUp(props) {
@@ -22,17 +26,22 @@ function SignUp(props) {
     password: "",
     firstName: "",
     lastName: "",
-    collegeDetails: {
-      year: "",
-      branch: "",
-      collegeName: "VIT",
-    },
   });
 
   function finalSubmitHandler(collegeDetails) {
     setLoading(true);
+
+    var formData = new FormData();
+
+    for (let key in signUpData) {
+      formData.append(key, signUpData[key]);
+    }
+    for (let key in collegeDetails) {
+      formData.append(key, collegeDetails[key]);
+    }
+
     props
-      .signUp({ ...signUpData, collegeDetails })
+      .signUp(formData)
       .then((userObject) => {
         setLoading(false);
         props.getUserDetails(userObject.userName);

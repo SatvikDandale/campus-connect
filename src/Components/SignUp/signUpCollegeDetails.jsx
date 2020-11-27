@@ -9,6 +9,8 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import SchoolIcon from "@material-ui/icons/School";
 import "./signUpCollegeDetails.css";
 import { FormControl, InputLabel, Select } from "@material-ui/core";
+import { Edit } from "@material-ui/icons";
+import ImageUploadForm from "../ImageUploadForm/imageUploadForm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,12 +36,25 @@ export default function SignUpCollegeDetails(props) {
   const classes = useStyles();
   const [year, setYear] = React.useState("");
   const [branch, setBranch] = React.useState("");
+  const [image, setImage] = React.useState(null);
+  const [form, setForm] = React.useState(false);
+
+  const handleFormClose = () => {
+    setForm(false);
+  };
+
+  const onImageSubmit = (img) => {
+    setImage(img);
+    setForm(false);
+    console.log(img);
+  };
 
   function submitHandler() {
     let collegeDetails = {
-      collegeName: props.signUpData.collegeDetails.collegeName,
+      collegeName: "VIT",
       year,
       branch,
+      image,
     };
     props.onSubmit(collegeDetails);
   }
@@ -79,7 +94,22 @@ export default function SignUpCollegeDetails(props) {
           submitHandler();
         }}
       >
-        <img src={defaultProfileImage} alt="profile" />
+        <div className="image__upload">
+          <img
+            src={image ? URL.createObjectURL(image) : defaultProfileImage}
+            alt="profile"
+          />
+          <ImageUploadForm
+            show={form}
+            handleClose={handleFormClose}
+            onImageSubmit={onImageSubmit}
+          />
+          <Edit
+            onClick={() => {
+              setForm(true);
+            }}
+          />
+        </div>
 
         <FormControl className={classes.formControl}>
           <InputLabel id="year-select">Year</InputLabel>

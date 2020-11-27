@@ -46,7 +46,12 @@ export function login(userName, password) {
 export function signUp(signUpData) {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
-      return apiCall("POST", serverBaseURL + `/signUp`, signUpData)
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      };
+      return apiCall("POST", serverBaseURL + `/signUp`, signUpData, config)
         .then((authenticationResponse) => {
           setTokenHeader(authenticationResponse.jwt);
           localStorage.setItem("token", authenticationResponse.jwt);
@@ -213,4 +218,30 @@ export function unFollowUser({ follower, following }) {
         });
     });
   };
+}
+
+export function uploadProfilePhoto(formData) {
+  return new Promise((resolve, reject) => {
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    return apiCall(
+      "POST",
+      serverBaseURL + "/uploadProfilePhoto",
+      formData,
+      config
+    )
+      .then((photoURL) => {
+        console.log("Photo Uploaded");
+        console.log(photoURL);
+        resolve(photoURL);
+      })
+      .catch((error) => {
+        console.log("Error uploading photo");
+        console.log(error);
+        reject(error);
+      });
+  });
 }
