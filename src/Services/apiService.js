@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com/`;
+export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com`;
 
 // The authorization header will be set with axios for any further use in the session.
 export function setTokenHeader(token) {
