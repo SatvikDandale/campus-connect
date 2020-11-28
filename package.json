@@ -1,7 +1,7 @@
 {
   "name": "campus-social-media",
   "version": "0.1.0",
-  "homepage":"./",
+  "homepage": "./",
   "engines": {
     "node": "14.15.0",
     "npm": "6.14.8"
@@ -29,7 +29,6 @@
     "react-scripts": "^3.4.4",
     "reactstrap": "^8.6.0",
     "redux": "^4.0.5",
-    "http-server": "^0.12.3",
     "redux-thunk": "^2.3.0",
     "socket.io-client": "^2.3.1"
   },
