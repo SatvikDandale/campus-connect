@@ -1,7 +1,7 @@
 FROM node:12 AS build
 WORKDIR /app
-COPY package.json /app
+COPY app/package.json /app
 RUN npm install
-COPY src /app
-COPY public /app
+COPY app/src /app
+COPY app/public /app
 RUN cd app && npm run build && http-server build -p $PORT
