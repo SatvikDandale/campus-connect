@@ -1,2 +1,6 @@
+setup:
+  addons:
+    - plan: heroku/nodejs
+      as: buildpacks
 build:
   docker: web:Dockerfile
