@@ -1,11 +1,15 @@
-import { Comment, Favorite, MoreHoriz } from "@material-ui/icons";
-import React, { useEffect } from "react";
+import { Comment, Favorite, MoreHoriz, Send } from "@material-ui/icons";
+import React, { useEffect, useState } from "react";
 // import profile from "../../Assets/Images/free-profile-photo-whatsapp-4.png";
 import "./post.css";
 import { getProfilePhotoForUserName } from "../../Services/feedService";
-import { addLike } from "../../Services/postService";
+import { addComment, addLike } from "../../Services/postService";
 import { connect } from "react-redux";
 import { removeLike } from './../../Services/postService';
+import LikesPopUp from './../LikesPopUp/LikesPopUp';
+import Accordion from 'react-bootstrap/Accordion'
+import { Button } from 'react-bootstrap';
+
 
 var name = "Captain America";
 var time = "12 Apr at 9 PM";
@@ -19,11 +23,24 @@ const Post = (props) => {
       setProfileURL(url);
     });
     setLikes(props.post.likes);
-  }, [props.post.likes]);
+  }, [props.post.likes, props.post.userName]);
 
+  const [showLikes, toggleLikes] = useState(false);
+  
+  const handleClose = () => {
+      toggleLikes(false);
+  }
+  const[getComment, setComment] = useState("");
+
+  const handleComment = (e) =>{
+    setComment(e.target.value);
+  }
   return (
+
     <div className="post">
       <div className="post__header">
+        <LikesPopUp show = {showLikes} handleClose = {handleClose} users = {props.post.likes}/>
+        
         <img src={profileURL} alt="profile" />
         <div className="post__owner">
           <p className="name">
@@ -53,13 +70,10 @@ const Post = (props) => {
         <div className="likes">
           <Favorite
             onClick={() => {
-             if(likes.includes(props.userName))
+             if(likes && likes.includes(props.userName))
              {
-                props.removeLike(props.post.postID, props.userName).then(() =>{
-                  let tempLikes = [...likes]
-                  let i = tempLikes.indexOf(props.userName)
-                  tempLikes.splice(i, 1);
-                  setLikes(tempLikes) 
+                props.removeLike(props.post.postID, props.userName).then(()=>{
+                  setLikes([...likes])
                 })
              }
              else
@@ -74,13 +88,29 @@ const Post = (props) => {
               color: likes && likes.includes(props.userName) ? "red" : "black",
             }}
           />
-          <p>{likes ? likes.length : 0}</p>
+          <p className="like__count" onClick={()=>toggleLikes(true)}>{likes ? likes.length : 0}</p>
         </div>
         <div className="comments">
-          <Comment />
+        <Comment />
           <p>25</p>
         </div>
       </div>
+      
+      <div className="input__comment">
+        <input placeholder="Write a comment" onChange = {handleComment} value = {getComment}></input>
+        <Send onClick={()=>{
+          const commentObj ={
+            postID:props.post.postID,
+            comment: getComment,
+            userName: props.userName
+          }
+          props.addComment(commentObj);
+          setComment("");
+        }
+        }/>
+      </div>
+      
+      
     </div>
   );
 };
@@ -99,6 +129,9 @@ const mapDispatchToProps = (dispatch) => {
     removeLike : (postID, userName) =>{
       console.log("In map")
       return dispatch(removeLike(postID, userName));
+    },
+    addComment : (commentObj) =>{
+      return dispatch(addComment(commentObj));
     }
   };
 };

@@ -1,6 +1,6 @@
 import { apiCall, serverBaseURL } from "./apiService";
 import { addError, removeError } from "../Redux/Actions/errorAction";
-import { addLikeToPost, getPosts } from "../Redux/Actions/postAction";
+import { addLikeToPost, getPosts, addCommentToPost } from "../Redux/Actions/postAction";
 import { removeLikeFromPost } from './../Redux/Actions/postAction';
 
 export function getPostsByUserName(userName) {
@@ -103,4 +103,23 @@ export function removeLike(postID,userName){
       })
     })
   }
+}
+
+export function addComment(commentObj){
+  return (dispatch) =>{
+    return new Promise((resolve, reject) => {
+        return apiCall("POST", serverBaseURL + "/addComment", commentObj)
+        .then((newCommentObj) =>{
+          dispatch(addCommentToPost(newCommentObj));
+          dispatch(removeError());
+          resolve();
+        })
+        .catch((error) => {
+          console.log(error);
+            dispatch(addError(error.response));
+            reject();
+        })
+    }
+    )
+  } 
 }

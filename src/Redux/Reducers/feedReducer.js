@@ -1,4 +1,4 @@
-import { ADD_LIKE, INIT__FEED } from "../actionTypes";
+import { ADD_COMMENT, ADD_LIKE, INIT__FEED } from "../actionTypes";
 import { REMOVE_LIKE } from './../actionTypes';
 
 const DEFAULT_STATE = {
@@ -45,6 +45,24 @@ export default (state = DEFAULT_STATE, action) => {
             ...state,
              feed : tempFeed
         };
+
+        case ADD_COMMENT:
+          let newFeedForComment = [...state.feed]
+          let indexForComment = newFeedForComment.findIndex((post) => action.commentObj.postID === post.postID);
+          let postForComment = newFeedForComment[indexForComment];
+          if(postForComment.comments)
+          {
+            postForComment.comments = [...postForComment.comments, action.commentObj];
+          }
+          else
+          {
+            postForComment.comments = [action.commentObj];
+          }
+          newFeedForComment[indexForComment] = postForComment
+          return{
+            ...state,
+              feed : newFeedForComment
+          }
     default:
       return state;
   }

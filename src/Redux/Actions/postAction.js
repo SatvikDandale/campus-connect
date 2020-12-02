@@ -1,4 +1,4 @@
-import { ADD_LIKE, GET_POSTS_BY_USERNAME, REMOVE_LIKE } from "../actionTypes";
+import { ADD_COMMENT, ADD_LIKE, GET_POSTS_BY_USERNAME, REMOVE_LIKE } from "../actionTypes";
 
 
 export function getPosts(posts) {
@@ -22,4 +22,11 @@ export function removeLikeFromPost(postID, userName){
       postID,
       userName
     };
+}
+
+export function addCommentToPost(commentObj){
+  return{
+    type: ADD_COMMENT,
+    commentObj
+  }
 }

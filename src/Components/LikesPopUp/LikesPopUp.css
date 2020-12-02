@@ -1,0 +1,48 @@
+  .likes__list {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .likes__list .person__card {
+    width: 250px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    box-shadow: 5px 5px 8px;
+    margin: 2rem;
+  }
+  .likes__list .person__card img {
+    width: 3rem;
+    margin: 1rem;
+    border-radius: 50%;
+  }
+  .spacer {
+    flex: 1;
+  }
+  .person__card__options {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem;
+  }
+  .person__card__options .MuiSvgIcon-root {
+    margin: 0.2rem 0;
+  }
+  .remove__person:hover {
+    color: red;
+  }
+  
+  .modal-dialog{
+    width: 350px !important;
+  }
+
+  .modal-header > p{
+    flex: 1;
+    text-align: center;
+  }
+
+  .modal-body{
+    overflow-y: auto;
+  }

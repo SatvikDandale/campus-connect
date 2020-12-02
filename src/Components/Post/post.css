@@ -78,3 +78,32 @@
 .reach p {
   margin-left: 10px;
 }
+
+.like__count:hover{
+  cursor: pointer;
+}
+
+
+.input__comment{
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid grey;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px;
+  padding: 2px 10px;
+  justify-content: space-between;
+  margin-top: 20px;
+  outline: none;
+}
+.input__comment > input{
+  border: none;
+  background-color: transparent;
+  padding: 6px 10px;
+  flex: 1;
+}
+
+.input__comment > input:focus{
+  outline: none;
+}
