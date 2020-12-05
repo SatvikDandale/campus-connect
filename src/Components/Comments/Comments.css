@@ -1,0 +1,41 @@
+.single__comment{
+    background-color: gainsboro;
+    border-radius: 15px;
+    margin: 5px;
+    padding: 5px;
+    display: inline-block;
+    width: fit-content;
+  }
+
+  .comment__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 0px 5px;
+    /* justify-content: space-between; */
+  }
+  .comment__header > .spacer {
+    flex: 1;
+  }
+  .comment__header > img {
+    border-radius: 50%;
+    height: 45px;
+    margin-right: 10px;
+  }
+  .comment__owner {
+    display: flex;
+    flex-direction: column;
+  }
+  .comment__owner > .spacer {
+    flex: 1;
+  }
+  .comment__owner > .name {
+    font-weight: 600;
+  }
+  .comment__owner > .time {
+    font-size: 0.8rem;
+  }
+  .comment__header > .MuiSvgIcon-root {
+    transform: scale(1.2);
+  }

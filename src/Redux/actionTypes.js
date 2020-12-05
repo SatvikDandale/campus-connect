@@ -24,6 +24,7 @@ export const GET_POSTS_BY_USERNAME = "GET_POSTS_BY_USERNAME";
 export const ADD_LIKE = "ADD_LIKE";
 export const REMOVE_LIKE = "REMOVE_LIKE";
 export const ADD_COMMENT = "ADD_COMMENT";
+export const GET_ALL_COMMENTS = "GET_ALL_COMMENTS";
 
 // NEWS FEED ACTIONS
 export const INIT__FEED = "INIT__FEED";

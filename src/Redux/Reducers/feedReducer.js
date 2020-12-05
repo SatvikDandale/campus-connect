@@ -1,5 +1,5 @@
 import { ADD_COMMENT, ADD_LIKE, INIT__FEED } from "../actionTypes";
-import { REMOVE_LIKE } from './../actionTypes';
+import { REMOVE_LIKE, GET_ALL_COMMENTS as GET_ALL_COMMENTS } from './../actionTypes';
 
 const DEFAULT_STATE = {
   feedLoaded: false,
@@ -63,6 +63,19 @@ export default (state = DEFAULT_STATE, action) => {
             ...state,
               feed : newFeedForComment
           }
+
+        case GET_ALL_COMMENTS:
+          console.log(action.allComments)
+          let allCommentsFeed = [...state.feed];
+          let indexAllComment = allCommentsFeed.findIndex((post) => action.postID === post.postID);
+          let postAllComments = allCommentsFeed[indexAllComment];
+          postAllComments.comments = action.allComments 
+          allCommentsFeed[indexAllComment] = postAllComments
+          return{
+            ...state,
+            feed : allCommentsFeed
+          }
+          
     default:
       return state;
   }
