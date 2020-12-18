@@ -29,3 +29,6 @@ export const GET_ALL_COMMENTS = "GET_ALL_COMMENTS";
 // NEWS FEED ACTIONS
 export const INIT__FEED = "INIT__FEED";
 
+// MESSAGES
+export const LOAD_MESSAGES = "LOAD_MESSAGES";
+export const ADD_MESSAGE = "ADD_MESSAGE";

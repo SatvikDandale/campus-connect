@@ -32,14 +32,14 @@ const LikeCard = ({ userName }) => {
 };
 
 const LikesPopUp = (props) => {
-  console.log(props);
+  // console.log(props);
   return (
-    <Modal  show={props.show} onHide={props.handleClose}>
+    <Modal show={props.show} onHide={props.handleClose}>
       <Modal.Header
         closeButton
         style={{ fontFamily: "bold", fontSize: 25, alignItems: "center" }}
       >
-       <p>Likes</p> 
+        <p>Likes</p>
       </Modal.Header>
       <Modal.Body>
         <div>

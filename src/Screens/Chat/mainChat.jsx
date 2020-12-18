@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import ChatScreen from "./ChatScreen";
 import "./mainChat.css";
 import openSocket from "socket.io-client";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
+import { addMessage } from "../../Services/chatService";
 
-const chatServerURL = "http://127.0.0.1:3100";
+const chatServerURL = "http://127.0.0.1:3001";
 
 class MainChat extends React.Component {
   constructor(props) {
@@ -20,22 +21,20 @@ class MainChat extends React.Component {
     toggle: false,
   };
 
-  sendMessage = (message) => {
-      console.log(message);
-      const payload = {
-    
-    "to": "satvik",
-    "from": "User123",
-    message,
-    "type": "text"
-}
-
-
-      // let payload = {message}
-      this.socket.emit('send',payload, (error)=> {
-        console.log(error);
-      })
-  }
+  sendMessage = (message, to) => {
+    const payload = {
+      to: to,
+      from: this.props.user.userName,
+      message,
+      type: "text",
+    };
+    console.log(payload);
+    // let payload = {message}
+    this.socket.emit("send", payload, (error) => {
+      console.log(error);
+    });
+    this.props.addMessage(payload);
+  };
 
   setMinimised = (condition) => {
     this.setState({
@@ -58,13 +57,17 @@ class MainChat extends React.Component {
       });
     }
 
-    this.socket.emit('join', {userName: this.props.user.userName},(error)=>{
-      console.log(error);
-    })
+    this.socket.emit(
+      "join",
+      { userName: this.props.user.userName },
+      (error) => {
+        console.log(error);
+      }
+    );
 
-    this.socket.on('recieveMessage', (newMessage)=>{
+    this.socket.on("recieve", (newMessage) => {
       console.log(newMessage);
-    })
+    });
   }
 
   render() {
@@ -99,9 +102,16 @@ class MainChat extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user
-  }
-}
+    user: state.userReducer.user,
+  };
+};
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addMessage: (message) => {
+      return dispatch(addMessage(message));
+    },
+  };
+};
 
-export default connect(mapStateToProps,null)(MainChat);
+export default connect(mapStateToProps, mapDispatchToProps)(MainChat);

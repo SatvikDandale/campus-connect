@@ -44,7 +44,14 @@ class ChatScreen extends React.Component {
 
         {!this.props.minimised ? (
           <div className="chatscreen__bottom">
-            {!this.state.currentChat ? <ChatSearchBar /> : <ChatTextbox sendMessage={this.props.sendMessage}/>}
+            {!this.state.currentChat ? (
+              <ChatSearchBar />
+            ) : (
+              <ChatTextbox
+                sendMessage={this.props.sendMessage}
+                to={this.state.currentChat}
+              />
+            )}
           </div>
         ) : null}
       </div>

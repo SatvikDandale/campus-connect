@@ -3,22 +3,22 @@ import ChatPersonCard from "../../Components/ChatPerson/ChatPersonCard";
 import "./ChatList.css";
 function ChatList(props) {
   var messageDictionary = {
-    Pierre: {
+    User0: {
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/1200px-Pierre-Person.jpg",
-      name: "Pierre",
+      name: "User0",
       lastMessage: "Hi",
     },
-    Jane: {
+    User123: {
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/1200px-Pierre-Person.jpg",
-      name: "Jane",
+      name: "User123",
       lastMessage: "Hi",
     },
-    Monica: {
+    satvik: {
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/1200px-Pierre-Person.jpg",
-      name: "Monica",
+      name: "satvik",
       lastMessage: "Hi",
     },
   };
