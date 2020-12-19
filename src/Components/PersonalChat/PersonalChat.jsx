@@ -13,7 +13,7 @@ class PersonalChat extends React.Component {
 
   render() {
     // console.log(this.props);
-    const yourName = "QW";
+    const yourName = this.props.userName;
     return (
       <Scrollbars autoHide ref={this.scrollbars}>
         {this.props.chatData && this.props.chatData.messages ? (
@@ -23,14 +23,16 @@ class PersonalChat extends React.Component {
                 return (
                   <div
                     className={
-                      yourName !== message.sender
+                      yourName !== message.from
                         ? "message__card"
                         : "message__self__card"
                     }
                     key={index}
                   >
-                    <p style={{ fontSize: 12 }}>{message.sender}</p>
-                    <p style={{ fontSize: 15 }}>{message.message}</p>
+                    <p style={{ fontSize: 12 }}>{message.from}</p>
+                    <p style={{ fontSize: 15, wordWrap: "anywhere" }}>
+                      {message.message}
+                    </p>
                   </div>
                 );
               }
@@ -46,6 +48,7 @@ const mapStateToProps = (state) => {
   // console.log(state.chatReducer.message["User123"]);
   return {
     chatData: state.chatReducer,
+    userName: state.userReducer.user.userName,
   };
 };
 

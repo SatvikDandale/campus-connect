@@ -1,39 +1,35 @@
 import React from "react";
 import ChatPersonCard from "../../Components/ChatPerson/ChatPersonCard";
 import "./ChatList.css";
+import { connect } from "react-redux";
 function ChatList(props) {
-  var messageDictionary = {
-    User0: {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/1200px-Pierre-Person.jpg",
-      name: "User0",
-      lastMessage: "Hi",
-    },
-    User123: {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/1200px-Pierre-Person.jpg",
-      name: "User123",
-      lastMessage: "Hi",
-    },
-    satvik: {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/1200px-Pierre-Person.jpg",
-      name: "satvik",
-      lastMessage: "Hi",
-    },
+  const getLastMessage = (key) => {
+    let tempMessages = props.chatData.messages[key];
+    return tempMessages[tempMessages.length - 1];
   };
-
   return (
     <div className="chat__list">
-      {Object.keys(messageDictionary).map((key) => (
-        <ChatPersonCard
-          key={key}
-          chatProfile={messageDictionary[key]}
-          changeUser={props.changeUser}
-        />
-      ))}
+      {Object.keys(props.chatData.messages).map((key) => {
+        const chatDetails = {
+          name: key,
+          lastMessage: getLastMessage(key),
+        };
+        return (
+          <ChatPersonCard
+            key={key}
+            chatProfile={chatDetails}
+            changeUser={props.changeUser}
+          />
+        );
+      })}
     </div>
   );
 }
 
-export default ChatList;
+const mapStateToProps = (state) => {
+  return {
+    chatData: state.chatReducer,
+  };
+};
+
+export default connect(mapStateToProps, null)(ChatList);
