@@ -4,7 +4,7 @@ import { initFeed } from "../Redux/Actions/feedAction";
 export function getNewsFeed(userName) {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
-      return apiCall("GET", serverBaseURL + `/feed/${userName}`)
+      return apiCall("GET", `/feed/${userName}`)
         .then((feed) => {
           dispatch(initFeed(feed));
           resolve(feed);
@@ -20,7 +20,7 @@ export function getNewsFeed(userName) {
 
 export function getProfilePhotoForUserName(userName) {
   return new Promise((resolve, reject) => {
-    return apiCall("GET", serverBaseURL + `/getProfilePhoto/${userName}`)
+    return apiCall("GET", `/getProfilePhoto/${userName}`)
       .then((url) => {
         resolve(url);
       })

@@ -25,7 +25,7 @@ export function login(userName, password) {
         userName,
         password,
       };
-      return apiCall("POST", serverBaseURL + `/login`, data)
+      return apiCall("POST", `/login`, data)
         .then((authenticationResponse) => {
           setTokenHeader(authenticationResponse.jwt);
           localStorage.setItem("token", authenticationResponse.jwt);
@@ -51,7 +51,7 @@ export function signUp(signUpData) {
           "content-type": "multipart/form-data",
         },
       };
-      return apiCall("POST", serverBaseURL + `/signUp`, signUpData, config)
+      return apiCall("POST", `/signUp`, signUpData, config)
         .then((authenticationResponse) => {
           setTokenHeader(authenticationResponse.jwt);
           localStorage.setItem("token", authenticationResponse.jwt);
@@ -75,7 +75,7 @@ export function getUserFollowing(userName) {
     return new Promise((resolve, reject) => {
       return apiCall(
         "GET",
-        serverBaseURL + `/userFollowerFollowing/${userName}`
+        `/userFollowerFollowing/${userName}`
       )
         .then((data) => {
           // console.log(userObject);
@@ -95,7 +95,7 @@ export function getOtherUserFollowing(userName) {
     return new Promise((resolve, reject) => {
       return apiCall(
         "GET",
-        serverBaseURL + `/userFollowerFollowing/${userName}`
+        `/userFollowerFollowing/${userName}`
       )
         .then((data) => {
           // console.log(userObject);
@@ -115,7 +115,7 @@ export function getUserDetails(userName, other = false) {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
       console.log(other);
-      return apiCall("GET", serverBaseURL + `/userAbout/${userName}`)
+      return apiCall("GET", `/userAbout/${userName}`)
         .then((userObject) => {
           // console.log(userObject);
           if (!other) {
@@ -143,7 +143,7 @@ export function getUserDetails(userName, other = false) {
 export function self() {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
-      return apiCall("GET", serverBaseURL + `/self`)
+      return apiCall("GET", `/self`)
         .then((userObject) => {
           dispatch(initUser(userObject));
           dispatch(selfUserLoaded());
@@ -164,7 +164,7 @@ export function self() {
 export function updateUserAbout(updatedUserDetails) {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
-      return apiCall("POST", serverBaseURL + "/editUser", updatedUserDetails)
+      return apiCall("POST", "/editUser", updatedUserDetails)
         .then((userObject) => {
           dispatch(updateUser(updatedUserDetails));
           dispatch(removeError());
@@ -185,7 +185,7 @@ export function followUser({ follower, following }) {
         follower,
         following,
       };
-      return apiCall("POST", serverBaseURL + "/follow", data)
+      return apiCall("POST", "/follow", data)
         .then((res) => {
           dispatch(followUserDone(following));
           dispatch(removeError());
@@ -206,7 +206,7 @@ export function unFollowUser({ follower, following }) {
         follower,
         following,
       };
-      return apiCall("POST", serverBaseURL + "/unfollow", data)
+      return apiCall("POST", "/unfollow", data)
         .then((res) => {
           dispatch(unFollowUserDone());
           dispatch(removeError());
@@ -229,7 +229,7 @@ export function uploadProfilePhoto(formData) {
     };
     return apiCall(
       "POST",
-      serverBaseURL + "/uploadProfilePhoto",
+      "/uploadProfilePhoto",
       formData,
       config
     )

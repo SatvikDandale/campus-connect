@@ -6,7 +6,7 @@ import { removeLikeFromPost } from './../Redux/Actions/postAction';
 export function getPostsByUserName(userName) {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
-      return apiCall("GET", serverBaseURL + `/posts/${userName}`)
+      return apiCall("GET", `/posts/${userName}`)
         .then((posts) => {
           dispatch(getPosts(posts));
           dispatch(removeError());
@@ -24,7 +24,7 @@ export function getPostsByUserName(userName) {
 export function getPostsForOtherUser(userName) {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
-      return apiCall("GET", serverBaseURL + `/posts/${userName}`)
+      return apiCall("GET", `/posts/${userName}`)
         .then((posts) => {
           dispatch(removeError());
           // console.log("RESOLVING");
@@ -45,7 +45,7 @@ export function createPost(postFormData) {
         "content-type": "multipart/form-data",
       },
     };
-    return apiCall("POST", serverBaseURL + "/post", postFormData, config)
+    return apiCall("POST", "/post", postFormData, config)
       .then((createdPost) => {
         console.log("Post Created");
         console.log(createdPost);
@@ -65,7 +65,7 @@ export function addLike(postID, userName){
           const data = {
             postID
           }
-          return apiCall("POST", serverBaseURL + "/addLike", data)
+          return apiCall("POST", "/addLike", data)
           .then(() =>{
             dispatch(addLikeToPost(postID, userName));
             dispatch(removeError());
@@ -89,7 +89,7 @@ export function removeLike(postID,userName){
       const data ={
         postID
       };
-      return apiCall("POST", serverBaseURL + "/removeLike", data)
+      return apiCall("POST", "/removeLike", data)
       .then(()=>{
         console.log("IN THEN")
         dispatch(removeLikeFromPost(postID, userName));
