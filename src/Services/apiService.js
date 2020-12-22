@@ -1,12 +1,25 @@
 import axios from "axios";
 
-export const serverBaseURL = `http://localhost:8080`;
+export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com`;
+axios.defaults.baseURL      = serverBaseURL;
+
+// prettier-ignore
+var instance = axios.create({
+  url     : "/",
+  baseURL : serverBaseURL,
+  timeout : 4000,
+});
+
 
 // The authorization header will be set with axios for any further use in the session.
 export function setTokenHeader(token) {
+  console.log("Request headers set")
+  console.log(token)
   if (token) {
-    // console.log("Putting Token");
-    // console.log(token);
+    instance.interceptors.request.use(function(config) {
+      config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    });
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   } else {
     delete axios.defaults.headers.common["Authorization"];
@@ -14,14 +27,47 @@ export function setTokenHeader(token) {
 }
 
 // A generalized method for HTTP REST APIs
-export function apiCall(method, path, data = null, config = null) {
+export function apiCall(method = "GET", path, data = null) {
   return new Promise((resolve, reject) => {
-    return axios[method.toLowerCase()](path, data)
-      .then((res) => {
-        return resolve(res.data);
-      })
-      .catch((err) => {
-        return reject(err);
-      });
+    path = path.replace(/\/\//g, "/");
+    method = method.toLowerCase()
+    // GET REQUEST
+    if (method === "get")
+      return instance
+        .get(path)
+        .then((res) => {
+          return resolve(res.data);
+        })
+        .catch((err) => {
+          return reject(err);
+        });
+    // POST REQUEST
+    else if (method === "post")
+      instance
+        .post(path, data)
+        .then((res) => {
+          return resolve(res.data);
+        })
+        .catch((err) => {
+          return reject(err);
+        });
+    else if (method === "patch")
+      instance
+        .patch(path, data)
+        .then((res) => {
+          return resolve(res.data);
+        })
+        .catch((err) => {
+          return reject(err);
+        });
+    else if (method === "delete")
+      instance
+        .delete(path, data)
+        .then((res) => {
+          return resolve(res.data);
+        })
+        .catch((err) => {
+          return reject(err);
+        });
   });
 }
