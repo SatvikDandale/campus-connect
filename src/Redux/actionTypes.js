@@ -32,3 +32,4 @@ export const INIT__FEED = "INIT__FEED";
 // MESSAGES
 export const LOAD_MESSAGES = "LOAD_MESSAGES";
 export const ADD_MESSAGE = "ADD_MESSAGE";
+export const ADD_RECIEVED_MESSAGE = "ADD_RECIEVED_MESSAGE";

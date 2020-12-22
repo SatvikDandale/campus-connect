@@ -1,13 +1,14 @@
 import axios from "axios";
 
-export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com`;
-axios.defaults.baseURL      = serverBaseURL;
+// export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com`;
+export const serverBaseURL = `http://localhost:8080`;
+axios.defaults.baseURL = serverBaseURL;
 
 // prettier-ignore
 var instance = axios.create({
-  url     : "/",
-  baseURL : serverBaseURL,
-  timeout : 4000,
+  url: "/",
+  baseURL: serverBaseURL,
+  timeout: 4000,
 });
 
 
@@ -16,7 +17,7 @@ export function setTokenHeader(token) {
   console.log("Request headers set")
   console.log(token)
   if (token) {
-    instance.interceptors.request.use(function(config) {
+    instance.interceptors.request.use(function (config) {
       config.headers.Authorization = `Bearer ${token}`;
       return config;
     });

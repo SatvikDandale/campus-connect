@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { addMessage } from "../../Services/chatService";
 
 const chatServerURL = "http://127.0.0.1:3001";
-
+// const chatServerURL = "https://campus-social-media-chat.herokuapp.com/";
 class MainChat extends React.Component {
   constructor(props) {
     super(props);
@@ -22,18 +22,20 @@ class MainChat extends React.Component {
   };
 
   sendMessage = (message, to) => {
+    console.log(message);
+    console.log(to);
     const payload = {
       to: to,
       from: this.props.user.userName,
       message,
       type: "text",
     };
-    console.log(payload);
+    this.props.addMessage({ ...payload });
     // let payload = {message}
     this.socket.emit("send", payload, (error) => {
       console.log(error);
     });
-    this.props.addMessage(payload);
+    console.log(payload);
   };
 
   setMinimised = (condition) => {
@@ -67,6 +69,10 @@ class MainChat extends React.Component {
 
     this.socket.on("recieve", (newMessage) => {
       console.log(newMessage);
+      // var to = newMessage.to;
+      // newMessage.to = newMessage.from;
+      // newMessage.from = to;
+      this.props.addMessage(newMessage, true);
     });
   }
 
@@ -108,8 +114,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addMessage: (message) => {
-      return dispatch(addMessage(message));
+    addMessage: (message, isRecieved = false) => {
+      console.log(message);
+      return dispatch(addMessage(message, isRecieved));
     },
   };
 };

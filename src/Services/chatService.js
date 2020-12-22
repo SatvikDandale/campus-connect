@@ -1,7 +1,8 @@
 
 import { addMessageAction } from './../Redux/Actions/chatAction';
-export function addMessage(message) {
+export function addMessage(message, isRecieved = false) {
     return (dispatch) => {
-        dispatch(addMessageAction(message));
+        dispatch(addMessageAction(message, isRecieved));
     };
 }
+

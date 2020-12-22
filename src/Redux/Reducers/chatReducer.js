@@ -1,4 +1,4 @@
-import { LOAD_MESSAGES, ADD_MESSAGE } from '../actionTypes';
+import { LOAD_MESSAGES, ADD_MESSAGE, ADD_RECIEVED_MESSAGE } from '../actionTypes';
 
 const DEFAULT_STATE = {
     messages: {
@@ -158,27 +158,26 @@ export default (state = DEFAULT_STATE, action) => {
         case LOAD_MESSAGES:
             return state;
         case ADD_MESSAGE:
-            var to = action.message.to;
+            console.log(action);
+            console.log("_++++++++++++++++++=")
+            var to = action.isRecieved ? action.message.from : action.message.to;
             let newMessages = { ...state.messages };
             let personalMessages = newMessages[to];
-            console.log(personalMessages);
+            // console.log(personalMessages);
             personalMessages = [...personalMessages, action.message];
-            console.log(personalMessages);
+            // console.log(personalMessages);
             // newMessages[to] = personalMessages;
             newMessages = { ...newMessages, [to]: personalMessages }
-            //{ satvik : Array (Messages),userName : Array (Messages)
-            // user0 : Array (Messages),  =>new array
-            // user123 : old Array (Messages),
-            // userName : Array (Messages),
-            // }
-            // user123: personalMessages
-
-            console.log(newMessages);
             return {
                 ...state,
                 messages: newMessages
             }
-
+        //{ satvik : Array (Messages),userName : Array (Messages)
+        // user0 : Array (Messages),  =>new array
+        // user123 : old Array (Messages),
+        // userName : Array (Messages),
+        // }
+        // user123: personalMessages
         default:
             return state;
     }
