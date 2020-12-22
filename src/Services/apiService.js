@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com`;
-export const serverBaseURL = `http://localhost:8080`;
+export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com`;
+// export const serverBaseURL = `http://localhost:8080`;
 axios.defaults.baseURL = serverBaseURL;
 
 // prettier-ignore

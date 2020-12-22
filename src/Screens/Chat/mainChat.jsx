@@ -6,8 +6,8 @@ import openSocket from "socket.io-client";
 import { connect } from "react-redux";
 import { addMessage } from "../../Services/chatService";
 
-const chatServerURL = "http://127.0.0.1:3001";
-// const chatServerURL = "https://campus-social-media-chat.herokuapp.com/";
+// const chatServerURL = "http://127.0.0.1:3001";
+const chatServerURL = "https://campus-social-media-chat.herokuapp.com/";
 class MainChat extends React.Component {
   constructor(props) {
     super(props);
