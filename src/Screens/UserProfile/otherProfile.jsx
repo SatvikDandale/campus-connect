@@ -9,7 +9,7 @@ import MainChat from "../Chat/mainChat";
 import "./userProfile.css";
 import "./about.css";
 import FollowersAndFollowingList from "../../Components/FollowersList/followers";
-import Highlights from "./../../Components/Highlights/highlights";
+import Highlights from "../../Components/HighLights/highlights";
 import PhotosTab from "../../Components/PhotosTab/photosTab";
 
 const OtherProfile = (props) => {
