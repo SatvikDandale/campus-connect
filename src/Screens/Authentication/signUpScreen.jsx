@@ -58,6 +58,7 @@ function SignUp(props) {
         }
         else {
           alert("There is an error. Please try again.")
+          alert(err)
         }
       });
   }
