@@ -8,7 +8,7 @@ axios.defaults.baseURL = serverBaseURL;
 var instance = axios.create({
   url: "/",
   baseURL: serverBaseURL,
-  timeout: 4000,
+  timeout: 10000,
 });
 
 
