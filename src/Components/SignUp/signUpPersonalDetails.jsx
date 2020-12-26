@@ -206,7 +206,7 @@ export default function SignUpPersonalDetails(props) {
         </Button>
       </form>
       <h6>
-        Already have an account, <Link to="/login">Sign In Here</Link>
+        Already have an account, <Link className="link"  to="/login">Sign In Here</Link>
       </h6>
     </div>
   );
