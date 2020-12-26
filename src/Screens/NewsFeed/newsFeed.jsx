@@ -24,7 +24,9 @@ const NewsFeed = (props) => {
     props.history.push("/login");
   }
   if (props.user.userName === null) {
-    props.self();
+    props.self().catch((error) => {
+      props.history.push("/login");
+    });
   }
   if (props.error.isError) {
     alert(props.error.errorMessage);
