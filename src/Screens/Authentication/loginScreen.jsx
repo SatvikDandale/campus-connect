@@ -33,6 +33,9 @@ function LoginScreen(props) {
         else if (err.response && err.response.status === 403 && err.response.data === "Not verified") {
           alert("Please check your email inbox and verify your account.")
         }
+        else if (err.response && err.response.status === 404) {
+          alert("No user found with these credentials.")
+        }
         else {
           alert("There is an error. Please try again.")
         }
