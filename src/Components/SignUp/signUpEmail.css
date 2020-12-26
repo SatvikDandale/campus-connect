@@ -8,12 +8,12 @@
 .signUpEmail > h2 {
   font-weight: 700;
   /* margin-top: 30%; */
-  margin-bottom: 8%;
+  margin-bottom: 15%;
 }
 
 .signUpEmail > button {
   width: 25%;
-  margin-top: 20%;
+  margin-top: 15%;
   margin-bottom: 10%;
   font-size: larger;
   font-weight: 600;
@@ -53,4 +53,16 @@
 }
 .MuiSvgIcon-root:hover {
   cursor: pointer;
+}
+
+#alert-dialog-slide-description {
+  padding: 16px 24px;
+}
+
+.email__form {
+  display: flex;
+  align-items: center;
+}
+.email__form > .MuiCircularProgress-root {
+  margin-left: 1rem
 }

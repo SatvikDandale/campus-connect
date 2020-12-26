@@ -34,8 +34,8 @@ export default function SignUpCollegeDetails(props) {
     props.history.push("/signUp/2");
 
   const classes = useStyles();
-  const [year, setYear] = React.useState("");
-  const [branch, setBranch] = React.useState("");
+  const [year, setYear] = React.useState(props.signUpData.year);
+  const [branch, setBranch] = React.useState(props.signUpData.branch);
   const [image, setImage] = React.useState(null);
   const [form, setForm] = React.useState(false);
 
@@ -49,7 +49,22 @@ export default function SignUpCollegeDetails(props) {
     console.log(img);
   };
 
+  function validate() {
+    if (year === "")
+      return false;
+    if (branch === "")
+      return false;
+    if (image === null)
+      return false;
+    return true;
+
+  }
+
   function submitHandler() {
+    if (!validate()) {
+      alert("Incomplete information. Try again.")
+      return;
+    }
     let collegeDetails = {
       collegeName: "VIT",
       year,

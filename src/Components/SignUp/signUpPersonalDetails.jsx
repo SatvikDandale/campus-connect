@@ -41,10 +41,10 @@ export default function SignUpPersonalDetails(props) {
     lastName: null,
   });
   const [values, setValues] = useState({
-    userName: "",
-    password: "",
-    firstName: "",
-    lastName: "",
+    userName: props.signUpData.userName,
+    password: props.signUpData.password,
+    firstName: props.signUpData.firstName,
+    lastName: props.signUpData.lastName,
   });
 
   function validate() {

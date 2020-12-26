@@ -52,3 +52,6 @@
 .auth__right__footer > img:hover {
   cursor: pointer;
 }
+.overlay {
+  width: 100%;
+}
