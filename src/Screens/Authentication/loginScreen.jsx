@@ -24,28 +24,40 @@ function LoginScreen(props) {
         setLoading(false);
         props.history.push("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>{
+        console.log(err.response);
+        setLoading(false);
+        if (err.response && err.response.status === 409) {
+          alert("User already exists");
+        }
+        else if (err.response && err.response.status === 403 && err.response.data === "Not verified") {
+          alert("Please check your email inbox and verify your account.")
+        }
+        else {
+          alert("There is an error. Please try again.")
+        }
+      });
   };
-  return loading ? (
+  return (
     <LoadingOverlay
-      active={true}
+      active={loading}
       spinner
       text="Loading..."
       className="overlay"
-    ></LoadingOverlay>
-  ) : (
-    <div className="auth__screen">
-      <AuthLeft />
-      <div className="auth__right">
-        <Login login={logIn} />
-        <div style={{ flex: 1 }}></div>
-        <div className="auth__right__footer">
-          <p>Contact Us</p>
-          <img src={FacebookIcon} alt="facebook" />
-          <img src={TwitterIcon} alt="twitter" />
+    >
+      <div className="auth__screen">
+        <AuthLeft />
+        <div className="auth__right">
+          <Login login={logIn} />
+          <div style={{ flex: 1 }}></div>
+          <div className="auth__right__footer">
+            <p>Contact Us</p>
+            <img src={FacebookIcon} alt="facebook" />
+            <img src={TwitterIcon} alt="twitter" />
+          </div>
         </div>
       </div>
-    </div>
+    </LoadingOverlay>
   );
 }
 

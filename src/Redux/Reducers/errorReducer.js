@@ -37,8 +37,8 @@ export default (state = DEFAULT_STATE, action) => {
           redirectPath: "/404",
         };
       } else if (
-        action.errorResponse.data.message.includes("JWT expired at") ||
-        action.errorResponse.data.message.includes("The token is invalid")
+        (action.errorResponse && action.errorResponse.data && action.errorResponse.message && action.errorResponse.data.message.includes("JWT expired at")) ||
+        (action.errorResponse && action.errorResponse.data && action.errorResponse.message && action.errorResponse.data.message.includes("The token is invalid"))
       ) {
         // console.log("REDIRECT");
         return {
