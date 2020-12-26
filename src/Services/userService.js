@@ -51,6 +51,7 @@ export function signUp(signUpData) {
           "content-type": "multipart/form-data",
         },
       };
+      setTokenHeader();
       return apiCall("POST", `/signUp`, signUpData, config)
         .then((authenticationResponse) => {
           setTokenHeader(authenticationResponse.jwt);
@@ -69,6 +70,8 @@ export function signUp(signUpData) {
     });
   };
 }
+
+
 
 export function getUserFollowing(userName) {
   return (dispatch) => {
@@ -244,4 +247,21 @@ export function uploadProfilePhoto(formData) {
         reject(error);
       });
   });
+}
+
+export function verifyAndGetCollege(email) {
+  return new Promise((resolve, reject) => {
+    return apiCall(
+      "GET",
+      `/college/${email}`,
+    )
+    .then((collegeName) => {
+      resolve(collegeName)
+    })
+    .catch(error => {
+      console.log("Error in email to college api.")
+      console.log(error)
+      reject(error);
+    })
+  })
 }
