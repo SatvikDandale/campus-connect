@@ -2,9 +2,17 @@ import React from "react";
 import "./PersonalChat.css";
 import { Scrollbars } from "react-custom-scrollbars";
 import { connect } from "react-redux";
+import { loadMessages } from "../../Services/chatService";
 class PersonalChat extends React.Component {
   scrollbars = React.createRef();
   componentDidMount() {
+    // loadMessages(this.props.userName, this.props.user);
+    const requestMessageObj = {
+      from: this.props.userName,
+      to: this.props.user,
+      currentUser: this.props.userName,
+    };
+    this.props.loadMessages(requestMessageObj);
     this.scrollbars.current.scrollToBottom();
   }
   componentDidUpdate() {
@@ -52,4 +60,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(PersonalChat);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadMessages: (requestMessageObj) => {
+      return dispatch(loadMessages(requestMessageObj));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalChat);

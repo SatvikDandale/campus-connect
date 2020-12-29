@@ -156,7 +156,43 @@ const DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
         case LOAD_MESSAGES:
-            return state;
+            let messages = { ...state.messages };
+            messages[action.requestMessageObject.to] = action.messages;
+            return {
+                ...state,
+                messages
+            };
+        /*
+            action.messages :
+                [
+                    {
+                        "createdAt": "2020-12-27T14:55:10.665Z",
+                        "conversationId": "satvik$User123",
+                        "messageId": "800317da-4558-46df-a951-b807ce6ae6be",
+                        "from": "User123",
+                        "to": "satvik",
+                        "message": "ghg",
+                        "type": "text",
+                        "updatedAt": "2020-12-27T14:55:10.665Z"
+                    }
+                ]
+            messages : {
+                "user123":[
+                    {
+                        from: "User123",
+                        to: "try",
+                        message: "Hiiiii",
+                        time: new Date().toISOString(),
+                    },
+                    {
+                        from: "try",
+                        to: "Rak",
+                        message: "Hello",
+                        time: new Date().toISOString(),
+                    },
+                ]
+            }
+        */
         case ADD_MESSAGE:
             console.log(action);
             console.log("_++++++++++++++++++=")

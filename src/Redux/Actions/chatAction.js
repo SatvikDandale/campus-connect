@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, ADD_RECIEVED_MESSAGE } from "../actionTypes";
+import { ADD_MESSAGE, LOAD_MESSAGES } from "../actionTypes";
 
 export function addMessageAction(message, isRecieved) {
     return {
@@ -6,5 +6,14 @@ export function addMessageAction(message, isRecieved) {
         message,
         isRecieved
     };
+}
+
+export function loadMessagesAction(messages, requestMessageObject) {
+    console.log(messages)
+    return {
+        type: LOAD_MESSAGES,
+        messages,
+        requestMessageObject
+    }
 }
 
