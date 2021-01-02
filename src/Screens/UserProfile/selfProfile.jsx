@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import PersonalDetails from "../../Components/PersonalDetails/personalDetails";
@@ -12,6 +12,7 @@ import BioForm from "../../Components/AboutPageModals/bioForm";
 import PersonalDetailsForm from "../../Components/AboutPageModals/personalDetailsForm";
 
 import { updateUserAbout } from "../../Services/userService";
+import {setMinimised} from '../../Redux/Actions/chatAction'
 
 import "./userProfile.css";
 import "./about.css";
@@ -22,6 +23,10 @@ const SelfProfile = (props) => {
   //   let userName = props.match.params.userName;
   // if (props.user.userName )
   let user = props.user;
+
+  useEffect(() => {
+    props.setMinimised(true);
+  })
 
   const [currentTab, setCurrentTab] = useState(0);
   const [bio, setBio] = useState(user.bio);
@@ -154,6 +159,9 @@ const mapDispatchToProps = (dispatch) => {
     updateUserAbout: (updatedUserDetails) => {
       return dispatch(updateUserAbout(updatedUserDetails));
     },
+    setMinimised: (condition = false) => {
+      return dispatch(setMinimised(condition))
+    }
   };
 };
 

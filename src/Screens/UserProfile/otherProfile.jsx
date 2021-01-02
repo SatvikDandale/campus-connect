@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import PersonalDetails from "../../Components/PersonalDetails/personalDetails";
 import CollegeDetails from "../../Components/CollegeDetails/collegeDetails";
@@ -11,10 +11,18 @@ import "./about.css";
 import FollowersAndFollowingList from "../../Components/FollowersList/followers";
 import Highlights from "../../Components/HighLights/highlights";
 import PhotosTab from "../../Components/PhotosTab/photosTab";
+import { setMinimised } from "../../Redux/Actions/chatAction";
+import { connect } from "react-redux";
 
 const OtherProfile = (props) => {
   //   let userName = props.match.params.userName;
   // if (props.user.userName )
+
+  
+  useEffect(() => {
+    props.setMinimised(true);
+  })
+
   let user = props.user;
 
   const [currentTab, setCurrentTab] = useState(0);
@@ -67,4 +75,13 @@ const OtherProfile = (props) => {
   );
 };
 
-export default OtherProfile;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setMinimised: (condition = false) => {
+      return dispatch(setMinimised(condition))
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(OtherProfile);

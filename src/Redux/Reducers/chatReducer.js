@@ -1,8 +1,9 @@
-import { LOAD_MESSAGES, ADD_MESSAGE, ADD_RECIEVED_MESSAGE, LOAD_CONVO_LIST } from '../actionTypes';
+import { LOAD_MESSAGES, ADD_MESSAGE, ADD_RECIEVED_MESSAGE, LOAD_CONVO_LIST, SET_MINIMISED } from '../actionTypes';
 
 const DEFAULT_STATE = {
     messages: {},
     isConvoListLoaded: false,
+    minimised: false
 }
 
 export default (state = DEFAULT_STATE, action) => {
@@ -82,6 +83,12 @@ export default (state = DEFAULT_STATE, action) => {
                 ...state,
                 messages: messagesObject,
                 isConvoListLoaded: true
+        }
+
+        case SET_MINIMISED:
+            return {
+                ...state,
+                minimised: action.condition
             }
 
         default:

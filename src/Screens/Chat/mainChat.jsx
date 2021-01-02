@@ -6,6 +6,7 @@ import openSocket from "socket.io-client";
 import { connect } from "react-redux";
 import { addMessage, loadConvoList } from "../../Services/chatService";
 import { chatServerURL } from "../../Services/apiService";
+import {setMinimised} from '../../Redux/Actions/chatAction'
 
 // const chatServerURL = "https://campus-social-media-chat.herokuapp.com/";
 class MainChat extends React.Component {
@@ -41,9 +42,10 @@ class MainChat extends React.Component {
   };
 
   setMinimised = (condition) => {
-    this.setState({
-      minimised: condition,
-    });
+    // this.setState({
+    //   minimised: condition,
+    // });
+    this.props.setMinimised(condition);
   };
 
   showToggle = (condition) => {
@@ -105,9 +107,9 @@ class MainChat extends React.Component {
 
   render() {
     return (
-      <div className={this.state.minimised ? "chat__minimised" : "chat"}>
+      <div className={this.props.chatData.minimised ? "chat__minimised" : "chat"}>
         <div
-          className={`toggle__arrow ${!this.state.minimised ? `` : `hidden`}`}
+          className={`toggle__arrow ${!this.props.chatData.minimised ? `` : `hidden`}`}
           onMouseEnter={() => this.showToggle(true)}
           onMouseLeave={() => this.showToggle(false)}
         >
@@ -115,7 +117,7 @@ class MainChat extends React.Component {
             className="arrow__div"
             style={{
               height: "50%",
-              display: !this.state.minimised ? "flex" : "none",
+              display: !this.props.chatData.minimised ? "flex" : "none",
               color: this.state.toggle ? "black" : "transparent",
             }}
             onClick={() => this.setMinimised(true)}
@@ -124,7 +126,7 @@ class MainChat extends React.Component {
           </div>
         </div>
         <ChatScreen
-          minimised={this.state.minimised}
+          minimised={this.props.chatData.minimised}
           setMinimised={this.setMinimised}
           sendMessage={this.sendMessage}
         />
@@ -136,17 +138,21 @@ class MainChat extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
+    chatData: state.chatReducer
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addMessage: (message, isRecieved = false) => {
+    addMessage: (message, isReceived = false) => {
       console.log(message);
-      return dispatch(addMessage(message, isRecieved));
+      return dispatch(addMessage(message, isReceived));
     },
     loadConvoList: (userName) => {
       return dispatch(loadConvoList(userName));
+    },
+    setMinimised: (condition = false) => {
+      return dispatch(setMinimised(condition))
     }
   };
 };

@@ -15,6 +15,7 @@ import { getUserDetails, self } from "../../Services/userService";
 
 import "./newsFeed.css";
 import { getNewsFeed } from "../../Services/feedService";
+import { setMinimised } from "../../Redux/Actions/chatAction";
 
 const NewsFeed = (props) => {
   // console.log()
@@ -37,7 +38,8 @@ const NewsFeed = (props) => {
 
   useEffect(() => {
     if (props.user.userName) props.getNewsFeed(props.user.userName);
-  }, [props.user.userName]);
+    props.setMinimised(false);
+  }, [props, props.user.userName]);
 
   return !props.user.userName ? (
     <LoadingOverlay
@@ -86,6 +88,9 @@ const mapDispatchToProps = (dispatch) => {
     getNewsFeed: (userName) => {
       return dispatch(getNewsFeed(userName));
     },
+    setMinimised: (condition = false) => {
+      return dispatch(setMinimised(condition))
+    }
   };
 };
 
