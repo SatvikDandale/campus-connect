@@ -20,7 +20,7 @@ class MainChat extends React.Component {
     minimised: true,
     toggle: false,
     joined: false,
-    intervalId: ""
+    intervalId: "",
   };
 
   sendMessage = (message, to) => {
@@ -77,6 +77,7 @@ class MainChat extends React.Component {
     }
 
     this.socket.on("joined", () => {
+      console.log('Joined')
       this.setState({joined: true})
     })
 
@@ -92,7 +93,8 @@ class MainChat extends React.Component {
     });
 
     this.socket.on('disconnect', () => {
-      clearInterval(this.state.intervalId);
+      let intervalId = setInterval(this.joinSocket, 5000);
+      this.setState({intervalLength: 5000, joined: false, intervalId})
     })
   }
 
