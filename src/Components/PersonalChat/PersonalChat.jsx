@@ -13,6 +13,7 @@ class PersonalChat extends React.Component {
       currentUser: this.props.userName,
     };
     if (!this.props.chatData.messages[this.props.currentChat] || this.props.chatData.messages[this.props.currentChat].length === 0) {
+      console.log("LOading Messages")
       this.props.loadMessages(requestMessageObj);
     }
     this.scrollbars.current.scrollToBottom();
@@ -28,7 +29,7 @@ class PersonalChat extends React.Component {
       <Scrollbars autoHide ref={this.scrollbars} className="custom__scrollbar">
         {this.props.chatData && this.props.chatData.messages ? (
           <div className="chat__messages">
-            {this.props.chatData.messages[this.props.currentChat].map(
+            {this.props.chatData.messages[this.props.currentChat] && this.props.chatData.messages[this.props.currentChat].map(
               (message, index) => {
                 return (
                   <div

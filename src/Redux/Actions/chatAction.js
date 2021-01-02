@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, CONVO_LIST_LOADED, LOAD_CONVO_LIST, LOAD_MESSAGES, SET_MINIMISED } from "../actionTypes";
+import { ADD_MESSAGE, CONVO_LIST_LOADED, INIT_CONVERSATION, LOAD_CONVO_LIST, LOAD_MESSAGES, SET_CURRENT_CHAT, SET_MINIMISED } from "../actionTypes";
 
 export function addMessageAction(message, isRecieved) {
     return {
@@ -33,5 +33,17 @@ export function setMinimised(condition = false) {
     return {
         type: SET_MINIMISED,
         condition
+    }
+}
+export function initConversation(to) {
+    return {
+        type: INIT_CONVERSATION,
+        to
+    }
+}
+export function setCurrentChat(currentChat) {
+    return {
+        type: SET_CURRENT_CHAT,
+        currentChat
     }
 }

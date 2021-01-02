@@ -24,6 +24,7 @@ class MainChat extends React.Component {
     intervalId: "",
   };
 
+
   sendMessage = (message, to) => {
     console.log(message);
     console.log(to);
@@ -71,7 +72,9 @@ class MainChat extends React.Component {
 
   componentDidMount() {
     // fetch("http://localhost:3100/test");
-    this.props.loadConvoList(this.props.user.userName);
+    if (this.props.user.userName) {
+      this.props.loadConvoList(this.props.user.userName);
+    }
 
     if (this.props.minimised !== undefined) {
       this.setState({
@@ -105,6 +108,12 @@ class MainChat extends React.Component {
     clearInterval(this.state.intervalId);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.user.userName && !prevProps.user.userName) {
+      this.props.loadConvoList(this.props.user.userName);
+    }
+  }
+  
   render() {
     return (
       <div className={this.props.chatData.minimised ? "chat__minimised" : "chat"}>

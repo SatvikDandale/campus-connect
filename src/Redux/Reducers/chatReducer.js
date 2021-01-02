@@ -1,14 +1,17 @@
-import { LOAD_MESSAGES, ADD_MESSAGE, ADD_RECIEVED_MESSAGE, LOAD_CONVO_LIST, SET_MINIMISED } from '../actionTypes';
+import { LOAD_MESSAGES, ADD_MESSAGE, ADD_RECIEVED_MESSAGE, LOAD_CONVO_LIST, SET_MINIMISED, INIT_CONVERSATION, SET_CURRENT_CHAT } from '../actionTypes';
 
 const DEFAULT_STATE = {
     messages: {},
     isConvoListLoaded: false,
-    minimised: false
+    minimised: false,
+    currentChat: null
 }
 
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
         case LOAD_MESSAGES:
+            if (action.messages && action.messages.length === 0)
+                return state;
             let messages = { ...state.messages };
             messages[action.requestMessageObject.to] = action.messages;
             return {
@@ -52,6 +55,8 @@ export default (state = DEFAULT_STATE, action) => {
             var to = action.isRecieved ? action.message.from : action.message.to;
             let newMessages = { ...state.messages };
             let personalMessages = newMessages[to];
+            if (!personalMessages)
+                personalMessages = []
             // console.log(personalMessages);
             personalMessages = [...personalMessages, action.message];
             // console.log(personalMessages);
@@ -83,12 +88,29 @@ export default (state = DEFAULT_STATE, action) => {
                 ...state,
                 messages: messagesObject,
                 isConvoListLoaded: true
-        }
+            }
 
         case SET_MINIMISED:
             return {
                 ...state,
                 minimised: action.condition
+            }
+
+        case INIT_CONVERSATION:
+            let tempMessages = {...state.messages}
+            let target = action.to;
+            console.log(tempMessages)
+            tempMessages[target] =[]
+            console.log(tempMessages)
+            return {
+                ...state,
+                messages: tempMessages
+            }
+
+        case SET_CURRENT_CHAT:
+            return {
+                ...state,
+                currentChat: action.currentChat
             }
 
         default:

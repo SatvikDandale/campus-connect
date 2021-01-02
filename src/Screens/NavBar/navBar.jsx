@@ -1,4 +1,4 @@
-import { AccountCircle, Explore, Home, Search } from "@material-ui/icons";
+import { AccountCircle, Explore, Home, PowerSettingsNew, Search } from "@material-ui/icons";
 import React from "react";
 import "./navBar.css";
 
@@ -13,7 +13,7 @@ const NavBar = (props) => {
       <div className="navbar__icons">
         <Home onClick={() => props.history.push("/")} />
         <Explore />
-        <AccountCircle
+        <PowerSettingsNew
           onClick={() => {
             localStorage.clear();
             props.history.push("/login");

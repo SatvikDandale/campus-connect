@@ -6,18 +6,21 @@ import ChatTextbox from "../../Components/ChatTextbox/ChatTextbox";
 import "./ChatScreen.css";
 import ChatSearchBar from "./../../Components/ChatSearchbar/ChatSearchbar";
 import ChatMinimised from "../../Components/ChatMinimised/chatMinimised";
+import { setCurrentChat } from "../../Redux/Actions/chatAction";
+import { connect } from "react-redux";
 
 class ChatScreen extends React.Component {
   state = {
     currentChat: null,
   };
-  getCurrentChat = () => {
-    return this.state.currentChat;
-  };
+  // getCurrentChat = () => {
+  //   return this.state.currentChat;
+  // };
   setCurrentChat = (currentChat) => {
-    this.setState({
-      currentChat: currentChat,
-    });
+    // this.setState({
+    //   currentChat: currentChat,
+    // });
+    this.props.setCurrentChat(currentChat);
     this.props.setMinimised(false);
   };
 
@@ -28,15 +31,15 @@ class ChatScreen extends React.Component {
       >
         {!this.props.minimised ? (
           <ChatNavbar
-            currentChat={this.state.currentChat}
+            currentChat={this.props.chatData.currentChat}
             changeUser={this.setCurrentChat}
           />
         ) : null}
         {!this.props.minimised ? (
-          !this.state.currentChat ? (
+          !this.props.chatData.currentChat ? (
             <ChatList changeUser={this.setCurrentChat} />
           ) : (
-            <PersonalChat currentChat={this.state.currentChat} />
+            <PersonalChat currentChat={this.props.chatData.currentChat} />
           )
         ) : (
           <ChatMinimised changeUser={this.setCurrentChat} />
@@ -44,12 +47,12 @@ class ChatScreen extends React.Component {
 
         {!this.props.minimised ? (
           <div className="chatscreen__bottom">
-            {!this.state.currentChat ? (
+            {!this.props.chatData.currentChat ? (
               <ChatSearchBar />
             ) : (
               <ChatTextbox
                 sendMessage={this.props.sendMessage}
-                to={this.state.currentChat}
+                to={this.props.chatData.currentChat}
               />
             )}
           </div>
@@ -59,4 +62,18 @@ class ChatScreen extends React.Component {
   }
 }
 
-export default ChatScreen;
+const mapStateToProps = (state) => {
+  return {
+    chatData: state.chatReducer,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrentChat: (currentChat) => {
+      return dispatch(setCurrentChat(currentChat))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatScreen);
