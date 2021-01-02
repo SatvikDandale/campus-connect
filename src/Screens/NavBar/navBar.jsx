@@ -1,15 +1,19 @@
-import { AccountCircle, Explore, Home, PowerSettingsNew, Search } from "@material-ui/icons";
 import React from "react";
+import { AccountCircle, Explore, Home, PowerSettingsNew, Search } from "@material-ui/icons";
 import "./navBar.css";
+import SearchModal from "./searchModal";
 
 const NavBar = (props) => {
+  const [show, setShow] = React.useState(false);
+
   return (
     <div className="navbar__notBootstrap">
-      <p className="navbar__heading">Campus Connect</p>
+      <p className="navbar__heading" onClick={() => props.history.push("/")}>Campus Connect</p>
       <div className="navbar__search">
-        <input placeholder="Search"></input>
+        <button onClick={() => setShow(true)}>Search</button>
         <Search />
       </div>
+      <SearchModal show={show} handleClose={() => setShow(false)}/>
       <div className="navbar__icons">
         <Home onClick={() => props.history.push("/")} />
         <Explore />

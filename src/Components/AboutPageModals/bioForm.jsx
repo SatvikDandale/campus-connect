@@ -12,7 +12,10 @@ import { Input } from "reactstrap";
 
 export default function BioForm(props) {
   return (
-    <Modal show={props.show} onHide={props.handleClose}>
+    <Modal
+      show={props.show}
+      onHide={props.handleClose}
+    >
       <Modal.Header closeButton>Update your bio</Modal.Header>
       <Modal.Body>
         <Form>

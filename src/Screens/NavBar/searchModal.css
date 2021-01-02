@@ -1,0 +1,7 @@
+.search__modal {
+    width: 40% !important;
+}
+.col {
+    display: flex;
+    justify-content: center;
+}
