@@ -1,37 +1,48 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { connect } from "react-redux";
+import { getProfilePhotoForUserName } from "../../Services/feedService";
+import { CircularProgress } from "@material-ui/core";
 import "./chatMinimised.css";
 
-export default function ChatMinimised(props) {
-  var messageDictionary = {
-    Pierre: {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/1200px-Pierre-Person.jpg",
-      name: "Pierre",
-      lastMessage: "Hi",
-    },
-    Jane: {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/1200px-Pierre-Person.jpg",
-      name: "Jane",
-      lastMessage: "Hi",
-    },
-    Monika: {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Pierre-Person.jpg/1200px-Pierre-Person.jpg",
-      name: "Monika",
-      lastMessage: "Hi",
-    },
-  };
+function PersonCardMinimised({chatProfile, changeUser}) {
+  const [profileURL, setProfileURL] = React.useState("");
+
+  useEffect(() => {
+    getProfilePhotoForUserName(chatProfile.name).then((url) => {
+      setProfileURL(url);
+    });
+  }, [chatProfile.name]);
+
+  console.log(chatProfile);
   return (
-    <div className="chat__minimised__column">
-      {Object.keys(messageDictionary).map((key, index) => (
-        <img
-          key={index}
-          src={messageDictionary[key]["image"]}
-          alt="person"
-          onClick={() => props.changeUser(messageDictionary[key]["name"])}
-        />
-      ))}
+    <div style={{marginLeft: 0}} className="person__card" onClick={() => changeUser(chatProfile.name)}>
+      <img src={profileURL} alt="" />
     </div>
   );
 }
+
+function ChatMinimised(props) {
+  const people = Object.keys(props.chatData.messages);
+  return (
+    <div className="chat__minimised__column">
+      {props.chatData.isConvoListLoaded ? people.map((key) => {
+        const chatDetails = {
+          name: key,
+        };
+        return <PersonCardMinimised 
+          key={key}
+          chatProfile={chatDetails}
+          changeUser={props.changeUser}
+        />
+    }) : <CircularProgress />}
+    </div>
+  );
+}
+
+const mapStateToProps = (state) => {
+  return {
+    chatData: state.chatReducer,
+  };
+};
+
+export default connect(mapStateToProps, null)(ChatMinimised);

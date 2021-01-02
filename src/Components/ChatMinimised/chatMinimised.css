@@ -13,8 +13,8 @@
   display: none;
 }
 
-.chat__minimised__column > img {
-  width: 40px;
+.chat__minimised__column img {
+  height: 4rem;
   margin-top: 10px;
   clip-path: circle();
 }
