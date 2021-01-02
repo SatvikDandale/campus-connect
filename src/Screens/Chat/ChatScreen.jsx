@@ -36,7 +36,7 @@ class ChatScreen extends React.Component {
           !this.state.currentChat ? (
             <ChatList changeUser={this.setCurrentChat} />
           ) : (
-            <PersonalChat user={this.state.currentChat} />
+            <PersonalChat currentChat={this.state.currentChat} />
           )
         ) : (
           <ChatMinimised changeUser={this.setCurrentChat} />

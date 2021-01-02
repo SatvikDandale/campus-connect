@@ -1,10 +1,10 @@
 import { ArrowRight } from "@material-ui/icons";
-import React, { useState } from "react";
+import React from "react";
 import ChatScreen from "./ChatScreen";
 import "./mainChat.css";
 import openSocket from "socket.io-client";
 import { connect } from "react-redux";
-import { addMessage, loadMessages } from "../../Services/chatService";
+import { addMessage, loadConvoList } from "../../Services/chatService";
 import { chatServerURL } from "../../Services/apiService";
 
 // const chatServerURL = "https://campus-social-media-chat.herokuapp.com/";
@@ -69,6 +69,7 @@ class MainChat extends React.Component {
 
   componentDidMount() {
     // fetch("http://localhost:3100/test");
+    this.props.loadConvoList(this.props.user.userName);
 
     if (this.props.minimised !== undefined) {
       this.setState({
@@ -144,6 +145,9 @@ const mapDispatchToProps = (dispatch) => {
       console.log(message);
       return dispatch(addMessage(message, isRecieved));
     },
+    loadConvoList: (userName) => {
+      return dispatch(loadConvoList(userName));
+    }
   };
 };
 

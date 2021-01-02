@@ -6,13 +6,15 @@ import { loadMessages } from "../../Services/chatService";
 class PersonalChat extends React.Component {
   scrollbars = React.createRef();
   componentDidMount() {
-    // loadMessages(this.props.userName, this.props.user);
+    // loadMessages(this.props.userName, this.props.currentChat);
     const requestMessageObj = {
       from: this.props.userName,
-      to: this.props.user,
+      to: this.props.currentChat,
       currentUser: this.props.userName,
     };
-    this.props.loadMessages(requestMessageObj);
+    if (!this.props.chatData.messages[this.props.currentChat] || this.props.chatData.messages[this.props.currentChat].length === 0) {
+      this.props.loadMessages(requestMessageObj);
+    }
     this.scrollbars.current.scrollToBottom();
   }
   componentDidUpdate() {
@@ -23,10 +25,10 @@ class PersonalChat extends React.Component {
     // console.log(this.props);
     const yourName = this.props.userName;
     return (
-      <Scrollbars autoHide ref={this.scrollbars}>
+      <Scrollbars autoHide ref={this.scrollbars} className="custom__scrollbar">
         {this.props.chatData && this.props.chatData.messages ? (
           <div className="chat__messages">
-            {this.props.chatData.messages[this.props.user].map(
+            {this.props.chatData.messages[this.props.currentChat].map(
               (message, index) => {
                 return (
                   <div
@@ -37,8 +39,8 @@ class PersonalChat extends React.Component {
                     }
                     key={index}
                   >
-                    <p style={{ fontSize: 12 }}>{message.from}</p>
-                    <p style={{ fontSize: 15, wordWrap: "anywhere" }}>
+                    <p className="sender__name" style={{ fontSize: 12 }}>{message.from}</p>
+                    <p className="message__content" style={{ fontSize: 15, wordWrap: "anywhere" }}>
                       {message.message}
                     </p>
                   </div>

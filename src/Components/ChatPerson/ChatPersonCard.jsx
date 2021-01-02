@@ -17,7 +17,7 @@ function ChatPersonCard({ chatProfile, changeUser }) {
       <img src={profileURL} alt="" />
       <div className="card__message">
         <p style={{ fontSize: 20 }}>{chatProfile.name}</p>
-        <p style={{ color: "gray" }}>{chatProfile.lastMessage["message"]}</p>
+        {/* <p style={{ color: "gray" }}>{chatProfile.lastMessage["message"]}</p> */}
       </div>
     </div>
   );

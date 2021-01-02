@@ -2,14 +2,24 @@ import React from "react";
 import ChatPersonCard from "../../Components/ChatPerson/ChatPersonCard";
 import "./ChatList.css";
 import { connect } from "react-redux";
+import { CircularProgress } from "@material-ui/core";
 function ChatList(props) {
   const getLastMessage = (key) => {
     let tempMessages = props.chatData.messages[key];
     return tempMessages[tempMessages.length - 1];
   };
+
+  const helperMessage = (
+    <div className="helper__text">
+      Looks like you have not talked to anyone. Feeling shy?
+    </div>
+  )
+  const people = Object.keys(props.chatData.messages)
+
   return (
-    <div className="chat__list">
-      {Object.keys(props.chatData.messages).map((key) => {
+    <div className={"chat__list " + (people && people.length === 0 ? "empty__list" : "")}>
+      {props.chatData.isConvoListLoaded ? people && people.length > 0 
+      ? people.map((key) => {
         const chatDetails = {
           name: key,
           lastMessage: getLastMessage(key),
@@ -21,7 +31,10 @@ function ChatList(props) {
             changeUser={props.changeUser}
           />
         );
-      })}
+      })
+      : helperMessage
+    : <CircularProgress />
+    }
     </div>
   );
 }

@@ -1,156 +1,8 @@
-import { LOAD_MESSAGES, ADD_MESSAGE, ADD_RECIEVED_MESSAGE } from '../actionTypes';
+import { LOAD_MESSAGES, ADD_MESSAGE, ADD_RECIEVED_MESSAGE, LOAD_CONVO_LIST } from '../actionTypes';
 
 const DEFAULT_STATE = {
-    messages: {
-        "User123": [
-            {
-                from: "User123",
-                to: "try",
-                message: "Hiiiii",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "try",
-                to: "Rak",
-                message: "Hello",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "xyz",
-                to: "try",
-                message: "Bye1",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "User123",
-                to: "try",
-                message: "Hi",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "try",
-                to: "Rak",
-                message: "Hello",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "xyz",
-                to: "try",
-                message: "Bye1",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "QW",
-                to: "try",
-                message: "Hi",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "try",
-                to: "Rak",
-                message: "Hello",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "xyz",
-                to: "try",
-                message: "Bye1",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "QW",
-                to: "try",
-                message: "Hi",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "try",
-                to: "Rak",
-                message: "Hello",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "xyz",
-                to: "try",
-                message: "Bye1",
-                time: new Date().toISOString(),
-            },
-        ],
-        "satvik": [
-            {
-                from: "QW",
-                to: "try",
-                message: "Hiiiii",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "try",
-                to: "Rak",
-                message: "Hello",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "xyz",
-                to: "try",
-                message: "Bye1",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "QW",
-                to: "try",
-                message: "Hi",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "try",
-                to: "Rak",
-                message: "Hello",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "xyz",
-                to: "try",
-                message: "Bye1",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "QW",
-                to: "try",
-                message: "Hi",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "try",
-                to: "Rak",
-                message: "Hello",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "xyz",
-                to: "try",
-                message: "Bye1",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "QW",
-                to: "try",
-                message: "Hi",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "try",
-                to: "Rak",
-                message: "Hello",
-                time: new Date().toISOString(),
-            },
-            {
-                from: "xyz",
-                to: "try",
-                message: "Bye1",
-                time: new Date().toISOString(),
-            },
-        ],
-    }
+    messages: {},
+    isConvoListLoaded: false,
 }
 
 export default (state = DEFAULT_STATE, action) => {
@@ -214,6 +66,24 @@ export default (state = DEFAULT_STATE, action) => {
         // userName : Array (Messages),
         // }
         // user123: personalMessages
+
+        case LOAD_CONVO_LIST:
+            // Args: list of userNames with whom there are conversations
+            let messagesObject = {...state.messages}
+            if (action.convoList) {
+                action.convoList.forEach((userName) => {
+                    messagesObject[userName] = []
+                })
+            }
+            else {
+                return state;
+            }
+            return {
+                ...state,
+                messages: messagesObject,
+                isConvoListLoaded: true
+            }
+
         default:
             return state;
     }
