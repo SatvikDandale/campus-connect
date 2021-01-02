@@ -1,5 +1,5 @@
 
-import { addMessageAction, convoListLoaded, loadConvoListAction, loadMessagesAction } from './../Redux/Actions/chatAction';
+import { addMessageAction, convoListLoaded, convoListNotLoaded, loadConvoListAction, loadMessagesAction } from './../Redux/Actions/chatAction';
 import { apiCallChat } from './apiService';
 export function addMessage(message, isRecieved = false) {
     return (dispatch) => {
@@ -32,11 +32,11 @@ export function loadConvoList(userName) {
             return apiCallChat("GET", `/convoList?userName=${userName}`)
                 .then((convoList = []) => {
                     resolve(convoList)
-                    // dispatch(convoListLoaded())
                     dispatch(loadConvoListAction(convoList))
                 })
                 .catch(error=> {
                     console.log(error);
+                    dispatch(convoListNotLoaded("Oops! Can't reach to your chats! Please try again..."))
                     reject(error);
                 })
         })

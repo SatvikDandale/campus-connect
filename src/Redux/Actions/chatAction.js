@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, CONVO_LIST_LOADED, INIT_CONVERSATION, LOAD_CONVO_LIST, LOAD_MESSAGES, SET_CURRENT_CHAT, SET_MINIMISED } from "../actionTypes";
+import { ADD_MESSAGE, CONVO_LIST_LOADED, CONVO_LIST_NOT_LOADED, INIT_CONVERSATION, LOAD_CONVO_LIST, LOAD_MESSAGES, SET_CURRENT_CHAT, SET_MINIMISED } from "../actionTypes";
 
 export function addMessageAction(message, isRecieved) {
     return {
@@ -45,5 +45,12 @@ export function setCurrentChat(currentChat) {
     return {
         type: SET_CURRENT_CHAT,
         currentChat
+    }
+}
+
+export function convoListNotLoaded(convoError = "") {
+    return {
+        type: CONVO_LIST_NOT_LOADED,
+        convoError
     }
 }

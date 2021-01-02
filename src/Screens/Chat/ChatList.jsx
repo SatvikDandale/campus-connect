@@ -11,7 +11,7 @@ function ChatList(props) {
 
   const helperMessage = (
     <div className="helper__text">
-      Looks like you have not talked to anyone. Feeling shy?
+      {props.chatData.isConvoError ? props.chatData.isConvoError : "Looks like you have not talked to anyone. Feeling shy?"}
     </div>
   )
 
