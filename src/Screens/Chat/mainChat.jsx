@@ -5,8 +5,8 @@ import "./mainChat.css";
 import openSocket from "socket.io-client";
 import { connect } from "react-redux";
 import { addMessage, loadMessages } from "../../Services/chatService";
+import { chatServerURL } from "../../Services/apiService";
 
-const chatServerURL = "http://127.0.0.1:3001";
 // const chatServerURL = "https://campus-social-media-chat.herokuapp.com/";
 class MainChat extends React.Component {
   constructor(props) {
@@ -19,6 +19,8 @@ class MainChat extends React.Component {
   state = {
     minimised: true,
     toggle: false,
+    joined: false,
+    intervalId: ""
   };
 
   sendMessage = (message, to) => {
@@ -50,6 +52,21 @@ class MainChat extends React.Component {
     });
   };
 
+  joinSocket = () => {
+    if (!this.state.joined) {
+      this.socket.emit(
+        "join",
+        { userName: this.props.user.userName },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+    else {
+      clearInterval(this.state.intervalId);
+    }
+  }
+
   componentDidMount() {
     // fetch("http://localhost:3100/test");
 
@@ -59,13 +76,12 @@ class MainChat extends React.Component {
       });
     }
 
-    this.socket.emit(
-      "join",
-      { userName: this.props.user.userName },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.socket.on("joined", () => {
+      this.setState({joined: true})
+    })
+
+    let intervalId = setInterval(this.joinSocket, 1000);
+    this.setState({intervalId})
 
     this.socket.on("recieve", (newMessage) => {
       console.log(newMessage);
@@ -74,6 +90,14 @@ class MainChat extends React.Component {
       // newMessage.from = to;
       this.props.addMessage(newMessage, true);
     });
+
+    this.socket.on('disconnect', () => {
+      clearInterval(this.state.intervalId);
+    })
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
   }
 
   render() {
