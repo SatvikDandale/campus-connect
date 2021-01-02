@@ -12,6 +12,8 @@ import { connect } from "react-redux";
 class ChatScreen extends React.Component {
   state = {
     currentChat: null,
+    isLoaded: false,
+    people: []
   };
   // getCurrentChat = () => {
   //   return this.state.currentChat;
@@ -24,7 +26,27 @@ class ChatScreen extends React.Component {
     this.props.setMinimised(false);
   };
 
+  onSearchType = (newQuery) => {
+    if (newQuery === "")
+      this.setState({
+        people: Object.keys(this.props.chatData.messages)
+      })
+    console.log(newQuery)
+    let newPeople = Object.keys(this.props.chatData.messages).filter(person => person.includes(newQuery))
+    this.setState({
+      people: newPeople
+    })
+  }
+
   render() {
+    if (!this.state.isLoaded) {
+      if (Object.keys(this.props.chatData.messages).length > 0) {
+        this.setState({
+          people: Object.keys(this.props.chatData.messages),
+          isLoaded: true
+        })
+      }
+    }
     return (
       <div
         className={this.props.minimised ? "chat__minimised" : "chat__screen"}
@@ -37,7 +59,7 @@ class ChatScreen extends React.Component {
         ) : null}
         {!this.props.minimised ? (
           !this.props.chatData.currentChat ? (
-            <ChatList changeUser={this.setCurrentChat} />
+            <ChatList changeUser={this.setCurrentChat} people={this.state.people}/>
           ) : (
             <PersonalChat currentChat={this.props.chatData.currentChat} />
           )
@@ -48,7 +70,7 @@ class ChatScreen extends React.Component {
         {!this.props.minimised ? (
           <div className="chatscreen__bottom">
             {!this.props.chatData.currentChat ? (
-              <ChatSearchBar />
+              <ChatSearchBar onSearchType={this.onSearchType} />
             ) : (
               <ChatTextbox
                 sendMessage={this.props.sendMessage}

@@ -14,12 +14,11 @@ function ChatList(props) {
       Looks like you have not talked to anyone. Feeling shy?
     </div>
   )
-  const people = Object.keys(props.chatData.messages)
 
   return (
-    <div className={"chat__list " + (people && people.length === 0 ? "empty__list" : "")}>
-      {props.chatData.isConvoListLoaded ? people && people.length > 0 
-      ? people.map((key) => {
+    <div className={"chat__list " + (props.people && props.people.length === 0 ? "empty__list" : "")}>
+      {props.chatData.isConvoListLoaded ? props.people && props.people.length > 0 
+      ? props.people.map((key) => {
         const chatDetails = {
           name: key,
           lastMessage: getLastMessage(key),

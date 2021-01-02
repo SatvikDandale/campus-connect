@@ -39,7 +39,7 @@ const NewsFeed = (props) => {
   useEffect(() => {
     if (props.user.userName) props.getNewsFeed(props.user.userName);
     props.setMinimised(false);
-  }, [props, props.user.userName]);
+  }, [props.user.userName]);
 
   return !props.user.userName ? (
     <LoadingOverlay
