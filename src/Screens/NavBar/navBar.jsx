@@ -13,7 +13,7 @@ const NavBar = (props) => {
         <button onClick={() => setShow(true)}>Search</button>
         <Search />
       </div>
-      <SearchModal show={show} handleClose={() => setShow(false)}/>
+      <SearchModal show={show} handleClose={() => setShow(false)} {...props}/>
       <div className="navbar__icons">
         <Home onClick={() => props.history.push("/")} />
         <Explore />

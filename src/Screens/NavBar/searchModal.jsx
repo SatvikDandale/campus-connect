@@ -16,9 +16,13 @@ import "./searchModal.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
-    maxWidth: "36ch",
+    width: "85%",
     backgroundColor: theme.palette.background.paper,
+  },
+  results: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   inline: {
     display: "inline",
@@ -61,8 +65,8 @@ function SearchModal(props) {
       results = await Promise.all(results);
       let finalResults = [];
       for (let filteredResults of results)
-        finalResults = [...finalResults, ...changeResults(filteredResults)]
-      setResults(finalResults)
+        finalResults = [...finalResults, ...changeResults(filteredResults)];
+      setResults(finalResults);
     } catch (error) {
       console.log(error);
     }
@@ -76,9 +80,9 @@ function SearchModal(props) {
     }
   };
 
-  const listItem = (person, isLast = false) => (
+  const listItem = (person, isLast = false, props) => (
     <React.Fragment>
-      <ListItem alignItems="flex-start">
+      <ListItem button onClick={() => props.history.push(`/user/${person.userName}`)}>
         <ListItemAvatar>
           <Avatar alt={person.userName} src={person.profilePhotoURL} />
         </ListItemAvatar>
@@ -154,10 +158,10 @@ function SearchModal(props) {
             />
           </Form.Group>
           {results.length > 0 && (
-            <Form.Group>
+            <Form.Group className={classes.results}>
               <List className={classes.root}>
                 {results.map((person, index) => {
-                  return listItem(person, index === results.length - 1);
+                  return listItem(person, index === results.length - 1, props);
                 })}
               </List>
             </Form.Group>
