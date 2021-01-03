@@ -65,22 +65,6 @@ const SelfCommittee = (props) => {
           ) : null}
         </div>
       </div>
-      {currentTab === 0 ? (
-        <div className="stats">
-          <div className="views">
-            <p className="number">80</p>
-            <p>Views</p>
-          </div>
-          <div className="search">
-            <p className="number">80</p>
-            <p>Searches</p>
-          </div>
-          <div className="popularity">
-            <p className="number">9/10</p>
-            <p>Popularity Index</p>
-          </div>
-        </div>
-      ) : null}
       <MainChat />
     </div>
   );

@@ -5,13 +5,25 @@ import {
   People,
   Settings,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import profile from "../../Assets/Images/profile_user@2x.png";
+import SettingsModal from "../Settings/settings";
 import "./newsFeedProfile.css";
 
 const NewFeedProfile = ({ user, history }) => {
+  const [settings, setSettings] = useState(false);
+
+  const handleClose = () => {
+    setSettings(!settings);
+  };
+
+  const handleSettingsSubmit = (data, type = "password") => {
+    console.log(data);
+    setSettings(false);
+  }
+
   return (
     <>
       <div className="profile__info">
@@ -42,10 +54,11 @@ const NewFeedProfile = ({ user, history }) => {
             <Category />
             Lost and Found
           </div>
-          <div>
+          <div className="settings__option" onClick={() => setSettings(true)}>
             <Settings />
             Settings
           </div>
+          <SettingsModal show={settings} handleClose={handleClose} handleSettingsSubmit={handleSettingsSubmit}/>
         </div>
       </div>
     </>

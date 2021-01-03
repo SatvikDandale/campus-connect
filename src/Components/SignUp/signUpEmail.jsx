@@ -130,7 +130,7 @@ export default function SignUpEmail(props) {
       >
         <TextField
           id="standard-basic"
-          label="someone@domaim.edu"
+          label="someone@domain.edu"
           value={email}
           // defaultValue="someone@domain.com"
           variant="outlined"

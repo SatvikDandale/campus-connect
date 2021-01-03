@@ -59,6 +59,10 @@
   margin-right: 10px;
 }
 
+.settings__option:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 600px) {
   .newsfeed__profile {
     display: none;
