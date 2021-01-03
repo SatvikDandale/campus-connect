@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com`;
-export const chatServerURL = `http://localhost:3001`;
-export const serverBaseURL = `http://192.168.0.103:8080`;
+export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com`;
+export const chatServerURL = `https://campus-social-media-chat.herokuapp.com`;
+// export const serverBaseURL = `http://localhost:8080`;
 axios.defaults.baseURL = serverBaseURL;
 
 // prettier-ignore
