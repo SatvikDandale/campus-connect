@@ -16,11 +16,11 @@ export default function BioForm(props) {
       show={props.show}
       onHide={props.handleClose}
     >
-      <Modal.Header closeButton>Update your bio</Modal.Header>
+      <Modal.Header closeButton>{props.committee ? "Update About Us" : "Update your bio"}</Modal.Header>
       <Modal.Body>
         <Form>
           <Form.Group>
-            <Form.Label>Bio</Form.Label>
+            <Form.Label>{"About Us"}</Form.Label>
             <Input
               type="textarea"
               name="bio__input"

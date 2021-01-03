@@ -22,6 +22,9 @@ const ProfileHeader = ({
     intro: user.intro,
   });
 
+  const [committeeName, setCommitteeName] = useState("");
+  
+
   const [showName, toggleName] = useState(false);
 
   const handleClose = () => {
@@ -60,9 +63,12 @@ const ProfileHeader = ({
             {user.firstName + " " + user.lastName}
             {updateUserAbout ? (
               <NameForm
+                committee={props.committee}
                 show={showName}
                 handleClose={handleClose}
                 name={name}
+                committeeName={committeeName}
+                setCommitteeName={setCommitteeName}
                 setName={setName}
                 handleSubmit={handleBioSubmit}
               />

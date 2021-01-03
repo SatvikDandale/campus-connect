@@ -32,7 +32,7 @@ const ProfileTabs = (props) => {
       >
         Followers
       </div>
-      <div
+      {!props.committee && <div
         className={`tab__item ${current === 3 ? "active" : ""}`}
         onClick={() => {
           setCurrent(3);
@@ -40,7 +40,16 @@ const ProfileTabs = (props) => {
         }}
       >
         Following
-      </div>
+      </div>}
+      {props.committee && <div
+        className={`tab__item ${current === 3 ? "active" : ""}`}
+        onClick={() => {
+          setCurrent(3);
+          props.setCurrentTab(3);
+        }}
+      >
+        Events
+      </div>}
     </div>
   );
 };

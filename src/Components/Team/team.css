@@ -1,0 +1,49 @@
+
+.team__content {
+    max-height: 15rem;
+    overflow: auto;
+}
+.team__content::-webkit-scrollbar {
+    display: none;
+}
+.team__content {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.committee__members {
+  width: 100%;
+  flex-direction: column !important;
+  align-items: baseline;
+}
+.faint {
+  background-color: rgb(224, 220, 220);
+  margin: 0;
+}
+.committee__team {
+  flex-direction: column;
+}
+
+.members__list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.member {
+    margin-right: 4rem;
+    margin-bottom: 2rem;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.member__name {
+    font-size: medium;
+}
+
+.member__card__img img {
+  width: 2rem;
+  /* margin: 1rem; */
+  margin-right: 1rem;
+  border-radius: 50%;
+}

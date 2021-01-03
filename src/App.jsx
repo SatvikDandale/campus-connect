@@ -13,6 +13,7 @@ import { newStore } from "./Redux/store";
 import { setTokenHeader } from "./Services/apiService";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import CommitteeProfile from "./Screens/Committee/committeeProfile";
 
 const store = newStore();
 
@@ -37,6 +38,14 @@ function App() {
               component={(props) => {
                 setPage("profile");
                 return <UserProfile {...props} />;
+              }}
+            />
+            <Route
+              exact
+              path="/committee/:userName"
+              component={(props) => {
+                setPage("committee");
+                return <CommitteeProfile {...props} />;
               }}
             />
             <Route
