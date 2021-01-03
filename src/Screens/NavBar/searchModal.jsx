@@ -48,7 +48,7 @@ function SearchModal(props) {
         profilePhotoURL: result.profilePhotoURL && result.profilePhotoURL.s,
       };
     });
-    setResults(resultsArray);
+    return resultsArray;
   };
 
   const handleSearchSubmit = async (query) => {
@@ -59,7 +59,10 @@ function SearchModal(props) {
         if (selected[filter]) results.push(search(query, filter));
       });
       results = await Promise.all(results);
-      for (let filteredResults of results) changeResults(filteredResults);
+      let finalResults = [];
+      for (let filteredResults of results)
+        finalResults = [...finalResults, ...changeResults(filteredResults)]
+      setResults(finalResults)
     } catch (error) {
       console.log(error);
     }
