@@ -82,7 +82,10 @@ function SearchModal(props) {
 
   const listItem = (person, isLast = false, props) => (
     <React.Fragment>
-      <ListItem button onClick={() => props.history.push(`/user/${person.userName}`)}>
+      <ListItem
+        button
+        onClick={() => props.history.push(`/user/${person.userName}`)}
+      >
         <ListItemAvatar>
           <Avatar alt={person.userName} src={person.profilePhotoURL} />
         </ListItemAvatar>
@@ -107,10 +110,23 @@ function SearchModal(props) {
     </React.Fragment>
   );
 
+  const reset = () => {
+    setSelected({
+      UserName: true,
+      Name: false,
+      CollegeName: false,
+    });
+    setResults([]);
+    setValue("");
+  };
+
   return (
     <Modal
       show={props.show}
-      onHide={props.handleClose}
+      onHide={() => {
+        reset();
+        props.handleClose();
+      }}
       size="lg"
       dialogClassName="search__modal"
       centered
@@ -153,7 +169,7 @@ function SearchModal(props) {
           <Form.Group>
             <SearchBar
               value={value}
-              onChange={(newValue) => setValue(newValue)}
+              onChange={(newValue) => handleSearchSubmit(newValue)}
               onRequestSearch={(query) => handleSearchSubmit(query)}
             />
           </Form.Group>
