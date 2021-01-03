@@ -13,9 +13,10 @@ import LikesPopUp from "./../LikesPopUp/LikesPopUp";
 import Accordion from "react-bootstrap/Accordion";
 import { Button } from "react-bootstrap";
 import Comments from "./../Comments/Comments";
+import moment from 'moment'
 
-var name = "Captain America";
-var time = "12 Apr at 9 PM";
+var name = "Name Unknown";
+var time = "Time Unknown";
 
 const Post = (props) => {
   const [profileURL, setProfileURL] = React.useState("");
@@ -45,7 +46,11 @@ const Post = (props) => {
     if (hide === true) setHide(false);
     else setHide(true);
   };
-  let c = "h";
+
+  const getRelativeTime = (timeStamp) => {
+    return moment(timeStamp).fromNow();
+  } 
+
   return (
     <div className="post">
       <div className="post__header">
@@ -61,7 +66,7 @@ const Post = (props) => {
             {props.post ? "@" + props.post.userName : name}
           </p>
           <div className="spacer"></div>
-          <p className="time">{props.post ? props.post.timeStamp : time}</p>
+          <p className="time">{props.post ? getRelativeTime(props.post.timeStamp) : time}</p>
         </div>
         <div className="spacer"></div>
         <MoreHoriz />

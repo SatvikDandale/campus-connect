@@ -4,6 +4,8 @@ import profile from "../../Assets/Images/profile_user@2x.png";
 import { Image } from "@material-ui/icons";
 import CreatePostForm from "./createPostForm";
 import { createPost } from "../../Services/postService";
+import { addOwnPost } from "../../Redux/Actions/feedAction";
+import { connect } from "react-redux";
 
 const CreatePost = (props) => {
   const [postForm, setPostForm] = useState(false);
@@ -14,7 +16,13 @@ const CreatePost = (props) => {
       console.log(pair[0]);
       console.log(pair[1]);
     }
-    await createPost(post);
+    try {
+      let newPost = await createPost(post);
+      props.addOwnPost(newPost);
+    }
+    catch(error) {
+      alert(error);
+    }
     setPostForm(false);
   };
 
@@ -58,4 +66,12 @@ const CreatePost = (props) => {
   );
 };
 
-export default CreatePost;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addOwnPost: (post) => {
+      return dispatch(addOwnPost(post))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(CreatePost);
