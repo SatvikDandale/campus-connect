@@ -58,7 +58,7 @@ const NewFeedProfile = ({ user, history }) => {
             <Settings />
             Settings
           </div>
-          <SettingsModal show={settings} handleClose={handleClose} handleSettingsSubmit={handleSettingsSubmit}/>
+          <SettingsModal show={settings} handleClose={handleClose} handleSettingsSubmit={handleSettingsSubmit} changePassword={true}/>
         </div>
       </div>
     </>

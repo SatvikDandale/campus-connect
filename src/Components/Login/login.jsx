@@ -10,6 +10,7 @@ import {
   InputLabel,
   OutlinedInput,
 } from "@material-ui/core";
+import SettingsModal from "../Settings/settings";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 export default function Login(props) {
@@ -20,6 +21,17 @@ export default function Login(props) {
   const [userName, setUserName] = React.useState("");
   const [userNameError, setUserNameError] = React.useState("");
   const [userPasswordError, setUserPasswordError] = React.useState("");
+  
+  const [settings, setSettings] = React.useState(false);
+
+  const handleClose = () => {
+    setSettings(!settings);
+  };
+
+  const handleSettingsSubmit = (data, type = "password") => {
+    console.log(data);
+    setSettings(false);
+  }
 
   const handleChange = (prop) => (event) => {
     // validate();
@@ -117,6 +129,10 @@ export default function Login(props) {
       </form>
       <h6 className="signUp__prompt">
         Don't have an account yet? <Link className="link" to="/signUp">Create one!</Link>
+      </h6>
+      <h6 className="signUp__prompt">
+        <Link className="link" onClick={() => setSettings(true)}>Forgot your password?</Link>
+        <SettingsModal show={settings} handleClose={handleClose} handleSettingsSubmit={handleSettingsSubmit} />
       </h6>
     </div>
   );
