@@ -84,7 +84,11 @@ function SearchModal(props) {
     <React.Fragment>
       <ListItem
         button
-        onClick={() => props.history.push(`/user/${person.userName}`)}
+        onClick={() => {
+          props.history.push(`/user/${person.userName}`);
+          reset();
+          props.handleClose();
+        }}
       >
         <ListItemAvatar>
           <Avatar alt={person.userName} src={person.profilePhotoURL} />
