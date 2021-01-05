@@ -1,15 +1,16 @@
-import { ExitToApp, RemoveCircle } from "@material-ui/icons";
 import React from "react";
+import { ExitToApp, RemoveCircle } from "@material-ui/icons";
 import ProfilePhoto from "../../Assets/Images/free-profile-photo-whatsapp-4.png";
 import "./followers.css";
+import { withRouter } from "react-router-dom";
 
-export default function FollowersAndFollowingList({ people }) {
+function FollowersAndFollowingList({ people, ...props }) {
   return (
     <div className="followers__list">
       {people
         ? people.map((follower) => {
             return (
-              <div className="person__card">
+              <div className="person__card" onClick={() => props.history.push(`/user/${follower}`)}>
                 <div className="person__card__img">
                   <img src={ProfilePhoto} alt="profile"></img>
                 </div>
@@ -28,3 +29,4 @@ export default function FollowersAndFollowingList({ people }) {
     </div>
   );
 }
+export default withRouter(FollowersAndFollowingList);

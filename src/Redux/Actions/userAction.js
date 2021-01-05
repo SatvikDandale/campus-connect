@@ -10,7 +10,14 @@ import {
   FOLLOW_USER,
   ADD_FOLLOWING_DATA_OTHER,
   UNFOLLOW_USER,
+  RESET,
 } from "../actionTypes";
+
+export function reset() {
+  return {
+    type: RESET
+  }
+}
 
 export function initUser(userObject) {
   return {

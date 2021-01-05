@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthLeft from "../../Components/AuthLeft/authLeft";
 import FacebookIcon from "../../Assets/Images/facebook.png";
 import TwitterIcon from "../../Assets/Images/twitter.png";
@@ -16,10 +16,14 @@ import {
   uploadProfilePhoto,
 } from "../../Services/userService";
 import LoadingOverlay from "react-loading-overlay";
+import { reset } from "../../Redux/Actions/userAction";
 
 function SignUp(props) {
   const [pageNo, setPageNo] = useState(0);
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    props.reset();
+  }, [])
   const [signUpData, setSignUpData] = useState({
     email: "",
     userName: "",
@@ -47,6 +51,7 @@ function SignUp(props) {
         setLoading(false);
         alert("Verification Link sent to your email. Please check.")
         // props.getUserDetails(userObject.userName);
+        props.reset();
         props.history.push("/login");
       })
       .catch((err) => {
@@ -145,6 +150,7 @@ const mapDispatchToProps = (dispatch) => {
     signUp: (formData) => {
       return dispatch(signUp(formData));
     },
+    reset: () => dispatch(reset()),
     getUserDetails: (userName, other = false) => {
       return dispatch(getUserDetails(userName, other));
     },

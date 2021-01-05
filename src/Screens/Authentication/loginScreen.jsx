@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthLeft from "../../Components/AuthLeft/authLeft";
 import Login from "../../Components/Login/login";
 import FacebookIcon from "../../Assets/Images/facebook.png";
@@ -9,9 +9,13 @@ import { connect } from "react-redux";
 import { removeError } from "../../Redux/Actions/errorAction";
 import LoadingOverlay from "react-loading-overlay";
 import { useState } from "react";
+import { reset } from "../../Redux/Actions/userAction";
 
 function LoginScreen(props) {
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    props.reset();
+  }, [])
 
   // console.log("LogIn");
   // props.login("USER1", "abcd");
@@ -69,6 +73,7 @@ const mapDispatchToProps = (dispatch) => {
     login: (userName, password) => {
       return dispatch(login(userName, password));
     },
+    reset: () => dispatch(reset()),
     removeError: () => {
       return dispatch(removeError());
     },

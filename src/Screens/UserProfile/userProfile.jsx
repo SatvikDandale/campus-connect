@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import LoadingOverlay from "react-loading-overlay";
 
@@ -9,6 +9,7 @@ import { getUserDetails, self } from "../../Services/userService";
 import {
   startLoadingSelfUser,
   startLoadingOtherUser,
+  reset,
 } from "../../Redux/Actions/userAction";
 
 import "./userProfile.css";
@@ -16,6 +17,10 @@ import "./about.css";
 import OtherProfile from "./otherProfile";
 
 const UserProfile = (props) => {
+  useEffect(() => {
+    props.reset();
+  }, [])
+
   if (!localStorage.token) {
     props.history.push("/login");
   }
@@ -85,6 +90,7 @@ const mapDispatchToProps = (dispatch) => {
     startLoadingOtherUser: () => {
       return dispatch(startLoadingOtherUser());
     },
+    reset: () => dispatch(reset()),
   };
 };
 
