@@ -10,41 +10,51 @@ import { removeError } from "../../Redux/Actions/errorAction";
 import LoadingOverlay from "react-loading-overlay";
 import { useState } from "react";
 import { reset } from "../../Redux/Actions/userAction";
+import { Link, Redirect, Route, Switch } from "react-router-dom";
+import CommitteeLogin from "../../Components/Login/committeeLogin";
+import NotFound404 from "../NotFound404/notFound404";
 
 function LoginScreen(props) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     props.reset();
-  }, [])
+  }, []);
 
   // console.log("LogIn");
   // props.login("USER1", "abcd");
   props.removeError();
-  const logIn = (userName, password) => {
+  const logIn = (userName, password, isCommittee = false) => {
     setLoading(true);
-    props
-      .login(userName, password)
-      .then(() => {
-        setLoading(false);
-        props.history.push("/");
-      })
-      .catch((err) =>{
-        console.log(err.response);
-        setLoading(false);
-        if (err.response && err.response.status === 409) {
-          alert("User already exists");
-        }
-        else if (err.response && err.response.status === 403 && err.response.data === "Not verified") {
-          alert("Please check your email inbox and verify your account.")
-        }
-        else if (err.response && err.response.status === 404) {
-          alert("No user found with these credentials.")
-        }
-        else {
-          alert("There is an error. Please try again.")
-        }
-      });
+    if (!isCommittee) {
+      props
+        .login(userName, password)
+        .then(() => {
+          setLoading(false);
+          props.history.push("/");
+        })
+        .catch((err) => {
+          console.log(err.response);
+          setLoading(false);
+          if (err.response && err.response.status === 409) {
+            alert("User already exists");
+          } else if (
+            err.response &&
+            err.response.status === 403 &&
+            err.response.data === "Not verified"
+          ) {
+            alert("Please check your email inbox and verify your account.");
+          } else if (err.response && err.response.status === 404) {
+            alert("No user found with these credentials.");
+          } else {
+            alert("There is an error. Please try again.");
+          }
+        });
+    } else {
+      console.log(userName)
+      console.log(password)
+    }
   };
+
   return (
     <LoadingOverlay
       active={loading}
@@ -55,8 +65,39 @@ function LoginScreen(props) {
       <div className="auth__screen">
         <AuthLeft />
         <div className="auth__right">
-          <Login login={logIn} />
+          <Switch>
+            <Route
+              exact
+              strict
+              path="/login/committee"
+              component={(props) => <CommitteeLogin login={logIn} {...props} />}
+            ></Route>
+            <Route
+              exact
+              strict
+              path="/login"
+              component={(props) => <Login login={logIn} {...props} />}
+            ></Route>
+            <Route path="/" component={() => <Redirect to="/login" />}></Route>
+          </Switch>
+
           <div style={{ flex: 1 }}></div>
+          <div className="auth__right__footer toggleAuth">
+            <Switch>
+              <Route
+                exact
+                strict
+                path="/login/committee"
+                component={() => <p><Link to="/login">Log in</Link> to your personal account</p>}
+              />
+              <Route
+                exact
+                strict
+                path="/login"
+                component={() => <p><Link to="/login/committee">Log in</Link> to a committee account</p>}
+              />
+            </Switch>
+          </div>
           <div className="auth__right__footer">
             <p>Contact Us</p>
             <img src={FacebookIcon} alt="facebook" />

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import "./login.css";
 import TextField from "@material-ui/core/TextField";
 import {
   FormControl,
@@ -12,8 +11,7 @@ import {
 } from "@material-ui/core";
 import SettingsModal from "../Settings/settings";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-
-export default function Login(props) {
+function CommitteeLogin(props) {
   const [values, setValues] = React.useState({
     password: "",
     showPassword: false,
@@ -21,7 +19,7 @@ export default function Login(props) {
   const [userName, setUserName] = React.useState("");
   const [userNameError, setUserNameError] = React.useState("");
   const [userPasswordError, setUserPasswordError] = React.useState("");
-  
+
   const [settings, setSettings] = React.useState(false);
 
   const handleClose = () => {
@@ -31,7 +29,7 @@ export default function Login(props) {
   const handleSettingsSubmit = (data, type = "password") => {
     console.log(data);
     setSettings(false);
-  }
+  };
 
   const handleChange = (prop) => (event) => {
     // validate();
@@ -71,11 +69,11 @@ export default function Login(props) {
   return (
     <div className="login__component">
       <h2>Sign in to your account</h2>
-      <h4>Enter your unique username and password</h4>
+      <h4>Enter your committee's username and password</h4>
       <form className="login__form">
         <TextField
           id="standard-basic"
-          label="Personal Username"
+          label="Committee Username"
           variant="outlined"
           value={userName}
           onChange={(event) => {
@@ -119,7 +117,7 @@ export default function Login(props) {
               // console.log(userName);
               // console.log(values.password);
               if (validate()) {
-                props.login(userName, values.password);
+                props.login(userName, values.password, true);
               }
             }}
           >
@@ -128,12 +126,23 @@ export default function Login(props) {
         </div>
       </form>
       <h6 className="signUp__prompt">
-        Don't have an account yet? <Link className="link" to="/signUp">Create one!</Link>
+        Don't have an account yet?{" "}
+        <Link className="link" to="/signUp">
+          Create one!
+        </Link>
       </h6>
       <h6 className="signUp__prompt">
-        <Link className="link" onClick={() => setSettings(true)}>Forgot your password?</Link>
-        <SettingsModal show={settings} handleClose={handleClose} handleSettingsSubmit={handleSettingsSubmit} />
+        <Link className="link" onClick={() => setSettings(true)}>
+          Forgot your password?
+        </Link>
+        <SettingsModal
+          show={settings}
+          handleClose={handleClose}
+          handleSettingsSubmit={handleSettingsSubmit}
+        />
       </h6>
     </div>
   );
 }
+
+export default CommitteeLogin;

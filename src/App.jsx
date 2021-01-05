@@ -50,7 +50,7 @@ function App() {
             />
             <Route
               exact
-              path="/login"
+              path="/login/:type?"
               component={(props) => {
                 setPage("auth");
                 return <Login {...props} />;

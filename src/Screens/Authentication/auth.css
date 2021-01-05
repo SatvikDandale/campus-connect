@@ -35,6 +35,9 @@
     display: none;
   }
 } */
+.toggleAuth {
+  padding-bottom: 0 !important;
+}
 .auth__right__footer {
   display: flex;
   flex-direction: row;

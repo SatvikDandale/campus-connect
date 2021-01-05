@@ -16,7 +16,6 @@ const NavBar = (props) => {
       <SearchModal show={show} handleClose={() => setShow(false)} {...props}/>
       <div className="navbar__icons">
         <Home onClick={() => props.history.push("/")} />
-        <Explore />
         <PowerSettingsNew
           onClick={() => {
             localStorage.clear();
