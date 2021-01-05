@@ -12,6 +12,7 @@ import {
   UPDATE_USER,
   GET_POSTS_BY_USERNAME,
   RESET,
+  RESET_OTHER_USER,
 } from "../actionTypes";
 
 const DEFAULT_STATE = {
@@ -47,6 +48,12 @@ export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case RESET:
       return DEFAULT_STATE
+
+    case RESET_OTHER_USER:
+      return {
+        ...state,
+        otherUser: null
+      }
 
     case LOAD_SELF_USER:
       return {

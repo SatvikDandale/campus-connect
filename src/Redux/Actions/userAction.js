@@ -11,11 +11,18 @@ import {
   ADD_FOLLOWING_DATA_OTHER,
   UNFOLLOW_USER,
   RESET,
+  RESET_OTHER_USER,
 } from "../actionTypes";
 
 export function reset() {
   return {
     type: RESET
+  }
+}
+
+export function resetOtherUser() {
+  return {
+    type: RESET_OTHER_USER
   }
 }
 

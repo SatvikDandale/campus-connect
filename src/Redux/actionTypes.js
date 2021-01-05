@@ -9,6 +9,7 @@ export const ADD_USER_FOLLOWING_DATA = "ADD_USER_FOLLOWING_DATA";
 export const ADD_FOLLOWING_DATA_OTHER = "ADD_FOLLOWING_DATA_OTHER";
 
 export const RESET = "RESET"
+export const RESET_OTHER_USER = "RESET_OTHER_USER"
 
 // export const UPDATE_NAME = "UPDATE_NAME";
 // export const UPDATE_BIO = "UPDATE_BIO";

@@ -59,7 +59,7 @@ const NewsFeed = (props) => {
           <Scrollbars autoHide>
             <CreatePost user={props.user} />
             {props.feed.map((post) => {
-              return <Post post={post} />;
+              return <Post post={post} {...props} />;
             })}
           </Scrollbars>
         </div>

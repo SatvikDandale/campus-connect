@@ -61,8 +61,8 @@ const Post = (props) => {
         />
 
         <img src={profileURL} alt="profile" />
-        <div className="post__owner">
-          <p className="name">
+        <div className="post__owner" >
+          <p className="name" onClick={() => props.history.push(`/user/${props.post.userName}`)}>
             {props.post ? "@" + props.post.userName : name}
           </p>
           <div className="spacer"></div>
