@@ -8,7 +8,7 @@ import SignUpEmail from "../../Components/SignUp/signUpEmail";
 import { useState } from "react";
 import SignUpPersonalDetails from "../../Components/SignUp/signUpPersonalDetails";
 import SignUpCollegeDetails from "../../Components/SignUp/signUpCollegeDetails";
-import { Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   signUp,
@@ -17,13 +17,14 @@ import {
 } from "../../Services/userService";
 import LoadingOverlay from "react-loading-overlay";
 import { reset } from "../../Redux/Actions/userAction";
+import CommitteeSignUp from "../../Components/SignUp/committeeSignUp";
 
 function SignUp(props) {
   const [pageNo, setPageNo] = useState(0);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     props.reset();
-  }, [])
+  }, []);
   const [signUpData, setSignUpData] = useState({
     email: "",
     userName: "",
@@ -33,7 +34,7 @@ function SignUp(props) {
     collegeName: "",
   });
 
-  function finalSubmitHandler(collegeDetails) {
+  function finalSubmitHandler(collegeDetails, isCommittee = false) {
     setLoading(true);
 
     var formData = new FormData();
@@ -45,27 +46,34 @@ function SignUp(props) {
       formData.append(key, collegeDetails[key]);
     }
 
-    props
-      .signUp(formData)
-      .then(() => {
-        setLoading(false);
-        alert("Verification Link sent to your email. Please check.")
-        // props.getUserDetails(userObject.userName);
-        props.reset();
-        props.history.push("/login");
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-        setLoading(false);
-        if (err.response && err.response.status === 409) {
-          alert("User Name already exists");
-        }
-        else {
-          alert("There is an error. Please try again.")
-          alert(err)
-        }
-      });
+    if (!isCommittee) {
+      props
+        .signUp(formData)
+        .then(() => {
+          setLoading(false);
+          alert("Verification Link sent to your email. Please check.");
+          // props.getUserDetails(userObject.userName);
+          props.reset();
+          props.history.push("/login");
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log(err.response);
+          setLoading(false);
+          if (err.response && err.response.status === 409) {
+            alert("User Name already exists");
+          } else {
+            alert("There is an error. Please try again.");
+            alert(err);
+          }
+        });
+    } else {
+      formData.delete("image")
+
+      for (var pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+    }
   }
 
   localStorage.removeItem("token");
@@ -80,60 +88,112 @@ function SignUp(props) {
       <div className="auth__screen">
         <AuthLeft pageNo={pageNo} />
         <div className="auth__right">
-          <Route
-            exact
-            strict
-            path="/signUp"
-            component={(props) => {
-              return <SignUpHome setPageNo={setPageNo} {...props} />;
-            }}
-          />
-          <Route
-            exact
-            strict
-            path="/signUp/1"
-            component={(props) => {
-              return (
-                <SignUpEmail
-                  setPageNo={setPageNo}
-                  signUpData={signUpData}
-                  setSignUpData={setSignUpData}
-                  {...props}
-                />
-              );
-            }}
-          />
-          <Route
-            exact
-            strict
-            path="/signUp/2"
-            component={(props) => {
-              return (
-                <SignUpPersonalDetails
-                  setPageNo={setPageNo}
-                  signUpData={signUpData}
-                  setSignUpData={setSignUpData}
-                  {...props}
-                />
-              );
-            }}
-          />
-          <Route
-            exact
-            strict
-            path="/signUp/3"
-            component={(props) => {
-              return (
-                <SignUpCollegeDetails
-                  setPageNo={setPageNo}
-                  signUpData={signUpData}
-                  setSignUpData={setSignUpData}
-                  onSubmit={finalSubmitHandler}
-                  {...props}
-                />
-              );
-            }}
-          />
+          <Switch>
+            <Route
+              exact
+              strict
+              path="/signUp"
+              component={(props) => {
+                return <SignUpHome setPageNo={setPageNo} {...props} />;
+              }}
+            />
+            <Route
+              exact
+              strict
+              path="/signUp/1"
+              component={(props) => {
+                return (
+                  <SignUpEmail
+                    setPageNo={setPageNo}
+                    signUpData={signUpData}
+                    setSignUpData={setSignUpData}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route
+              exact
+              strict
+              path="/signUp/committee/1"
+              component={(props) => {
+                return (
+                  <SignUpEmail
+                    setPageNo={setPageNo}
+                    committee={true}
+                    signUpData={signUpData}
+                    setSignUpData={setSignUpData}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route
+              exact
+              strict
+              path="/signUp/2"
+              component={(props) => {
+                return (
+                  <SignUpPersonalDetails
+                    setPageNo={setPageNo}
+                    signUpData={signUpData}
+                    setSignUpData={setSignUpData}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route
+              exact
+              strict
+              path="/signUp/committee/2"
+              component={(props) => {
+                return (
+                  <SignUpPersonalDetails
+                    committee={true}
+                    setPageNo={setPageNo}
+                    signUpData={signUpData}
+                    setSignUpData={setSignUpData}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route
+              exact
+              strict
+              path="/signUp/3"
+              component={(props) => {
+                return (
+                  <SignUpCollegeDetails
+                    setPageNo={setPageNo}
+                    signUpData={signUpData}
+                    setSignUpData={setSignUpData}
+                    onSubmit={finalSubmitHandler}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route
+              exact
+              strict
+              path="/signUp/committee/3"
+              component={(props) => {
+                return (
+                  <SignUpCollegeDetails
+                    committee={true}
+                    setPageNo={setPageNo}
+                    signUpData={signUpData}
+                    setSignUpData={setSignUpData}
+                    onSubmit={finalSubmitHandler}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route path="/" component={() => <Redirect to="/signUp" />}></Route>
+          </Switch>
           <div className="auth__right__footer">
             <p>Contact Us</p>
             <img src={FacebookIcon} alt="facebook" />

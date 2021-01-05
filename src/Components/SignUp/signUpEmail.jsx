@@ -8,8 +8,14 @@ import MailIcon from "@material-ui/icons/Mail";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import SchoolIcon from "@material-ui/icons/School";
 import { verifyAndGetCollege } from "../../Services/userService";
-import { CircularProgress, Dialog, DialogActions, DialogContentText, DialogTitle } from "@material-ui/core";
-import Slide from '@material-ui/core/Slide';
+import {
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContentText,
+  DialogTitle,
+} from "@material-ui/core";
+import Slide from "@material-ui/core/Slide";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -48,7 +54,7 @@ export default function SignUpEmail(props) {
     }
     verifyAndGetCollege(email)
       .then((collegeName) => {
-        setCollege(collegeName)
+        setCollege(collegeName);
         setOpen(true);
       })
       .catch((error) => {
@@ -73,7 +79,8 @@ export default function SignUpEmail(props) {
         collegeName,
         email,
       });
-      props.history.push("/signUp/2");
+      if (props.committee) props.history.push("/signUp/committee/2");
+      else props.history.push("/signUp/2");
     }
   }
   props.setPageNo(1);
@@ -94,11 +101,17 @@ export default function SignUpEmail(props) {
           College Name Verification
         </DialogTitle>
         <DialogContentText id="alert-dialog-slide-description">
-          Is your college name {college}?
-          Please be sure to verify since you cannot change it after you sign up.
+          Is your college name {college}? Please be sure to verify since you
+          cannot change it after you sign up.
         </DialogContentText>
         <DialogActions>
-          <Button onClick={() =>{ setOpen(false); setLoading(false)}} color="primary">
+          <Button
+            onClick={() => {
+              setOpen(false);
+              setLoading(false);
+            }}
+            color="primary"
+          >
             Disagree
           </Button>
           <Button onClick={acceptCollege} color="primary" autoFocus>
@@ -151,7 +164,10 @@ export default function SignUpEmail(props) {
         Next
       </Button>
       <h6>
-        Already have an account, <Link className="link"  to="/login">Sign In Here</Link>
+        Already have an account,{" "}
+        <Link className="link" to={props.committee ? "/login/committee" : "/login"}>
+          Sign In Here
+        </Link>
       </h6>
     </div>
   );

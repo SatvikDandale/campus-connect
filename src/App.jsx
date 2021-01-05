@@ -58,7 +58,7 @@ function App() {
             />
             <Route
               exact
-              path="/signUp/:step?"
+              path="/signUp/:step?/:another?"
               component={(props) => {
                 setPage("auth");
                 return <SignUp {...props} />;

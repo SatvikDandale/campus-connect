@@ -30,7 +30,9 @@ const useStyles2 = makeStyles((theme) => ({
 }));
 
 export default function SignUpPersonalDetails(props) {
-  if (props.signUpData.email.length === 0) props.history.push("/signUp/1");
+  if (props.signUpData.email.length === 0){
+    props.committee ? props.history.push("/signUp/committee/1") : props.history.push("/signUp/1")
+  }
 
   const classes = useStyles();
   const classes2 = useStyles2();
@@ -60,7 +62,7 @@ export default function SignUpPersonalDetails(props) {
       isError = true;
       tempErrors.firstName = "Please check";
     }
-    if (values.lastName.length < 3) {
+    if (values.lastName.length < 3 && !props.committee) {
       isError = true;
       tempErrors.lastName = "Please check";
     }
@@ -78,20 +80,17 @@ export default function SignUpPersonalDetails(props) {
   }
 
   function submitHandler() {
-    console.log(values);
-    console.log(errors);
-
     if (!validate()) {
       console.log("Validation Error");
       return;
     }
 
-    console.log(values);
     props.setSignUpData({
       ...props.signUpData,
       ...values,
     });
-    props.history.push("/signUp/3");
+    if (props.committee) props.history.push("/signUp/committee/3");
+    else props.history.push("/signUp/3");
   }
   props.setPageNo(2);
 
@@ -102,7 +101,7 @@ export default function SignUpPersonalDetails(props) {
           <MailIcon
             onClick={() => {
               props.setPageNo(1);
-              props.history.push("/signUp/1");
+              props.committee ? props.history.push("/signUp/committee/1") : props.history.push("/signUp/1")
             }}
           />
         </div>
@@ -123,39 +122,57 @@ export default function SignUpPersonalDetails(props) {
           submitHandler();
         }}
       >
-        <div>
-          <TextField
-            label="First Name"
-            variant="outlined"
-            value={values.firstName}
-            onChange={(event) =>
-              setValues({
-                ...values,
-                firstName: event.target.value,
-              })
-            }
-            error={errors.firstName !== null}
-            helperText={errors.firstName ?? ""}
-          />
+        {props.committee ? (
+          <div className={classes2.root}>
+            <TextField
+              label="Committee Name"
+              variant="outlined"
+              value={values.firstName}
+              onChange={(event) =>
+                setValues({
+                  ...values,
+                  firstName: event.target.value,
+                })
+              }
+              error={errors.firstName !== null}
+              helperText={errors.firstName ?? ""}
+            />
+          </div>
+        ) : (
+          <div>
+            <TextField
+              label="First Name"
+              variant="outlined"
+              value={values.firstName}
+              onChange={(event) =>
+                setValues({
+                  ...values,
+                  firstName: event.target.value,
+                })
+              }
+              error={errors.firstName !== null}
+              helperText={errors.firstName ?? ""}
+            />
 
-          <TextField
-            label="Last Name"
-            variant="outlined"
-            value={values.lastName}
-            onChange={(event) =>
-              setValues({
-                ...values,
-                lastName: event.target.value,
-              })
-            }
-            error={errors.lastName !== null}
-            helperText={errors.lastName ?? ""}
-          />
-        </div>
+            <TextField
+              label="Last Name"
+              variant="outlined"
+              value={values.lastName}
+              onChange={(event) =>
+                setValues({
+                  ...values,
+                  lastName: event.target.value,
+                })
+              }
+              error={errors.lastName !== null}
+              helperText={errors.lastName ?? ""}
+            />
+          </div>
+        )}
 
         <div className={classes2.root}>
           <TextField
-            label="Unique Username"
+            label="Committee Username"
             variant="outlined"
             value={values.userName}
             type="text"
@@ -206,7 +223,14 @@ export default function SignUpPersonalDetails(props) {
         </Button>
       </form>
       <h6>
-        Already have an account, <Link className="link"  to="/login">Sign In Here</Link>
+        Already have an account?
+        <Link
+          className="link"
+          to={props.committee ? "/login/committee" : "/login"}
+        >
+          {" "}
+          Sign In Here
+        </Link>
       </h6>
     </div>
   );

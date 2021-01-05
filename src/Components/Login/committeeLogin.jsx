@@ -127,7 +127,7 @@ function CommitteeLogin(props) {
       </form>
       <h6 className="signUp__prompt">
         Don't have an account yet?{" "}
-        <Link className="link" to="/signUp">
+        <Link className="link" to="/signUp/committee">
           Create one!
         </Link>
       </h6>

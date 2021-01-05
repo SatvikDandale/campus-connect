@@ -50,8 +50,8 @@ function LoginScreen(props) {
           }
         });
     } else {
-      console.log(userName)
-      console.log(password)
+      console.log(userName);
+      console.log(password);
     }
   };
 
@@ -88,13 +88,27 @@ function LoginScreen(props) {
                 exact
                 strict
                 path="/login/committee"
-                component={() => <p><Link to="/login">Log in</Link> to your personal account</p>}
+                component={() => (
+                  <p>
+                    <Link className="link" to="/login">
+                      Log in
+                    </Link>{" "}
+                    to your personal account
+                  </p>
+                )}
               />
               <Route
                 exact
                 strict
                 path="/login"
-                component={() => <p><Link to="/login/committee">Log in</Link> to a committee account</p>}
+                component={() => (
+                  <p>
+                    <Link className="link" to="/login/committee">
+                      Log in
+                    </Link>{" "}
+                    to a committee account
+                  </p>
+                )}
               />
             </Switch>
           </div>

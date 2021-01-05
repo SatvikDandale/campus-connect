@@ -31,7 +31,7 @@ export default function SignUpCollegeDetails(props) {
     props.signUpData.userName.length === 0 ||
     props.signUpData.password.length === 0
   )
-    props.history.push("/signUp/2");
+    props.committee ? props.history.push("/signUp/committee/2") : props.history.push("/signUp/2");
 
   const classes = useStyles();
   const [year, setYear] = React.useState(props.signUpData.year);
@@ -50,28 +50,31 @@ export default function SignUpCollegeDetails(props) {
   };
 
   function validate() {
-    if (year === "")
-      return false;
-    if (branch === "")
-      return false;
-    if (image === null)
-      return false;
+    if (year === "") return false;
+    if (branch === "") return false;
+    if (image === null && !props.committee) return false;
     return true;
-
   }
 
   function submitHandler() {
     if (!validate()) {
-      alert("Incomplete information. Try again.")
+      alert("Incomplete information. Try again.");
       return;
     }
-    let collegeDetails = {
-      collegeName: "VIT",
-      year,
-      branch,
-      image,
-    };
-    props.onSubmit(collegeDetails);
+    let collegeDetails;
+    if (props.committee) {
+      collegeDetails = {
+        year,
+        branch,
+        image,
+      };
+    }
+    else {
+      collegeDetails = {
+        image
+      }
+    }
+    props.onSubmit(collegeDetails, true);
   }
   props.setPageNo(3);
 
@@ -82,7 +85,7 @@ export default function SignUpCollegeDetails(props) {
           <MailIcon
             onClick={() => {
               props.setPageNo(1);
-              props.history.push("/signUp/1");
+              props.committee ? props.history.push("/signUp/committee/1") : props.history.push("/signUp/1")
             }}
           />
         </div>
@@ -91,7 +94,7 @@ export default function SignUpCollegeDetails(props) {
           <AccountCircleIcon
             onClick={() => {
               props.setPageNo(2);
-              props.history.push("/signUp/2");
+              props.committee ? props.history.push("/signUp/committee/2") : props.history.push("/signUp/2")
             }}
           />
         </div>
@@ -100,7 +103,7 @@ export default function SignUpCollegeDetails(props) {
           <SchoolIcon />
         </div>
       </div>
-      <h2>College Details</h2>
+      <h2>{props.committee ? "Logo (Optional)" : "College Details"}</h2>
 
       <form
         className={classes.root}
@@ -126,44 +129,48 @@ export default function SignUpCollegeDetails(props) {
           />
         </div>
 
-        <FormControl className={classes.formControl}>
-          <InputLabel id="year-select">Year</InputLabel>
-          <Select
-            labelId="year-select-menu"
-            id="year-select-dropdown"
-            value={year}
-            onChange={(event) => setYear(event.target.value)}
-          >
-            <MenuItem value="First Year">First Year</MenuItem>
-            <MenuItem value="Second Year">Second Year</MenuItem>
-            <MenuItem value="Third Year">Third Year</MenuItem>
-            <MenuItem value="Final Year">Final Year</MenuItem>
-            <MenuItem value="Year Down Bonus Year">
-              Year Down Bonus Year
-            </MenuItem>
-            <MenuItem value="Summer Term">Summer Term</MenuItem>
-          </Select>
-        </FormControl>
+        {!props.committee && (
+          <>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="year-select">Year</InputLabel>
+              <Select
+                labelId="year-select-menu"
+                id="year-select-dropdown"
+                value={year}
+                onChange={(event) => setYear(event.target.value)}
+              >
+                <MenuItem value="First Year">First Year</MenuItem>
+                <MenuItem value="Second Year">Second Year</MenuItem>
+                <MenuItem value="Third Year">Third Year</MenuItem>
+                <MenuItem value="Final Year">Final Year</MenuItem>
+                <MenuItem value="Year Down Bonus Year">
+                  Year Down Bonus Year
+                </MenuItem>
+                <MenuItem value="Summer Term">Summer Term</MenuItem>
+              </Select>
+            </FormControl>
 
-        <FormControl className={classes.formControl}>
-          <InputLabel id="branch-select">Branch</InputLabel>
-          <Select
-            labelId="branch-select-menu"
-            id="branch-select-dropdown"
-            value={branch}
-            onChange={(event) => setBranch(event.target.value)}
-          >
-            <MenuItem value="Computer Engineering">
-              Computer Engineering
-            </MenuItem>
-            <MenuItem value="Mechanical Engineering">
-              Mechanical Engineering
-            </MenuItem>
-            <MenuItem value="EnTc Engineering">EnTc Engineering</MenuItem>
-            <MenuItem value="Civil Engineering">Civil Engineering</MenuItem>
-            <MenuItem value="IT">IT</MenuItem>
-          </Select>
-        </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="branch-select">Branch</InputLabel>
+              <Select
+                labelId="branch-select-menu"
+                id="branch-select-dropdown"
+                value={branch}
+                onChange={(event) => setBranch(event.target.value)}
+              >
+                <MenuItem value="Computer Engineering">
+                  Computer Engineering
+                </MenuItem>
+                <MenuItem value="Mechanical Engineering">
+                  Mechanical Engineering
+                </MenuItem>
+                <MenuItem value="EnTc Engineering">EnTc Engineering</MenuItem>
+                <MenuItem value="Civil Engineering">Civil Engineering</MenuItem>
+                <MenuItem value="IT">IT</MenuItem>
+              </Select>
+            </FormControl>
+          </>
+        )}
       </form>
 
       <Button
@@ -175,7 +182,14 @@ export default function SignUpCollegeDetails(props) {
         Let's Go
       </Button>
       <h6>
-        Already have an account, <Link className="link" to="/login">Sign In Here</Link>
+        Already have an account?
+        <Link
+          className="link"
+          to={props.committee ? "/login/committee" : "/login"}
+        >
+          {" "}
+          Sign In Here
+        </Link>
       </h6>
     </div>
   );

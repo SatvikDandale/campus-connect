@@ -17,3 +17,13 @@
     font-size: larger;
     font-weight: 600;
 }
+.options {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.options button {
+    margin: 0.5rem 0;
+    font-size: larger;
+    font-weight: 600;
+}
