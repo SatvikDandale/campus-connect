@@ -6,7 +6,7 @@ import openSocket from "socket.io-client";
 import { connect } from "react-redux";
 import { addMessage, loadConvoList } from "../../Services/chatService";
 import { chatServerURL } from "../../Services/apiService";
-import {setMinimised} from '../../Redux/Actions/chatAction'
+import { setMinimised } from "../../Redux/Actions/chatAction";
 
 // const chatServerURL = "https://campus-social-media-chat.herokuapp.com/";
 class MainChat extends React.Component {
@@ -23,7 +23,6 @@ class MainChat extends React.Component {
     joined: false,
     intervalId: "",
   };
-
 
   sendMessage = (message, to) => {
     console.log(message);
@@ -60,15 +59,16 @@ class MainChat extends React.Component {
       this.socket.emit(
         "join",
         { userName: this.props.user.userName },
-        (error) => {
-          console.log(error);
+        (ack) => {
+          if (ack === "Joined") {
+            this.setState({ joined: true });
+          }
         }
       );
-    }
-    else {
+    } else {
       clearInterval(this.state.intervalId);
     }
-  }
+  };
 
   componentDidMount() {
     // fetch("http://localhost:3100/test");
@@ -82,13 +82,8 @@ class MainChat extends React.Component {
       });
     }
 
-    this.socket.on("joined", () => {
-      console.log('Joined')
-      this.setState({joined: true})
-    })
-
     let intervalId = setInterval(this.joinSocket, 1000);
-    this.setState({intervalId})
+    this.setState({ intervalId });
 
     this.socket.on("recieve", (newMessage) => {
       console.log(newMessage);
@@ -98,10 +93,10 @@ class MainChat extends React.Component {
       this.props.addMessage(newMessage, true);
     });
 
-    this.socket.on('disconnect', () => {
+    this.socket.on("disconnect", () => {
       let intervalId = setInterval(this.joinSocket, 5000);
-      this.setState({intervalLength: 5000, joined: false, intervalId})
-    })
+      this.setState({ intervalLength: 5000, joined: false, intervalId });
+    });
   }
 
   componentWillUnmount() {
@@ -113,12 +108,16 @@ class MainChat extends React.Component {
       this.props.loadConvoList(this.props.user.userName);
     }
   }
-  
+
   render() {
     return (
-      <div className={this.props.chatData.minimised ? "chat__minimised" : "chat"}>
+      <div
+        className={this.props.chatData.minimised ? "chat__minimised" : "chat"}
+      >
         <div
-          className={`toggle__arrow ${!this.props.chatData.minimised ? `` : `hidden`}`}
+          className={`toggle__arrow ${
+            !this.props.chatData.minimised ? `` : `hidden`
+          }`}
           onMouseEnter={() => this.showToggle(true)}
           onMouseLeave={() => this.showToggle(false)}
         >
@@ -147,7 +146,7 @@ class MainChat extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
-    chatData: state.chatReducer
+    chatData: state.chatReducer,
   };
 };
 
@@ -161,8 +160,8 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(loadConvoList(userName));
     },
     setMinimised: (condition = false) => {
-      return dispatch(setMinimised(condition))
-    }
+      return dispatch(setMinimised(condition));
+    },
   };
 };
 
