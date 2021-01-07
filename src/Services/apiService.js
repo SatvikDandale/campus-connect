@@ -1,21 +1,21 @@
 import axios from "axios";
 
-// export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com`;
-export const chatServerURL = `http://localhost:3001`;
-export const serverBaseURL = `http://192.168.0.103:8080`;
+export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com`;
+export const chatServerURL = `https://campus-social-media-chat.herokuapp.com`;
+// export const serverBaseURL = `http://localhost:8080`;
 axios.defaults.baseURL = serverBaseURL;
 
 // prettier-ignore
 var instance = axios.create({
   url: "/",
   baseURL: serverBaseURL,
-  timeout: 15000,
+  timeout: 10000,
 });
 
 var instance2 = axios.create({
   url: "/",
   baseURL: chatServerURL,
-  timeout: 15000,
+  timeout: 10000,
 })
 
 // The authorization header will be set with axios for any further use in the session.
