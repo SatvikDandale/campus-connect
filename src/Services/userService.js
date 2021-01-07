@@ -54,14 +54,14 @@ export function signUp(signUpData) {
       };
       setTokenHeader();
       return apiCall("POST", `/signUp`, signUpData, config)
-        .then((authenticationResponse) => {
-          setTokenHeader(authenticationResponse.jwt);
-          localStorage.setItem("token", authenticationResponse.jwt);
-          dispatch(initUser(authenticationResponse.user));
-          dispatch(selfUserLoaded());
+        .then(() => {
+          // setTokenHeader(authenticationResponse.jwt);
+          // localStorage.setItem("token", authenticationResponse.jwt);
+          // dispatch(initUser(authenticationResponse.user));
+          // dispatch(selfUserLoaded());
           dispatch(removeError());
           // console.log("RESOLVING");
-          resolve(authenticationResponse.user);
+          resolve();
         })
         .catch((error) => {
           // console.log(error.response);

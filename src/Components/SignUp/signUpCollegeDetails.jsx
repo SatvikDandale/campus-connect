@@ -52,7 +52,7 @@ export default function SignUpCollegeDetails(props) {
   function validate() {
     if (year === "") return false;
     if (branch === "") return false;
-    if (image === null && !props.committee) return false;
+    if (image === null) return false;
     return true;
   }
 

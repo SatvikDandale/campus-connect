@@ -18,6 +18,7 @@ import {
 import LoadingOverlay from "react-loading-overlay";
 import { reset } from "../../Redux/Actions/userAction";
 import CommitteeSignUp from "../../Components/SignUp/committeeSignUp";
+import { committeeSignUpFunction } from "../../Services/committeeService";
 
 function SignUp(props) {
   const [pageNo, setPageNo] = useState(0);
@@ -68,11 +69,31 @@ function SignUp(props) {
           }
         });
     } else {
-      formData.delete("image")
+      // formData.delete("image");
 
       for (var pair of formData.entries()) {
         console.log(pair[0] + ", " + pair[1]);
       }
+      props
+        .signUpCommittee(formData)
+        .then(() => {
+          setLoading(false);
+          alert("Verification Link sent to your email. Please check.");
+          // props.getUserDetails(userObject.userName);
+          props.reset();
+          props.history.push("/login");
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log(err.response);
+          setLoading(false);
+          if (err.response && err.response.status === 409) {
+            alert("Committee already exists");
+          } else {
+            alert("There is an error. Please try again.");
+            alert(err);
+          }
+        });
     }
   }
 
@@ -213,6 +234,9 @@ const mapDispatchToProps = (dispatch) => {
     reset: () => dispatch(reset()),
     getUserDetails: (userName, other = false) => {
       return dispatch(getUserDetails(userName, other));
+    },
+    signUpCommittee: (formData) => {
+      return dispatch(committeeSignUpFunction(formData));
     },
   };
 };

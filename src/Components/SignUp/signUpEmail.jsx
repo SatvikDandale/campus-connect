@@ -47,12 +47,13 @@ export default function SignUpEmail(props) {
 
   function getCollegeName() {
     setLoading(true);
-    if (email.length < 6) {
+    if (email.length < 6 || !email.includes("@")) {
       setError(true);
       alert("Enter valid email");
+      setLoading(false);
       return;
     }
-    verifyAndGetCollege(email)
+    !props.committee ? verifyAndGetCollege(email)
       .then((collegeName) => {
         setCollege(collegeName);
         setOpen(true);
@@ -66,7 +67,7 @@ export default function SignUpEmail(props) {
           );
         }
         setError(true);
-      });
+      }) : acceptCollege();
   }
 
   function submitHandler(collegeName) {
