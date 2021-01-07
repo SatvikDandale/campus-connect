@@ -41,6 +41,35 @@ export function committeeLoginFunction(userName, password) {
   };
 }
 
+
+export function committeeSignUpFunction(signUpData) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      };
+      setTokenHeader();
+      return apiCall("POST", `/committee/signUp`, signUpData, config)
+        .then(() => {
+          // setTokenHeader(authenticationResponse.jwt);
+          // localStorage.setItem("token", authenticationResponse.jwt);
+          // dispatch(initUser(authenticationResponse.user));
+          // dispatch(selfUserLoaded());
+          dispatch(removeError());
+          // console.log("RESOLVING");
+          resolve();
+        })
+        .catch((error) => {
+          // console.log(error.response);
+          dispatch(addError(error.response));
+          reject(error);
+        });
+    });
+  };
+}
+
 export function getCommitteeFollowers() {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
