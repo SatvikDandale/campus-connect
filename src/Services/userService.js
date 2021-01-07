@@ -266,3 +266,56 @@ export function verifyAndGetCollege(email) {
     })
   })
 }
+export function changePassword(data) {
+  return new Promise((resolve, reject) => {
+    return apiCall(
+      "POST",
+      `/changePassword`,
+      data
+    )
+    .then(() => {
+      localStorage.clear();
+      window.location.pathname = "/login"
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error);
+    })
+  })
+}
+
+export function forgotPassword(data) {
+  return new Promise((resolve, reject) => {
+    return apiCall(
+      "POST",
+      `/forgotPassword`,
+      data
+    )
+    .then(() => {
+      localStorage.clear();
+      resolve()
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error);
+    })
+  })
+}
+
+export function resetPassword(data, token) {
+  return new Promise((resolve, reject) => {
+    return apiCall(
+      "POST",
+      `/reset-password?token=${token}`,
+      data
+    )
+    .then(() => {
+      localStorage.clear();
+      resolve()
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error);
+    })
+  })
+}

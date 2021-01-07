@@ -131,7 +131,7 @@ export default function Login(props) {
         Don't have an account yet? <Link className="link" to="/signUp">Create one!</Link>
       </h6>
       <h6 className="signUp__prompt">
-        <Link className="link" onClick={() => setSettings(true)}>Forgot your password?</Link>
+        <p className="link" onClick={() => setSettings(true)}>Forgot your password?</p>
         <SettingsModal show={settings} handleClose={handleClose} handleSettingsSubmit={handleSettingsSubmit} />
       </h6>
     </div>

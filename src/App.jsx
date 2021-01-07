@@ -14,6 +14,7 @@ import { setTokenHeader } from "./Services/apiService";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CommitteeProfile from "./Screens/Committee/committeeProfile";
+import ForgotPassword from "./Screens/ForgotPassword/forgotPassword";
 
 const store = newStore();
 
@@ -32,6 +33,14 @@ function App() {
       <Provider store={store}>
         <HashRouter>
           <Switch>
+            <Route
+              exact
+              path="/reset-password/:token"
+              component={(props) => {
+                setPage("profile");
+                return <ForgotPassword {...props}/>;
+              }}
+            />
             <Route
               exact
               path="/user/:userName"

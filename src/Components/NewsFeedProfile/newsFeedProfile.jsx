@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import profile from "../../Assets/Images/profile_user@2x.png";
+import { changePassword } from "../../Services/userService";
 import SettingsModal from "../Settings/settings";
 import "./newsFeedProfile.css";
 
@@ -22,9 +23,18 @@ const NewFeedProfile = ({ user, history }) => {
   const handleSettingsSubmit = (data, type = "password") => {
     console.log(data);
     setSettings(false);
-  }
+    let newData = {
+      current_password: data.old,
+      new_password: data.new
+    }
+    changePassword(newData).catch((error) => {
+      alert("Error while changing your password")
+    })
+  };
 
-  let name = user.isCommittee ? user.name : user.firstName + " " + user.lastName
+  let name = user.isCommittee
+    ? user.name
+    : user.firstName + " " + user.lastName;
 
   return (
     <>
@@ -32,7 +42,11 @@ const NewFeedProfile = ({ user, history }) => {
         <img
           src={user.profilePhotoURL || profile}
           alt="profile"
-          onClick={() => user.isCommittee ? history.push("/committee/" + user.userName) : history.push("/user/" + user.userName)}
+          onClick={() =>
+            user.isCommittee
+              ? history.push("/committee/" + user.userName)
+              : history.push("/user/" + user.userName)
+          }
         />
         <p className="profile__name">{name}</p>
         <p className="profile__bio">{user.intro}</p>
@@ -40,27 +54,27 @@ const NewFeedProfile = ({ user, history }) => {
       <div className="profile__menu">
         <p>MENU</p>
         <div className="menu__list">
-          <div>
+          <div
+            className="settings__option"
+            onClick={() =>
+              user.isCommittee
+                ? history.push("/committee/" + user.userName)
+                : history.push("/user/" + user.userName)
+            }
+          >
             <Dashboard />
             Dashboard
-          </div>
-          <div>
-            <People />
-            Alumni
-          </div>
-          <div>
-            <EmojiEvents />
-            Events
-          </div>
-          <div>
-            <Category />
-            Lost and Found
           </div>
           <div className="settings__option" onClick={() => setSettings(true)}>
             <Settings />
             Settings
           </div>
-          <SettingsModal show={settings} handleClose={handleClose} handleSettingsSubmit={handleSettingsSubmit} changePassword={true}/>
+          <SettingsModal
+            show={settings}
+            handleClose={handleClose}
+            handleSettingsSubmit={handleSettingsSubmit}
+            changePassword={true}
+          />
         </div>
       </div>
     </>
