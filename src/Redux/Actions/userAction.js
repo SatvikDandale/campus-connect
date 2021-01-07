@@ -12,6 +12,8 @@ import {
   UNFOLLOW_USER,
   RESET,
   RESET_OTHER_USER,
+  ADD_MEMBER,
+  REMOVE_MEMBER,
 } from "../actionTypes";
 
 export function reset() {
@@ -93,6 +95,19 @@ export function addFollowingDataOther(data) {
     type: ADD_FOLLOWING_DATA_OTHER,
     data,
   };
+}
+
+export function addMember(data) {
+  return {
+    type: ADD_MEMBER,
+    data
+  }
+}
+export function removeMember(data) {
+  return {
+    type: REMOVE_MEMBER,
+    data
+  }
 }
 
 // export function updateName(nameObject) {

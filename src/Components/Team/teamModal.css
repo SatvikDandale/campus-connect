@@ -1,0 +1,7 @@
+.team__modal__body {
+    display: flex;
+    flex-direction: column;
+}
+.team__modal__buttons button{
+   margin-right: 2rem;
+}

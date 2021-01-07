@@ -13,6 +13,8 @@ import {
   GET_POSTS_BY_USERNAME,
   RESET,
   RESET_OTHER_USER,
+  ADD_MEMBER,
+  REMOVE_MEMBER,
 } from "../actionTypes";
 
 const DEFAULT_STATE = {
@@ -199,6 +201,29 @@ export default (state = DEFAULT_STATE, action) => {
           posts: action.posts,
         },
       };
+
+    case ADD_MEMBER:
+      let oldMembers = [...state.user.committeeMembers]
+      oldMembers.push(action.data);
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          committeeMembers: oldMembers
+        }
+      }
+
+      case REMOVE_MEMBER:
+        let newMembers = [...state.user.committeeMembers]
+        let memberIndex = newMembers.findIndex((person) => person.userName === action.data.userName)
+        newMembers.splice(memberIndex, 1)
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            committeeMembers: newMembers
+          }
+        }
 
     default:
       // console.log("Default action hit");

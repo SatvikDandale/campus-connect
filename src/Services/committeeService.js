@@ -1,11 +1,13 @@
 import { addError, removeError } from "../Redux/Actions/errorAction";
 import {
   addFollowingDataOther,
+  addMember,
   addUserFollowingData,
   followUserDone,
   initOtherUser,
   initUser,
   otherUserLoaded,
+  removeMember,
   selfUserLoaded,
   unFollowUserDone,
   updateUser,
@@ -168,6 +170,40 @@ export function updateCommitteeAbout(updatedUserDetails) {
       return apiCall("POST", "/committee/editCommittee", updatedUserDetails)
         .then((userObject) => {
           dispatch(updateUser(updatedUserDetails));
+          dispatch(removeError());
+          resolve(userObject);
+        })
+        .catch((error) => {
+          dispatch(addError(error.response));
+          reject(error);
+        });
+    });
+  };
+}
+
+export function addCommitteeMember(data) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      return apiCall("POST", "/committee/addMember", data)
+        .then(() => {
+          // dispatch(addMember(data))
+          dispatch(removeError());
+          resolve();
+        })
+        .catch((error) => {
+          dispatch(addError(error.response));
+          reject(error);
+        });
+    });
+  };
+}
+export function removeCommitteeMember(data) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      return apiCall("POST", "/committee/deleteMember", data)
+        .then((userObject) => {
+          // dispatch(updateUser(updatedUserDetails));
+          // dispatch(removeMember(data))
           dispatch(removeError());
           resolve(userObject);
         })

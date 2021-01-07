@@ -3,10 +3,10 @@
     max-height: 15rem;
     overflow: auto;
 }
-.team__content::-webkit-scrollbar {
+.scrollbar_hide::-webkit-scrollbar {
     display: none;
 }
-.team__content {
+.scrollbar_hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }

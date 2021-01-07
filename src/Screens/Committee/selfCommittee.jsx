@@ -8,7 +8,7 @@ import ProfileTabs from "../../Components/ProfileTabs/profileTabs";
 import UserBio from "../../Components/UserBio/userBio";
 import BioForm from "../../Components/AboutPageModals/bioForm";
 import Team from "../../Components/Team/team";
-import { updateCommitteeAbout } from "../../Services/committeeService";
+import { addCommitteeMember, removeCommitteeMember, updateCommitteeAbout } from "../../Services/committeeService";
 import PhotosTab from "../../Components/PhotosTab/photosTab";
 import FollowersAndFollowingList from "../../Components/FollowersList/followers";
 import TeamModal from "../../Components/Team/teamModal";
@@ -51,6 +51,15 @@ const SelfCommittee = (props) => {
     toggleTeam(!showTeam);
   }
   
+  const addCommitteeMember = (data) => {
+    toggleTeam(false);
+    props.addCommitteeMember(data).then(() => window.location.reload())
+  }
+
+  const removeCommitteeMember = (data) => {
+    toggleTeam(false);
+    props.removeCommitteeMember(data).then(() => window.location.reload())
+  }
 
   return (
     <div className="userProfile">
@@ -77,8 +86,8 @@ const SelfCommittee = (props) => {
                 handleSubmit={handleBioSubmit}
                 committee={true}
               />
-              <Team toggleTeam={toggleTeam}/>
-              <TeamModal show={showTeam} handleClose={handleTeamClose} />
+              <Team team={user.committeeMembers} toggleTeam={toggleTeam} self={true}/>
+              {showTeam && <TeamModal addCommitteeMember={addCommitteeMember} removeCommitteeMember={removeCommitteeMember} team={user.committeeMembers} show={showTeam} handleClose={handleTeamClose} />}
             </div>
           ) : null}
           {currentTab === 1 ? (
@@ -102,6 +111,13 @@ const mapDispatchToProps = (dispatch) => {
     setMinimised: (condition = false) => {
       return dispatch(setMinimised(condition));
     },
+    addCommitteeMember: (data) => {
+        return dispatch(addCommitteeMember(data))
+    },
+    removeCommitteeMember: (data) => {
+        return dispatch(removeCommitteeMember(data))
+    }
   };
 };
+
 export default connect(null, mapDispatchToProps)(SelfCommittee);

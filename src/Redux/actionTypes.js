@@ -18,6 +18,9 @@ export const UPDATE_USER = "UPDATE_USER";
 export const FOLLOW_USER = "FOLLOW_USER";
 export const UNFOLLOW_USER = "UNFOLLOW_USER";
 
+export const ADD_MEMBER = "ADD_MEMBER";
+export const REMOVE_MEMBER = "REMOVE_MEMBER";
+
 // ERROR ACTIONS
 export const ADD_ERROR = "ADD_ERROR";
 export const REMOVE_ERROR = "REMOVE_ERROR";
