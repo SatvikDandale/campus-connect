@@ -12,13 +12,14 @@ import NavBar from "../NavBar/navBar";
 
 import { connect } from "react-redux";
 import { getUserDetails, self } from "../../Services/userService";
+import {committeeSelf} from '../../Services/committeeService'
 
 import "./newsFeed.css";
 import { getNewsFeed } from "../../Services/feedService";
 import { setMinimised } from "../../Redux/Actions/chatAction";
 
 const NewsFeed = (props) => {
-  // console.log()
+  console.log("HELLO")
 
   if (!localStorage.token) {
     // alert("Log In!");
@@ -26,7 +27,10 @@ const NewsFeed = (props) => {
   }
   if (props.user.userName === null) {
     props.self().catch((error) => {
-      props.history.push("/login");
+      props.committeeSelf().catch(() => {
+        props.history.push("/login");
+      })
+      
     });
   }
   if (props.error.isError) {
@@ -37,9 +41,9 @@ const NewsFeed = (props) => {
   }
 
   useEffect(() => {
-    if (props.user.userName) props.getNewsFeed(props.user.userName);
+    if (props.user.userName) props.getNewsFeed(props.user.userName, props.user.isCommittee);
     props.setMinimised(false);
-  }, [props.user.userName]);
+  }, [props.user.userName, props.user.isCommittee]);
 
   return !props.user.userName ? (
     <LoadingOverlay
@@ -85,11 +89,14 @@ const mapDispatchToProps = (dispatch) => {
     self: () => {
       return dispatch(self());
     },
-    getNewsFeed: (userName) => {
-      return dispatch(getNewsFeed(userName));
+    getNewsFeed: (userName, isCommittee = false) => {
+      return dispatch(getNewsFeed(userName, isCommittee));
     },
     setMinimised: (condition = false) => {
       return dispatch(setMinimised(condition))
+    },
+    committeeSelf: () => {
+      return dispatch(committeeSelf())
     }
   };
 };

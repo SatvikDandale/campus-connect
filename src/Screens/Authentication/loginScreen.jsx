@@ -4,6 +4,7 @@ import Login from "../../Components/Login/login";
 import FacebookIcon from "../../Assets/Images/facebook.png";
 import TwitterIcon from "../../Assets/Images/twitter.png";
 import { login } from "../../Services/userService";
+import { committeeLoginFunction } from "../../Services/committeeService";
 import "./auth.css";
 import { connect } from "react-redux";
 import { removeError } from "../../Redux/Actions/errorAction";
@@ -50,8 +51,37 @@ function LoginScreen(props) {
           }
         });
     } else {
-      console.log(userName);
-      console.log(password);
+      console.log("COMMITTEE LOGIN")
+      props
+        .committeeLogin(userName, password)
+        .then(() => {
+          setLoading(false);
+          props.history.push("/");
+        })
+        .catch((err) => {
+          console.log(err.response);
+          setLoading(false);
+          if (err.response && err.response.status === 409) {
+            alert("User already exists");
+          } else if (
+            err.response &&
+            err.response.status === 403 &&
+            err.response.data === "Not verified"
+          ) {
+            alert("Please check your email inbox and verify your account.");
+          } else if (err.response && err.response.status === 404) {
+            alert("No committee found with these credentials.");
+          } else if (
+            err.response &&
+            err.response.status === 500 &&
+            err.response.data &&
+            err.response.data.message === "source cannot be null"
+          ) {
+            alert("No user found with these credentials.");
+          } else {
+            alert("There is an error. Please try again.");
+          }
+        });
     }
   };
 
@@ -131,6 +161,9 @@ const mapDispatchToProps = (dispatch) => {
     reset: () => dispatch(reset()),
     removeError: () => {
       return dispatch(removeError());
+    },
+    committeeLogin: (userName, password) => {
+      return dispatch(committeeLoginFunction(userName, password));
     },
   };
 };

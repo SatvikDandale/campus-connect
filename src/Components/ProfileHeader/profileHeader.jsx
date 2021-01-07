@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import Profile from "../../Assets/Images/profile_user@2x.png";
 import { setMinimised, initConversation, setCurrentChat } from "../../Redux/Actions/chatAction";
+import { followCommittee, unFollowCommittee } from "../../Services/committeeService";
 import { followUser, unFollowUser } from "../../Services/userService";
 import NameForm from "../AboutPageModals/nameForm";
 import "./profileHeader.css";
@@ -41,9 +42,14 @@ const ProfileHeader = ({
       posts,
       ...aboutObject
     } = user;
+    let newName;
+    if (committeeName === "") 
+      newName = name;
+    else 
+      newName = {name: committeeName}
     updateUserAbout({
       ...aboutObject,
-      ...name,
+      ...newName,
     });
     toggleName(false);
   };
@@ -54,13 +60,15 @@ const ProfileHeader = ({
     props.setCurrentChat(user.userName)
   }
 
+  let displayName = user.isCommittee ? user.name : user.firstName + " " + user.lastName;
+
   return (
     <div className="profileHeader">
       <img src={user.profilePhotoURL || Profile} alt="profile" />
       <div className="header__info">
         <div className="details">
           <div className="username">
-            {user.firstName + " " + user.lastName}
+            {displayName}
             {updateUserAbout ? (
               <NameForm
                 committee={props.committee}
@@ -77,7 +85,7 @@ const ProfileHeader = ({
             {updateUserAbout ? <Edit onClick={() => toggleName(true)} /> : null}
           </div>
           <div className="bio">{user.intro}</div>
-          <div className="college">{user.collegeDetails.collegeName}</div>
+          <div className="college">{user.collegeDetails && user.collegeDetails.collegeName}</div>
         </div>
         <div className="spacer"></div>
         <div className="header__right">
@@ -96,7 +104,7 @@ const ProfileHeader = ({
                   !currentUser.following.includes(user.userName) ? (
                     <GroupAdd
                       onClick={() => {
-                        followUser({
+                        user.isCommittee ? props.followCommittee(user.userName) : followUser({
                           follower: currentUser.userName,
                           following: user.userName,
                         });
@@ -105,10 +113,11 @@ const ProfileHeader = ({
                   ) : (
                     <Done
                       onClick={() => {
-                        unFollowUser({
+                        user.isCommittee ? props.unFollowCommittee(user.userName) : unFollowUser({
                           follower: currentUser.userName,
                           following: user.userName,
                         });
+                        
                       }}
                     />
                   )
@@ -140,6 +149,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     setCurrentChat: (currentChat) => {
       return dispatch(setCurrentChat(currentChat));
+    },
+    followCommittee: (userName) => {
+      return dispatch(followCommittee(userName))
+    },
+    unFollowCommittee: (userName) => {
+      return dispatch(unFollowCommittee(userName))
     }
   };
 };

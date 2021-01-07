@@ -13,7 +13,7 @@ import LikesPopUp from "./../LikesPopUp/LikesPopUp";
 import Accordion from "react-bootstrap/Accordion";
 import { Button } from "react-bootstrap";
 import Comments from "./../Comments/Comments";
-import moment from 'moment'
+import moment from "moment";
 
 var name = "Name Unknown";
 var time = "Time Unknown";
@@ -49,7 +49,7 @@ const Post = (props) => {
 
   const getRelativeTime = (timeStamp) => {
     return moment(timeStamp).fromNow();
-  } 
+  };
 
   return (
     <div className="post">
@@ -61,12 +61,17 @@ const Post = (props) => {
         />
 
         <img src={profileURL} alt="profile" />
-        <div className="post__owner" >
-          <p className="name" onClick={() => props.history.push(`/user/${props.post.userName}`)}>
+        <div className="post__owner">
+          <p
+            className="name"
+            onClick={() => props.history.push(`/user/${props.post.userName}`)}
+          >
             {props.post ? "@" + props.post.userName : name}
           </p>
           <div className="spacer"></div>
-          <p className="time">{props.post ? getRelativeTime(props.post.timeStamp) : time}</p>
+          <p className="time">
+            {props.post ? getRelativeTime(props.post.timeStamp) : time}
+          </p>
         </div>
         <div className="spacer"></div>
         <MoreHoriz />
@@ -111,18 +116,17 @@ const Post = (props) => {
         <div className="comments">
           <Comment
             onClick={() => {
-              props.getAllCommentsFromPost(props.post.postID).then(() =>{
+              props.getAllCommentsFromPost(props.post.postID).then(() => {
                 handleToggle();
-              })
+              });
             }}
           />
           <p>25</p>
         </div>
       </div>
 
-      {
-        hide &&
-        <div className = "comment">
+      {hide && (
+        <div className="comment">
           <div className="comments__list">
             {props.post.comments
               ? props.post.comments.map((comment) => {
@@ -155,7 +159,7 @@ const Post = (props) => {
             />
           </div>
         </div>
-      }
+      )}
     </div>
   );
 };

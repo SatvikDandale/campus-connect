@@ -50,6 +50,23 @@ export default function NameForm(props) {
                   }}
                 />
               </Form.Group>
+
+              <Form.Group>
+                <Form.Label>Intro</Form.Label>
+                <Input
+                  type="text"
+                  name="intro__input"
+                  value={props.name.intro}
+                  id="intro__input"
+                  onChange={(event) => {
+                    props.setName({
+                      firstName: props.name.firstName,
+                      lastName: props.name.lastName,
+                      intro: event.target.value,
+                    });
+                  }}
+                />
+              </Form.Group>
             </>
           )}
 
@@ -62,27 +79,11 @@ export default function NameForm(props) {
                 value={props.committeeName}
                 id="name__input"
                 onChange={(event) => {
-                  props.setCommitteeName(event.target.value)
+                  props.setCommitteeName(event.target.value);
                 }}
               />
             </Form.Group>
           )}
-          <Form.Group>
-            <Form.Label>Intro</Form.Label>
-            <Input
-              type="text"
-              name="intro__input"
-              value={props.name.intro}
-              id="intro__input"
-              onChange={(event) => {
-                props.setName({
-                  firstName: props.name.firstName,
-                  lastName: props.name.lastName,
-                  intro: event.target.value,
-                });
-              }}
-            />
-          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>

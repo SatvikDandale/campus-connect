@@ -47,13 +47,13 @@ const DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case RESET:
-      return DEFAULT_STATE
+      return DEFAULT_STATE;
 
     case RESET_OTHER_USER:
       return {
         ...state,
-        otherUser: null
-      }
+        otherUser: null,
+      };
 
     case LOAD_SELF_USER:
       return {
@@ -71,6 +71,11 @@ export default (state = DEFAULT_STATE, action) => {
       // The payload has userObject
       // console.log("user object received");
       // console.log(action.userObject);
+      if (action.userObject.logoUrl) {
+        // Committee Object
+        action.userObject.isCommittee = true;
+        action.userObject.profilePhotoURL = action.userObject.logoUrl;
+      }
       return {
         ...state,
         user: {
@@ -92,6 +97,11 @@ export default (state = DEFAULT_STATE, action) => {
       };
 
     case INIT_OTHER_USER:
+      if (action.userObject.logoUrl) {
+        // Committee Object
+        action.userObject.isCommittee = true;
+        action.userObject.profilePhotoURL = action.userObject.logoUrl;
+      }
       return {
         ...state,
         otherUser: action.userObject,
@@ -126,6 +136,12 @@ export default (state = DEFAULT_STATE, action) => {
       };
 
     case ADD_USER_FOLLOWING_DATA:
+      if (!action.data.followers) {
+        return {
+          ...state,
+          user: { ...state.user, followers: action.data },
+        };
+      }
       return {
         ...state,
         user: {
@@ -136,6 +152,12 @@ export default (state = DEFAULT_STATE, action) => {
       };
 
     case ADD_FOLLOWING_DATA_OTHER:
+      if (!action.data.followers) {
+        return {
+          ...state,
+          otherUser: { ...state.otherUser, followers: action.data },
+        };
+      }
       return {
         ...state,
         otherUser: {
@@ -156,6 +178,8 @@ export default (state = DEFAULT_STATE, action) => {
 
     case UNFOLLOW_USER:
       let followingList = [...state.user.following];
+      console.log("REDUCER");
+      console.log(action);
       const index = followingList.indexOf(action.following);
       followingList.splice(index, 1);
       console.log(followingList);

@@ -1,8 +1,9 @@
+import { Edit } from "@material-ui/icons";
 import React from "react";
 import ProfilePhoto from "../../Assets/Images/free-profile-photo-whatsapp-4.png";
 import "./team.css";
 
-export default function Team() {
+export default function Team(props) {
 
     const MemberCard = (
         <div className="member">
@@ -15,7 +16,10 @@ export default function Team() {
 
   return (
     <div className="team__members__card highlights">
-      <p className="highlights__heading">Our Team</p>
+      <div className="card__header">
+        <p className="highlights__heading">Our Team</p>
+        {props.toggleTeam ? <Edit onClick={() => props.toggleTeam(true)}></Edit> : null}
+      </div>
       <div className="line"></div>
       <div style={{ height: "1.2rem" }}></div>
       <div className="team__content">

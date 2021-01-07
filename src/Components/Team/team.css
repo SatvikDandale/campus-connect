@@ -47,3 +47,8 @@
   margin-right: 1rem;
   border-radius: 50%;
 }
+.card__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}

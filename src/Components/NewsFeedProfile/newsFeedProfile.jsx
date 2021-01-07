@@ -24,15 +24,17 @@ const NewFeedProfile = ({ user, history }) => {
     setSettings(false);
   }
 
+  let name = user.isCommittee ? user.name : user.firstName + " " + user.lastName
+
   return (
     <>
       <div className="profile__info">
         <img
           src={user.profilePhotoURL || profile}
           alt="profile"
-          onClick={() => history.push("/user/" + user.userName)}
+          onClick={() => user.isCommittee ? history.push("/committee/" + user.userName) : history.push("/user/" + user.userName)}
         />
-        <p className="profile__name">{user.firstName + " " + user.lastName}</p>
+        <p className="profile__name">{name}</p>
         <p className="profile__bio">{user.intro}</p>
       </div>
       <div className="profile__menu">

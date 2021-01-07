@@ -5,6 +5,7 @@ import SelfCommittee from "./selfCommittee";
 import "./committeeProfile.css";
 import "../UserProfile/userProfile.css";
 import { getUserDetails, self } from "../../Services/userService";
+import {committeeSelf, getUserDetailsCommittee} from '../../Services/committeeService'
 import {
   startLoadingOtherUser,
   startLoadingSelfUser,
@@ -19,14 +20,21 @@ const CommitteeProfile = (props) => {
   }
   if (props.user.userName === null && !props.selfUserRequestSent) {
     props.startLoadingSelfUser(); // Prevent duplicate requests
-    props.self();
+    
+    props.self().catch((error) => {
+      props.committeeSelf().catch(() => {
+        props.history.push("/login");
+      })
+      
+    });
   }
 
   let userName = props.match.params.userName;
 
-  if (props.user.userName !== userName && !props.otherUserRequestSent) {
+  if (props.user.userName !== null && props.user.userName !== userName && !props.otherUserRequestSent) {
     // Get the user from userService
     if (!props.otherUser) {
+      console.log("HELLO THERE")
       props.startLoadingOtherUser(); // Prevent duplicate requests
       props.getUserDetails(userName, true);
     }
@@ -70,10 +78,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getUserDetails: (userName, other = false) => {
-      return dispatch(getUserDetails(userName, other));
+      return dispatch(getUserDetailsCommittee(userName, other));
     },
     self: () => {
       return dispatch(self());
+    },
+    committeeSelf: () => {
+      return dispatch(committeeSelf())
     },
     startLoadingSelfUser: () => {
       return dispatch(startLoadingSelfUser());

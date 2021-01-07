@@ -8,6 +8,8 @@ import ProfileTabs from "../../Components/ProfileTabs/profileTabs";
 import UserBio from "../../Components/UserBio/userBio";
 import BioForm from "../../Components/AboutPageModals/bioForm";
 import Team from "../../Components/Team/team";
+import FollowersAndFollowingList from "../../Components/FollowersList/followers";
+import PhotosTab from "../../Components/PhotosTab/photosTab";
 
 const OtherCommittee = (props) => {
   let user = props.user;
@@ -35,6 +37,11 @@ const OtherCommittee = (props) => {
               <Team />
             </div>
           ) : null}
+          
+          {currentTab === 1 ? <PhotosTab userName={user.userName} /> : null}
+          {currentTab === 2 ? (
+              <FollowersAndFollowingList people={user.followers} />
+            ) : null}
         </div>
       </div>
       {currentTab === 0 ? (

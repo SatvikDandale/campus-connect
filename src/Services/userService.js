@@ -25,6 +25,7 @@ export function login(userName, password) {
         userName,
         password,
       };
+      setTokenHeader();
       return apiCall("POST", `/login`, data)
         .then((authenticationResponse) => {
           setTokenHeader(authenticationResponse.jwt);
@@ -211,7 +212,7 @@ export function unFollowUser({ follower, following }) {
       };
       return apiCall("POST", "/unfollow", data)
         .then((res) => {
-          dispatch(unFollowUserDone());
+          dispatch(unFollowUserDone(following));
           dispatch(removeError());
           resolve();
         })
