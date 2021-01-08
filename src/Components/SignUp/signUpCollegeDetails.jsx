@@ -8,7 +8,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import SchoolIcon from "@material-ui/icons/School";
 import "./signUpCollegeDetails.css";
-import { FormControl, InputLabel, Select } from "@material-ui/core";
+import { FormControl, InputLabel, Select, TextField } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import ImageUploadForm from "../ImageUploadForm/imageUploadForm";
 
@@ -26,18 +26,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+const useStyles2 = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(2),
+      width: "33ch",
+      display: "flex",
+      textAlign: "center",
+    },
+  },
+}));
 export default function SignUpCollegeDetails(props) {
   if (
     props.signUpData.userName.length === 0 ||
     props.signUpData.password.length === 0
   )
-    props.committee ? props.history.push("/signUp/committee/2") : props.history.push("/signUp/2");
+    props.college ? props.history.push("/signUp/college/2") : props.committee
+      ? props.history.push("/signUp/committee/2")
+      : props.history.push("/signUp/2");
 
   const classes = useStyles();
+  
+  const classes2 = useStyles2();
   const [year, setYear] = React.useState(props.signUpData.year);
   const [branch, setBranch] = React.useState(props.signUpData.branch);
   const [image, setImage] = React.useState(null);
   const [form, setForm] = React.useState(false);
+  const [email, setEmail] = React.useState("")
 
   const handleFormClose = () => {
     setForm(false);
@@ -50,9 +66,10 @@ export default function SignUpCollegeDetails(props) {
   };
 
   function validate() {
-    if (year === "") return false;
-    if (branch === "") return false;
+    if (!props.committee && year === "") return false;
+    if (!props.committee && branch === "") return false;
     if (image === null) return false;
+    if (props.college && email === "") return false;
     return true;
   }
 
@@ -62,19 +79,24 @@ export default function SignUpCollegeDetails(props) {
       return;
     }
     let collegeDetails;
-    if (props.committee) {
+    if (props.college) {
+      collegeDetails = {
+        image,
+        domainName: email
+      }
+    }
+    else if (!props.committee) {
       collegeDetails = {
         year,
         branch,
         image,
       };
-    }
-    else {
+    } else {
       collegeDetails = {
-        image
-      }
+        image,
+      };
     }
-    props.onSubmit(collegeDetails, true);
+    props.onSubmit(collegeDetails, props.committee, props.college);
   }
   props.setPageNo(3);
 
@@ -85,7 +107,9 @@ export default function SignUpCollegeDetails(props) {
           <MailIcon
             onClick={() => {
               props.setPageNo(1);
-              props.committee ? props.history.push("/signUp/committee/1") : props.history.push("/signUp/1")
+              props.college ? props.history.push("/signUp/college/1") : props.committee
+                ? props.history.push("/signUp/committee/1")
+                : props.history.push("/signUp/1");
             }}
           />
         </div>
@@ -94,7 +118,9 @@ export default function SignUpCollegeDetails(props) {
           <AccountCircleIcon
             onClick={() => {
               props.setPageNo(2);
-              props.committee ? props.history.push("/signUp/committee/2") : props.history.push("/signUp/2")
+              props.college ? props.history.push("/signUp/college/2") : props.committee
+                ? props.history.push("/signUp/committee/2")
+                : props.history.push("/signUp/2");
             }}
           />
         </div>
@@ -103,10 +129,16 @@ export default function SignUpCollegeDetails(props) {
           <SchoolIcon />
         </div>
       </div>
-      <h2>{props.committee ? "Logo (Optional)" : "College Details"}</h2>
+      <h2>
+        {props.college
+          ? "College Logo"
+          : props.committee
+          ? "Committee Logo"
+          : "College Details"}
+      </h2>
 
       <form
-        className={classes.root}
+        className={classes.root + " formCollege"}
         onSubmit={(event) => {
           event.preventDefault();
           submitHandler();
@@ -128,6 +160,21 @@ export default function SignUpCollegeDetails(props) {
             }}
           />
         </div>
+
+        {props.college && (
+          <div className={classes2.root + " inputCollege"}>
+            <p>Add the email ID format the students of your college use for them to sign up securely.</p>
+            <TextField
+              label="Example: @vit.edu"
+              variant="outlined"
+              value={email}
+              type="text"
+              onChange={(event) =>
+                setEmail(event.target.value)
+              }
+            />
+          </div>
+        )}
 
         {!props.committee && (
           <>

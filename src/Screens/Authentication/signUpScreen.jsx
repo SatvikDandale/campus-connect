@@ -33,9 +33,15 @@ function SignUp(props) {
     firstName: "",
     lastName: "",
     collegeName: "",
+    year: "",
+    branch: "",
   });
 
-  function finalSubmitHandler(collegeDetails, isCommittee = false) {
+  function finalSubmitHandler(
+    collegeDetails,
+    isCommittee = false,
+    isCollege = false
+  ) {
     setLoading(true);
 
     var formData = new FormData();
@@ -43,6 +49,19 @@ function SignUp(props) {
     for (let key in signUpData) {
       formData.append(key, signUpData[key]);
     }
+
+    if (formData.has("branch")) formData.delete("branch");
+    if (formData.has("year")) formData.delete("year");
+
+    if (isCommittee) {
+      formData.append("name", formData.get("firstName"));
+    }
+    if (isCollege) {
+      formData.append("isCollegeProfile", "true")
+      formData.set("collegeName", formData.get("firstName"));
+      // formData.append("collegeName", formData.get("firstName"))
+    }
+
     for (let key in collegeDetails) {
       formData.append(key, collegeDetails[key]);
     }
@@ -152,6 +171,23 @@ function SignUp(props) {
             <Route
               exact
               strict
+              path="/signUp/college/1"
+              component={(props) => {
+                return (
+                  <SignUpEmail
+                    setPageNo={setPageNo}
+                    committee={true}
+                    college={true}
+                    signUpData={signUpData}
+                    setSignUpData={setSignUpData}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route
+              exact
+              strict
               path="/signUp/2"
               component={(props) => {
                 return (
@@ -172,6 +208,23 @@ function SignUp(props) {
                 return (
                   <SignUpPersonalDetails
                     committee={true}
+                    setPageNo={setPageNo}
+                    signUpData={signUpData}
+                    setSignUpData={setSignUpData}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route
+              exact
+              strict
+              path="/signUp/college/2"
+              component={(props) => {
+                return (
+                  <SignUpPersonalDetails
+                    committee={true}
+                    college={true}
                     setPageNo={setPageNo}
                     signUpData={signUpData}
                     setSignUpData={setSignUpData}
@@ -204,6 +257,24 @@ function SignUp(props) {
                 return (
                   <SignUpCollegeDetails
                     committee={true}
+                    setPageNo={setPageNo}
+                    signUpData={signUpData}
+                    setSignUpData={setSignUpData}
+                    onSubmit={finalSubmitHandler}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route
+              exact
+              strict
+              path="/signUp/college/3"
+              component={(props) => {
+                return (
+                  <SignUpCollegeDetails
+                    committee={true}
+                    college={true}
                     setPageNo={setPageNo}
                     signUpData={signUpData}
                     setSignUpData={setSignUpData}

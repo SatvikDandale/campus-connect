@@ -31,7 +31,7 @@ const useStyles2 = makeStyles((theme) => ({
 
 export default function SignUpPersonalDetails(props) {
   if (props.signUpData.email.length === 0){
-    props.committee ? props.history.push("/signUp/committee/1") : props.history.push("/signUp/1")
+    props.college ? props.history.push("/signUp/college/1") : props.committee ? props.history.push("/signUp/committee/1") : props.history.push("/signUp/1")
   }
 
   const classes = useStyles();
@@ -89,7 +89,8 @@ export default function SignUpPersonalDetails(props) {
       ...props.signUpData,
       ...values,
     });
-    if (props.committee) props.history.push("/signUp/committee/3");
+    if (props.college) props.history.push("/signUp/college/3")
+    else if (props.committee) props.history.push("/signUp/committee/3");
     else props.history.push("/signUp/3");
   }
   props.setPageNo(2);
@@ -101,7 +102,7 @@ export default function SignUpPersonalDetails(props) {
           <MailIcon
             onClick={() => {
               props.setPageNo(1);
-              props.committee ? props.history.push("/signUp/committee/1") : props.history.push("/signUp/1")
+              props.college ? props.history.push("/signUp/college/1") : props.committee ? props.history.push("/signUp/committee/1") : props.history.push("/signUp/1")
             }}
           />
         </div>
@@ -125,7 +126,7 @@ export default function SignUpPersonalDetails(props) {
         {props.committee ? (
           <div className={classes2.root}>
             <TextField
-              label="Committee Name"
+              label={`${props.college ? "College Name" : "Committee Name"}`}
               variant="outlined"
               value={values.firstName}
               onChange={(event) =>
@@ -172,7 +173,7 @@ export default function SignUpPersonalDetails(props) {
 
         <div className={classes2.root}>
           <TextField
-            label="Committee Username"
+            label={`${props.college ? "Profile Username" : "Committee Username"}`}
             variant="outlined"
             value={values.userName}
             type="text"

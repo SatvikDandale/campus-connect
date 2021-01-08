@@ -53,7 +53,7 @@ export default function SignUpEmail(props) {
       setLoading(false);
       return;
     }
-    !props.committee ? verifyAndGetCollege(email)
+    !props.college ? verifyAndGetCollege(email)
       .then((collegeName) => {
         setCollege(collegeName);
         setOpen(true);
@@ -80,7 +80,8 @@ export default function SignUpEmail(props) {
         collegeName,
         email,
       });
-      if (props.committee) props.history.push("/signUp/committee/2");
+      if (props.college) props.history.push("/signUp/college/2");
+      else if (props.committee) props.history.push("/signUp/committee/2");
       else props.history.push("/signUp/2");
     }
   }

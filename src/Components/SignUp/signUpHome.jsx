@@ -23,6 +23,14 @@ function SignUpHome(props) {
       )}
       {options && (
         <div className="options">
+           <Button
+            variant="primary"
+            onClick={() => {
+              props.history.push("/signUp/college/1");
+            }}
+          >
+            College Profile
+          </Button>
           <Button
             variant="primary"
             onClick={() => {

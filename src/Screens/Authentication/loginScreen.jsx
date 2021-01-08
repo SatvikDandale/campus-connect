@@ -14,11 +14,14 @@ import { reset } from "../../Redux/Actions/userAction";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
 import CommitteeLogin from "../../Components/Login/committeeLogin";
 import NotFound404 from "../NotFound404/notFound404";
+import { setTokenHeader } from "../../Services/apiService";
 
 function LoginScreen(props) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     props.reset();
+    localStorage.clear();
+    setTokenHeader();
   }, []);
 
   // console.log("LogIn");

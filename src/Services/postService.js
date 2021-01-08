@@ -107,7 +107,7 @@ export function removeLike(postID,userName){
 export function addComment(commentObj){
   return (dispatch) =>{
     return new Promise((resolve, reject) => {
-        return apiCall("POST", serverBaseURL + "/addComment", commentObj)
+        return apiCall("POST", "/addComment", commentObj)
         .then((newCommentObj) =>{
           dispatch(addCommentToPost(newCommentObj));
           dispatch(removeError());
@@ -123,9 +123,11 @@ export function addComment(commentObj){
   } 
 }
 export function getAllCommentsFromPost(postID){
+  console.log("GET all comments")
+  console.log(postID)
   return (dispatch) =>{
     return new Promise((resolve, reject) =>{
-      return apiCall("GET", serverBaseURL + `/comments/${postID}`)
+      return apiCall("GET", `/comments/${postID}`)
       .then((allCommentsObj) =>{
         dispatch(getAllComments(allCommentsObj, postID));
         dispatch(removeError());
@@ -136,5 +138,6 @@ export function getAllCommentsFromPost(postID){
             reject();
       })
     })
+    
   }
 }

@@ -43,3 +43,10 @@
   margin-bottom: 10%;
   width: 25%;
 }
+.formCollege {
+  width: 20ch;
+}
+.inputCollege {
+  text-align: center;
+  margin-top: 1rem;
+}
