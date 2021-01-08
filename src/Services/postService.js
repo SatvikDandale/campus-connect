@@ -141,3 +141,42 @@ export function getAllCommentsFromPost(postID){
     
   }
 }
+
+export function reportPost(postID) {
+  return new Promise((resolve, reject) => {
+    return apiCall("POST", `/reportPost/${postID}`)
+    .then(() => {
+      console.log("Post Reported")
+      resolve();
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error);
+    })
+  })
+}
+
+export function getReportedPosts(collegeName) {
+  return new Promise((resolve, reject) => {
+    return apiCall("GET", `/reportPost/${collegeName}`)
+    .then((posts) => {
+      resolve(posts);
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error);
+    })
+  })
+}
+export function getPost(postId) {
+  return new Promise((resolve, reject) => {
+    return apiCall("GET", `/post/${postId}`)
+    .then((post) => {
+      resolve(post);
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error);
+    })
+  })
+}

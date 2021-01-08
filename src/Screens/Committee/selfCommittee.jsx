@@ -12,6 +12,7 @@ import { addCommitteeMember, removeCommitteeMember, updateCommitteeAbout } from 
 import PhotosTab from "../../Components/PhotosTab/photosTab";
 import FollowersAndFollowingList from "../../Components/FollowersList/followers";
 import TeamModal from "../../Components/Team/teamModal";
+import ReportedPosts from "../../Components/ReportedPosts/reportedPosts";
 
 const SelfCommittee = (props) => {
   let user = props.user;
@@ -69,7 +70,7 @@ const SelfCommittee = (props) => {
           updateUserAbout={props.updateUserAbout}
           committee={true}
         />
-        <ProfileTabs setCurrentTab={setCurrentTab} committee={true} />
+        <ProfileTabs setCurrentTab={setCurrentTab} committee={true} college={user.collegeProfile}/>
         <div className="profile__content">
           {currentTab === 0 ? (
             <div className="about">
@@ -95,6 +96,9 @@ const SelfCommittee = (props) => {
           ) : null}
           {currentTab === 2 ? (
             <FollowersAndFollowingList people={user.followers} />
+          ) : null}
+          {currentTab === 4 ? (
+            <ReportedPosts user={user} />
           ) : null}
         </div>
       </div>

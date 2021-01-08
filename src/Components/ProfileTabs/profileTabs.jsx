@@ -50,6 +50,15 @@ const ProfileTabs = (props) => {
       >
         Events
       </div>}
+      {props.college && <div
+        className={`tab__item ${current === 4 ? "active" : ""}`}
+        onClick={() => {
+          setCurrent(4);
+          props.setCurrentTab(4);
+        }}
+      >
+        Reported Posts
+      </div>}
     </div>
   );
 };

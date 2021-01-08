@@ -51,6 +51,10 @@ function LoginScreen(props) {
             alert("No User found with these credentials.");
           } else if (err.response && err.response.status === 404) {
             alert("No user found with these credentials.");
+          } else if (err.response && err.response.status === 500) {
+            alert(
+              "Can't login. Are you trying to log into a committee profile"
+            );
           } else {
             alert("There is an error. Please try again.");
           }
@@ -86,7 +90,11 @@ function LoginScreen(props) {
             err.response.data.message === "source cannot be null"
           ) {
             alert("No user found with these credentials.");
-          } else {
+          }else if (err.response && err.response.status === 500) {
+            alert(
+              "Can't login. Are you trying to log into a committee profile"
+            );
+          }  else {
             alert("There is an error. Please try again.");
           }
         });

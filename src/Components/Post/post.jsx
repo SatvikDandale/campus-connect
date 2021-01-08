@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // import profile from "../../Assets/Images/free-profile-photo-whatsapp-4.png";
 import "./post.css";
 import { getProfilePhotoForUserName } from "../../Services/feedService";
-import { addComment, addLike } from "../../Services/postService";
+import { addComment, addLike, reportPost } from "../../Services/postService";
 import { connect } from "react-redux";
 import {
   removeLike,
@@ -14,6 +14,7 @@ import Accordion from "react-bootstrap/Accordion";
 import { Button } from "react-bootstrap";
 import Comments from "./../Comments/Comments";
 import moment from "moment";
+import { Menu, MenuItem } from "@material-ui/core";
 
 var name = "Name Unknown";
 var time = "Time Unknown";
@@ -41,6 +42,7 @@ const Post = (props) => {
   };
 
   const [hide, setHide] = useState(false);
+  const [anchor, setAnchor] = useState(null);
 
   const handleToggle = () => {
     if (hide === true) setHide(false);
@@ -50,6 +52,16 @@ const Post = (props) => {
   const getRelativeTime = (timeStamp) => {
     return moment(timeStamp).fromNow();
   };
+
+  const handleCloseMenu = () => {
+    setAnchor(null)
+  }
+
+  const handleReport = () => {
+    console.log("REPORTED")
+    reportPost(props.post.postID).then(() => alert("Your post has been reported"));
+    handleCloseMenu();
+  }
 
   return (
     <div className="post">
@@ -74,7 +86,15 @@ const Post = (props) => {
           </p>
         </div>
         <div className="spacer"></div>
-        <MoreHoriz />
+        <MoreHoriz onClick={(event) => setAnchor(event.currentTarget)}/>
+        <Menu
+          id="dropdown"
+          anchorEl={anchor}
+          open={Boolean(anchor)}
+          onClose={handleCloseMenu}
+        >
+          <MenuItem onClick={handleReport}>Report</MenuItem>
+        </Menu>
       </div>
       <div className="post__contents">
         {props.post.url ? <img src={props.post.url} alt="post" /> : null}
@@ -90,7 +110,7 @@ const Post = (props) => {
         </p>
       </div>
       <div className="line"></div>
-      <div className="reach">
+      {!props.reported && <div className="reach">
         <div className="likes">
           <Favorite
             onClick={() => {
@@ -123,7 +143,7 @@ const Post = (props) => {
           />
           <p>25</p>
         </div>
-      </div>
+      </div>}
 
       {hide && (
         <div className="comment">
