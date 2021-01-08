@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const serverBaseURL = `https://campus-social-media-backend.herokuapp.com`;
+export const serverBaseURL = `https://9ad67f086491.ngrok.io`;
 export const chatServerURL = `https://campus-social-media-chat.herokuapp.com`;
 // export const serverBaseURL = `http://localhost:8080`;
 axios.defaults.baseURL = serverBaseURL;
