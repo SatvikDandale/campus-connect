@@ -53,6 +53,7 @@ function SearchModal(props) {
         userName: result.userName && result.userName.s,
         email: result.email && result.email.s,
         profilePhotoURL: result.logoUrl && result.logoUrl.s,
+        isCommittee: true
       };
       }
       return {
@@ -112,7 +113,7 @@ function SearchModal(props) {
     <ListItem
       button
       onClick={() => {
-        props.history.push(`/user/${person.userName}`);
+        props.history.push(`/${person.isCommittee ? "committee" : "user"}/${person.userName}`);
         reset();
         props.handleClose();
       }}

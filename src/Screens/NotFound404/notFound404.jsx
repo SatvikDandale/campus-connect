@@ -29,7 +29,7 @@ function NotFound404(props) {
         Maybe this page moved? Got deleted? Is hiding out in quarantine? Never
         existed in the first place?
         <p>
-          Let's go <Link to="/">home</Link> and try from there.
+          Let's go <Link to="/login">home</Link> and try from there.
         </p>
       </div>
     </div>
