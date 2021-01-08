@@ -47,6 +47,8 @@ function LoginScreen(props) {
             err.response.data === "Not verified"
           ) {
             alert("Please check your email inbox and verify your account.");
+          } else if (err.response && err.response.status === 422) {
+            alert("No User found with these credentials.");
           } else if (err.response && err.response.status === 404) {
             alert("No user found with these credentials.");
           } else {
@@ -54,7 +56,7 @@ function LoginScreen(props) {
           }
         });
     } else {
-      console.log("COMMITTEE LOGIN")
+      console.log("COMMITTEE LOGIN");
       props
         .committeeLogin(userName, password)
         .then(() => {
@@ -63,6 +65,7 @@ function LoginScreen(props) {
         })
         .catch((err) => {
           console.log(err.response);
+          console.log(err.response.status);
           setLoading(false);
           if (err.response && err.response.status === 409) {
             alert("User already exists");
@@ -73,6 +76,8 @@ function LoginScreen(props) {
           ) {
             alert("Please check your email inbox and verify your account.");
           } else if (err.response && err.response.status === 404) {
+            alert("No committee found with these credentials.");
+          } else if (err.response && err.response.status === 422) {
             alert("No committee found with these credentials.");
           } else if (
             err.response &&

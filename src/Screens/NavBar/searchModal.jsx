@@ -36,6 +36,9 @@ function SearchModal(props) {
     UserName: true,
     Name: false,
     CollegeName: false,
+    UserNameCommittee: false,
+    NameCommittee: false,
+    CollegeNameCommittee: false,
   });
   const [results, setResults] = React.useState([]);
   const [value, setValue] = React.useState("");
@@ -43,6 +46,15 @@ function SearchModal(props) {
   const changeResults = (results) => {
     let resultsArray = results.map((result) => {
       console.log(result);
+      if (result.logoUrl) {
+        return {
+        intro: "",
+        name: result.name && result.name.s,
+        userName: result.userName && result.userName.s,
+        email: result.email && result.email.s,
+        profilePhotoURL: result.logoUrl && result.logoUrl.s,
+      };
+      }
       return {
         firstName: result.firstName && result.firstName.s,
         lastName: result.lastName && result.lastName.s,
@@ -56,6 +68,10 @@ function SearchModal(props) {
   };
 
   const handleSearchSubmit = async (query) => {
+    if (query === "") {
+      setResults([]);
+      return;
+    }
     console.log(query);
     let results = [];
     try {
@@ -75,44 +91,55 @@ function SearchModal(props) {
   const handleChange = (filterName) => {
     let temp = { ...selected };
     temp[filterName] = !temp[filterName];
-    if (temp.UserName || temp.Name || temp.CollegeName) {
+    if (
+      temp.UserName ||
+      temp.Name ||
+      temp.CollegeName ||
+      temp.UserNameCommittee ||
+      temp.NameCommittee ||
+      temp.CollegeNameCommittee
+    ) {
       setSelected(temp);
     }
   };
 
-  const listItem = (person, isLast = false, props) => (
-    <React.Fragment>
-      <ListItem
-        button
-        onClick={() => {
-          props.history.push(`/user/${person.userName}`);
-          reset();
-          props.handleClose();
-        }}
-      >
-        <ListItemAvatar>
-          <Avatar alt={person.userName} src={person.profilePhotoURL} />
-        </ListItemAvatar>
-        <ListItemText
-          primary={person.firstName + " " + person.lastName}
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                {"@" + person.userName + " "}
-              </Typography>
-              {person.intro}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      {!isLast && <Divider variant="inset" component="li" />}
-    </React.Fragment>
-  );
+  const listItem = (person, isLast = false, props) => {
+    console.log(person)
+    if (person.firstName) {
+      person.name = person.firstName + " " + person.lastName
+    }
+    return <React.Fragment>
+    <ListItem
+      button
+      onClick={() => {
+        props.history.push(`/user/${person.userName}`);
+        reset();
+        props.handleClose();
+      }}
+    >
+      <ListItemAvatar>
+        <Avatar alt={person.userName} src={person.profilePhotoURL} />
+      </ListItemAvatar>
+      <ListItemText
+        primary={person.name}
+        secondary={
+          <React.Fragment>
+            <Typography
+              component="span"
+              variant="body2"
+              className={classes.inline}
+              color="textPrimary"
+            >
+              {"@" + person.userName + " "}
+            </Typography>
+            {person.intro}
+          </React.Fragment>
+        }
+      />
+    </ListItem>
+    {!isLast && <Divider variant="inset" component="li" />}
+  </React.Fragment>
+  }
 
   const reset = () => {
     setSelected({
@@ -166,6 +193,35 @@ function SearchModal(props) {
                   onChange={() => handleChange("CollegeName")}
                 >
                   College Name
+                </ToggleButton>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <ToggleButton
+                  value="UserNameCommittee"
+                  selected={selected.UserNameCommittee}
+                  onChange={() => handleChange("UserNameCommittee")}
+                >
+                  Committee User Name
+                </ToggleButton>
+              </Col>
+              <Col>
+                <ToggleButton
+                  value="NameCommittee"
+                  selected={selected.NameCommittee}
+                  onChange={() => handleChange("NameCommittee")}
+                >
+                  Committee Name
+                </ToggleButton>
+              </Col>
+              <Col>
+                <ToggleButton
+                  value="CollegeNameCommittee"
+                  selected={selected.CollegeNameCommittee}
+                  onChange={() => handleChange("CollegeNameCommittee")}
+                >
+                  Committee College Name
                 </ToggleButton>
               </Col>
             </Row>
