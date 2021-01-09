@@ -85,8 +85,6 @@ class MainChat extends React.Component {
     let intervalId = setInterval(this.joinSocket, 1000);
     this.setState({ intervalId });
 
-    this.socket.removeListener('recieve')
-
     this.socket.on("recieve", (newMessage) => {
       console.log(newMessage);
       // var to = newMessage.to;
