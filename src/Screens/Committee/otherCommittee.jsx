@@ -10,6 +10,8 @@ import BioForm from "../../Components/AboutPageModals/bioForm";
 import Team from "../../Components/Team/team";
 import FollowersAndFollowingList from "../../Components/FollowersList/followers";
 import PhotosTab from "../../Components/PhotosTab/photosTab";
+import Events from "../../Components/Events/event";
+import EventsPage from "../../Components/Events/eventsPage";
 
 const OtherCommittee = (props) => {
   let user = props.user;
@@ -37,11 +39,12 @@ const OtherCommittee = (props) => {
               <Team />
             </div>
           ) : null}
-          
+
           {currentTab === 1 ? <PhotosTab userName={user.userName} /> : null}
           {currentTab === 2 ? (
-              <FollowersAndFollowingList people={user.followers} />
-            ) : null}
+            <FollowersAndFollowingList people={user.followers} />
+          ) : null}
+          {currentTab === 3 ? <EventsPage user={user}/> : null}
         </div>
       </div>
       {currentTab === 0 ? (

@@ -173,7 +173,7 @@ export default function SignUpPersonalDetails(props) {
 
         <div className={classes2.root}>
           <TextField
-            label={`${props.college ? "Profile Username" : "Committee Username"}`}
+            label={`${props.committee ? "Committee Username" : "Personal Username"}`}
             variant="outlined"
             value={values.userName}
             type="text"

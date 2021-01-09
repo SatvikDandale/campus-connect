@@ -1,0 +1,26 @@
+.single__event {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.event__cover {
+  min-height: 300px;
+  position: relative;
+  width: 80%;
+  border-radius: 10px;
+  background-image: url(https://www.colesclassroom.com/wp-content/uploads/2019/02/pexels-photo-1105666.jpeg);
+  border: 1px solid black;
+}
+.event__cover div {
+  position: absolute;
+  bottom: 10px;
+  color: white;
+  font-size: 2rem;
+  left: 1rem;
+}
+.events__post {
+    width: 80%;
+}

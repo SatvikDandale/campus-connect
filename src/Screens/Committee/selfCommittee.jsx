@@ -13,6 +13,8 @@ import PhotosTab from "../../Components/PhotosTab/photosTab";
 import FollowersAndFollowingList from "../../Components/FollowersList/followers";
 import TeamModal from "../../Components/Team/teamModal";
 import ReportedPosts from "../../Components/ReportedPosts/reportedPosts";
+import Events from "../../Components/Events/event";
+import EventsPage from "../../Components/Events/eventsPage";
 
 const SelfCommittee = (props) => {
   let user = props.user;
@@ -96,6 +98,9 @@ const SelfCommittee = (props) => {
           ) : null}
           {currentTab === 2 ? (
             <FollowersAndFollowingList people={user.followers} />
+          ) : null}
+          {currentTab === 3 ? (
+            <EventsPage user={user} />
           ) : null}
           {currentTab === 4 ? (
             <ReportedPosts user={user} />

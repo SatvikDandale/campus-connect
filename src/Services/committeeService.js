@@ -243,3 +243,30 @@ export function removeCommitteeMember(data) {
     });
   };
 }
+
+export function pastEvents(committeeUserName) {
+  return new Promise((resolve, reject) => {
+    return new apiCall("GET", `/events/pastEvents/${committeeUserName}`)
+    .then((events) => {
+      console.log(events);
+      resolve(events);
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error);
+    })
+  })
+}
+export function upcomingEvents(committeeUserName) {
+  return new Promise((resolve, reject) => {
+    return new apiCall("GET", `/events/upcomingEvents/${committeeUserName}`)
+    .then((events) => {
+      console.log(events);
+      resolve(events);
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error);
+    })
+  })
+}
