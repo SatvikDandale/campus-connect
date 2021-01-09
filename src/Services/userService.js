@@ -303,6 +303,7 @@ export function forgotPassword(data) {
 }
 
 export function resetPassword(data, token) {
+  setTokenHeader();
   return new Promise((resolve, reject) => {
     return apiCall(
       "POST",
